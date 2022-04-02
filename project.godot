@@ -33,7 +33,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-LevelSpeed="*res://scripts/level-speed.gd"
+LevelSpeed="*res://autoload/level-speed.gd"
 
 [input]
 

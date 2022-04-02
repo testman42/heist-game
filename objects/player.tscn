@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/player.gd" type="Script" id=1]
+[ext_resource path="res://models/player-van.tscn" type="PackedScene" id=2]
+
+[node name="player" type="Spatial" groups=["player"]]
+script = ExtResource( 1 )
+
+[node name="car" type="Spatial" parent="."]
+
+[node name="model" type="Spatial" parent="car" instance=ExtResource( 2 )]
