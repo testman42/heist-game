@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://materials/barrel-white.tres" type="Material" id=1]
 [ext_resource path="res://materials/barrel-red.tres" type="Material" id=2]
+[ext_resource path="res://scripts/dynamic-object.gd" type="Script" id=3]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.4
@@ -10,6 +11,7 @@ height = 1.0
 [node name="barrel" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.50062, 0 )
 can_sleep = false
+script = ExtResource( 3 )
 
 [node name="shape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

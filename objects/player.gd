@@ -6,7 +6,7 @@ var steeringSpeed = 0
 
 # maximums
 const maxSpeed = 16
-const maxTurning = 8
+const maxTurning = 14
 
 func _ready():
     pass
@@ -21,17 +21,17 @@ func _process(delta):
     speed = clamp(speed, 0, maxSpeed)
 
     # update steering
-    steeringSpeed += steerInput * delta * 24
+    steeringSpeed += steerInput * delta * 28
     steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
-    steeringSpeed = move_toward(steeringSpeed, 0, delta * 8)
+    steeringSpeed = move_toward(steeringSpeed, 0, delta * 12)
 
     # bounce from the rails
     var posX = get_global_transform().origin.x
     if abs(posX) > 15:
-        steeringSpeed *= -sign(posX) * sign(steeringSpeed) * .6
+        steeringSpeed *= -sign(posX) * sign(steeringSpeed) * .95
 
         if speed > 8:
-            speed -= 3
+            speed -= 2
 
         # TODO: particles
 

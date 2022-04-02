@@ -8,7 +8,7 @@ func _process(delta):
     var dolly := Vector3(0, get_transform().origin.y, target.z)
     var targetHeight = player.speed / player.maxSpeed * 10
 
-    var newHeight = move_toward(dolly.y, targetHeight, 2 * delta)
+    var newHeight = move_toward(dolly.y, targetHeight, 5 * delta)
     dolly.y = newHeight
 
     transform.origin = dolly
