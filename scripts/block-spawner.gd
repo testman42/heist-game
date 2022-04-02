@@ -10,6 +10,8 @@ export(Array, PackedScene) var possibleBlocks
 var possibleBlocksInstances = []
 var totalProbability = 0
 
+onready var player: Player = get_tree().get_nodes_in_group('player')[0]
+
 
 func _ready():
     assert(possibleBlocks.size() > 0, "Missing possible blocks for a spawner")
@@ -28,14 +30,14 @@ func _process(_delta):
 
 
 func deleteOldBlocks():
-    # all blocks that are already a few meters behind the player can be deleted,
-    # assuming that the player is always at 0
+    # all blocks that are already a few meters behind the player can be deleted
+
     for child in get_children():
         var block = child as Block
 
         assert(block != null, "Unexpected child node which is not a Block")
 
-        if block.get_global_transform().origin.z > 60:
+        if (block.get_global_transform().origin.z - player.get_global_transform().origin.z) > 60:
             block.queue_free()
 
 func spawnNewBlocks():
@@ -49,7 +51,7 @@ func spawnNewBlocks():
     # TODO: spawn required blocks bfore and after
 
     # spawn the block after the last one, which is 50 meters in front of it
-    var offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 50 + LevelSpeed.speed
+    var offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 50 + player.speed
 
     block.translate(Vector3(0, 0, offset))
     add_child(block)

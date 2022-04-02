@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://blocks/basic-road.tscn" type="PackedScene" id=1]
+[ext_resource path="res://blocks/basic.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/road/barrel.tscn" type="PackedScene" id=2]
 
 [node name="basic-road" instance=ExtResource( 1 )]

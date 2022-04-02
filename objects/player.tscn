@@ -6,15 +6,11 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.816, 1, 1.276 )
 
-[node name="player" type="Spatial"]
+[node name="player" type="KinematicBody" groups=["player"]]
 script = ExtResource( 1 )
 
-[node name="car" type="Spatial" parent="."]
-
-[node name="model" parent="car" instance=ExtResource( 2 )]
-
-[node name="collision" type="KinematicBody" parent="car"]
-
-[node name="shape" type="CollisionShape" parent="car/collision"]
+[node name="shape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 1 )
+
+[node name="model" parent="." instance=ExtResource( 2 )]

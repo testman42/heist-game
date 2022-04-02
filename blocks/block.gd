@@ -1,4 +1,4 @@
-extends MoveWithLevelSpeed
+extends Spatial
 class_name Block
 
 # Represents a block, a part of the level that is dynamically spawned as
