@@ -43,7 +43,7 @@ func spawnNewCars():
 
     # choose a new model randomly
     var car = chooseCar()
-    car.speed = -rand_range(4, 12)
+    car.speed = rand_range(4, 12)
 
     if randf() > .3:
         # higher chance to spawn forward facing car
