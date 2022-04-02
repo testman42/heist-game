@@ -6,6 +6,7 @@ class_name Car
 
 export var spawnProbability = 1.0
 
+var heading = 1
 var speed = 0
 var steeringSpeed = 0
 

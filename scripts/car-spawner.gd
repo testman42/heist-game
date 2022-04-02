@@ -55,6 +55,7 @@ func spawnNewCars():
 
         # flip the car
         car.rotate_y(PI)
+        car.heading = -1
 
     car.transform.origin.z = player.transform.origin.z - 100
 

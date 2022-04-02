@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://materials/player-van.tres" type="Material" id=1]
 [ext_resource path="res://materials/window.tres" type="Material" id=2]
 [ext_resource path="res://materials/tires.tres" type="Material" id=3]
 [ext_resource path="res://materials/yellow-light.tres" type="Material" id=4]
 [ext_resource path="res://materials/red-light.tres" type="Material" id=5]
-[ext_resource path="res://models/player-break-light.gd" type="Script" id=6]
 [ext_resource path="res://models/player-break-light.gd" type="Script" id=7]
 
 [node name="model" type="Spatial"]
@@ -72,6 +71,7 @@ material = ExtResource( 2 )
 
 [node name="fr" type="CSGBox" parent="height-adjust/lights"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.384771, 0.362057, -1.23382 )
+cast_shadow = 0
 width = 0.32
 height = 0.184
 depth = 0.0754329
@@ -79,6 +79,7 @@ material = ExtResource( 4 )
 
 [node name="fl" type="CSGBox" parent="height-adjust/lights"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.385, 0.362, -1.234 )
+cast_shadow = 0
 width = 0.32
 height = 0.184
 depth = 0.0754329
@@ -91,7 +92,7 @@ width = 0.32
 height = 0.184
 depth = 0.0754329
 material = ExtResource( 5 )
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="bulb" type="OmniLight" parent="height-adjust/lights/rl"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.035447 )
