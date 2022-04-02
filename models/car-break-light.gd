@@ -1,7 +1,6 @@
 extends CSGBox
 
 onready var car := get_node('../../../..') as Car
-var previousSpeed = 0
 
 func _ready():
 	assert(car != null, 'Cannot find Car in its breaking lights')
@@ -11,15 +10,10 @@ func _process(_delta):
     if not $bulb:
         return
 
-    var speed = abs(car.speed)
-
-    if speed < previousSpeed - .05 or speed < .1:
+    if abs(car.speed) < abs(car.previousSpeed) - .02 or abs(car.speed) < .01:
         $bulb.visible = true
         material.emission_energy = 2
     else:
         $bulb.visible = false
         material.emission_energy = .2
-
-
-    previousSpeed = speed
 

@@ -7,6 +7,12 @@ class_name CarLogic
 
 func _process(delta):
 
+    # handle special condition - when the player hits the car and it gets into reverse
+    if speed < 0:
+        # try to slow down
+        speed += 6 * delta
+        return
+
     # check the attached raycasts whether there's anything in front of us
 
     for raycast in [$front/raycast1, $front/raycast2]:
@@ -24,7 +30,7 @@ func _process(delta):
                 distance += other.speed - speed
 
             # slow down
-            speed -= delta * lerp(10, 0, distance / 8)
+            speed -= delta * lerp(8, 0, distance / 8)
             # prevent the car from reversing
             speed = max(0, speed)
 
