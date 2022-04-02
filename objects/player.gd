@@ -9,7 +9,7 @@ const maxTurning = .16
 func _ready():
 
     # reset the player speed when starting
-    LevelSpeed.speed = 2
+    LevelSpeed.speed = 0
 
 
 func _process(delta):

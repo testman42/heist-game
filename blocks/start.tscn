@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://materials/grass.tres" type="Material" id=1]
 [ext_resource path="res://materials/building.tres" type="Material" id=2]
@@ -18,6 +18,9 @@ subdivide_depth = 10
 [sub_resource type="PlaneMesh" id=3]
 size = Vector2( 0.1, 100 )
 subdivide_depth = 10
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 50, 1, 50 )
 
 [node name="start" type="Spatial"]
 script = ExtResource( 6 )
@@ -72,6 +75,12 @@ width = 70.8332
 height = 0.1
 depth = 44.0166
 material = ExtResource( 3 )
+
+[node name="collision" type="StaticBody" parent="ground"]
+
+[node name="shape" type="CollisionShape" parent="ground/collision"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 4 )
 
 [node name="buildings" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://materials/grass.tres" type="Material" id=1]
 [ext_resource path="res://materials/road.tres" type="Material" id=2]
@@ -17,6 +17,9 @@ subdivide_depth = 10
 [sub_resource type="PlaneMesh" id=3]
 size = Vector2( 0.1, 50 )
 subdivide_depth = 10
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 50, 1, 25 )
 
 [node name="basic-road" type="Spatial"]
 script = ExtResource( 5 )
@@ -62,6 +65,12 @@ length = 50
 [node name="right-2" parent="ground/road/lanes" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0.051, 0 )
 length = 50
+
+[node name="collision" type="StaticBody" parent="ground"]
+
+[node name="shape" type="CollisionShape" parent="ground/collision"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 4 )
 
 [node name="fences" type="Spatial" parent="."]
 

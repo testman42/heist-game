@@ -8,6 +8,41 @@
 
 [node name="model" type="Spatial"]
 
+[node name="wheels" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
+
+[node name="fr" type="CSGCylinder" parent="wheels"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.709, 0, -0.734 )
+radius = 0.3
+height = 0.245
+sides = 10
+smooth_faces = false
+material = ExtResource( 3 )
+
+[node name="fl" type="CSGCylinder" parent="wheels"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.709, 0, -0.734 )
+radius = 0.3
+height = 0.245
+sides = 10
+smooth_faces = false
+material = ExtResource( 3 )
+
+[node name="rl" type="CSGCylinder" parent="wheels"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.709, 0, 0.734 )
+radius = 0.3
+height = 0.245
+sides = 10
+smooth_faces = false
+material = ExtResource( 3 )
+
+[node name="rr" type="CSGCylinder" parent="wheels"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.709, 0, 0.734 )
+radius = 0.3
+height = 0.245
+sides = 10
+smooth_faces = false
+material = ExtResource( 3 )
+
 [node name="height-adjust" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 
@@ -30,40 +65,6 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.75, 1
 polygon = PoolVector2Array( 0, 0, 0, 0.494, 0.218, 0 )
 depth = 1.5
 material = ExtResource( 2 )
-
-[node name="wheels" type="Spatial" parent="height-adjust"]
-
-[node name="fr" type="CSGCylinder" parent="height-adjust/wheels"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.709, 0, -0.734 )
-radius = 0.3
-height = 0.245
-sides = 10
-smooth_faces = false
-material = ExtResource( 3 )
-
-[node name="fl" type="CSGCylinder" parent="height-adjust/wheels"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.709, 0, -0.734 )
-radius = 0.3
-height = 0.245
-sides = 10
-smooth_faces = false
-material = ExtResource( 3 )
-
-[node name="rl" type="CSGCylinder" parent="height-adjust/wheels"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.709, 0, 0.734 )
-radius = 0.3
-height = 0.245
-sides = 10
-smooth_faces = false
-material = ExtResource( 3 )
-
-[node name="rr" type="CSGCylinder" parent="height-adjust/wheels"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.709, 0, 0.734 )
-radius = 0.3
-height = 0.245
-sides = 10
-smooth_faces = false
-material = ExtResource( 3 )
 
 [node name="lights" type="Spatial" parent="height-adjust"]
 
