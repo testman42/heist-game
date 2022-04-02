@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://materials/road-mark.tres" type="Material" id=1]
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 0.1, 1 )
+
+[node name="lane" type="CSGMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.051, 0 )
+mesh = SubResource( 2 )
+material = ExtResource( 1 )
