@@ -1,7 +1,7 @@
 extends KinematicBody
 class_name Player
 
-var speed = 0
+var speed = 6
 var steeringSpeed = 0
 
 # maximums

@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/block-spawner.gd"
 }, {
+"base": "DynamicObject",
+"class": "Car",
+"language": "GDScript",
+"path": "res://objects/car.gd"
+}, {
+"base": "Node",
+"class": "CarSpawner",
+"language": "GDScript",
+"path": "res://scripts/car-spawner.gd"
+}, {
 "base": "Spatial",
 "class": "DynamicObject",
 "language": "GDScript",
@@ -32,6 +42,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Block": "",
 "BlockSpawner": "",
+"Car": "",
+"CarSpawner": "",
 "DynamicObject": "",
 "Player": ""
 }
