@@ -98,3 +98,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -10 )
 
 [node name="fence-5" parent="fences/right" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20 )
+
+[node name="barrels" type="Spatial" parent="."]

@@ -2,7 +2,7 @@ extends Node
 class_name BlockSpawner
 
 # Spawns level blocks as the player is moving forward.
-# All blocks *must* be 100x100 meters.
+# **All blocks must be 50 meters long.**
 
 # Possible blocks. Each one must be a Block type.
 export(Array, PackedScene) var possibleBlocks
@@ -28,28 +28,28 @@ func _process(_delta):
 
 
 func deleteOldBlocks():
-    # all blocks that are already 100 meters or more behind the player can be deleted,
+    # all blocks that are already a few meters behind the player can be deleted,
     # assuming that the player is always at 0
     for child in get_children():
         var block = child as Block
 
         assert(block != null, "Unexpected child node which is not a Block")
 
-        if block.get_global_transform().origin.z > 100:
+        if block.get_global_transform().origin.z > 60:
             block.queue_free()
 
 func spawnNewBlocks():
 
-    if get_child_count() >= 3:
+    if get_child_count() >= 5:
         return
 
     # choose a new block randomly
     var block = chooseBlock()
 
-    # TODO: spawn required blocks before and after
+    # TODO: spawn required blocks bfore and after
 
-    # spawn the block after the last one, which is 100 meters in front of it
-    var offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 99.5
+    # spawn the block after the last one, which is 50 meters in front of it
+    var offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 50 + LevelSpeed.speed
 
     block.translate(Vector3(0, 0, offset))
     add_child(block)

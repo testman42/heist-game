@@ -23,4 +23,4 @@ script = ExtResource( 4 )
 possibleBlocks = [ ExtResource( 3 ), ExtResource( 3 ) ]
 
 [node name="start" parent="blocks" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -42.7308 )
