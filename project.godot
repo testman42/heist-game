@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "MoveWithLevelSpeed",
+"class": "Block",
+"language": "GDScript",
+"path": "res://blocks/block.gd"
+}, {
 "base": "Node",
 "class": "BlockSpawner",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://scripts/move-with-level-speed.gd"
 } ]
 _global_script_class_icons={
+"Block": "",
 "BlockSpawner": "",
 "MoveWithLevelSpeed": ""
 }

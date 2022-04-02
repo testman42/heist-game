@@ -9,7 +9,7 @@ export(PackedScene) var lineObject
 
 
 func _ready():
-    for i in range(length / 2 - 1):
+    for i in range(length / 2):
         var z = -length / 2 + i * 2 + 1
         var obj = lineObject.instance() as Spatial
         obj.translate(Vector3(0, 0, z))
