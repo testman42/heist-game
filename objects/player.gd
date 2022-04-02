@@ -5,7 +5,7 @@ var speed = 6
 var steeringSpeed = 0
 
 # maximums
-const maxSpeed = 16
+const maxSpeed = 18
 const maxTurning = 14
 
 func _ready():
@@ -39,5 +39,7 @@ func _process(delta):
     # move the vehicle body
     translate(delta * Vector3(steeringSpeed * speed / 20, 0, -speed))
 
-
+    # rotate the modal according to the steering
+    if $model != null:
+        $model.rotation.y = -steeringSpeed / 30
 
