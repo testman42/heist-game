@@ -77,6 +77,8 @@ depth = 44.0166
 material = ExtResource( 3 )
 
 [node name="collision" type="StaticBody" parent="ground"]
+collision_layer = 2048
+collision_mask = 0
 
 [node name="shape" type="CollisionShape" parent="ground/collision"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )

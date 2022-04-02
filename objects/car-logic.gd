@@ -16,6 +16,8 @@ func _process(delta):
             var distance = point.distance_to($front.get_global_transform().origin)
 
             var other = raycast.get_collider()
+            if not other:
+                continue
 
             if "speed" in other:
                 # TODO
@@ -30,5 +32,7 @@ func _process(delta):
 
 
     # nothing in front, speed up
-    speed += delta * 8
+    if speed < maxSpeed:
+        speed += delta * 8
+
 

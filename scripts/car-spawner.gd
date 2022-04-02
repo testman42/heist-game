@@ -36,7 +36,7 @@ func _process(_delta):
 func spawnNewCars():
 
     # TODO: this change should increase in harder levels
-    var probability = lerp(0, .06, player.speed / player.maxSpeed)
+    var probability = lerp(0, .03, player.speed / player.maxSpeed)
 
     if randf() > probability:
         return
@@ -45,7 +45,7 @@ func spawnNewCars():
     var car = chooseCar()
     car.speed = rand_range(4, 12)
 
-    if randf() > .3:
+    if randf() > .4:
         # higher chance to spawn forward facing car
         car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
 

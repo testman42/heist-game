@@ -6,8 +6,11 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.816, 1, 1.276 )
 
-[node name="player" type="KinematicBody" groups=["player"]]
+[node name="player" type="RigidBody" groups=["player"]]
 collision_layer = 3
+mode = 3
+contacts_reported = 3
+contact_monitor = true
 script = ExtResource( 1 )
 
 [node name="shape" type="CollisionShape" parent="."]
@@ -15,3 +18,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 1 )
 
 [node name="model" parent="." instance=ExtResource( 2 )]
+
+[connection signal="body_entered" from="." to="." method="_on_player_body_entered"]
