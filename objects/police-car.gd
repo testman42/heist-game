@@ -12,6 +12,11 @@ var breaking = 6
 var finalPos = rand_range(-3, 3)
 
 
+func _ready():
+    if heading < 0:
+        queue_free()
+
+
 func _process(delta):
     # #safety - ignore if the player does not exist
     if not player or not is_instance_valid(player):

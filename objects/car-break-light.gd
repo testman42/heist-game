@@ -3,7 +3,10 @@ extends CSGBox
 var previousSpeed = 0
 
 func _ready():
-    material = material.duplicate()
+    if not GameController.lights:
+        queue_free()
+    else:
+        material = material.duplicate()
 
 func _process(_delta):
     var car := get_node('../../../..') as Car

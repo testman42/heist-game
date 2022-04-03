@@ -1,7 +1,10 @@
 extends CSGBox
 
 func _ready():
-    material = material.duplicate()
+    if not GameController.lights:
+        queue_free()
+    else:
+        material = material.duplicate()
 
 func _process(_delta):
     if not $bulb:

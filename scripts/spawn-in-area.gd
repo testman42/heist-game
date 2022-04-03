@@ -9,6 +9,9 @@ export var spawnMax = 10
 export(PackedScene) var instanceToSpawn
 
 func _ready():
+    if not GameController.trees:
+        return
+
     var box := shape as BoxShape
     assert(box, 'Spawner only works with boxes')
     var bounds := box.extents

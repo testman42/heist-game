@@ -7,6 +7,9 @@ onready var collision = load('particles/collision.tres')
 onready var explosion = load('particles/explosion.tres')
 
 func spawn(particles: ParticlesMaterial, mesh: Mesh, transform: Transform, amount: int, lifetime: float, velocity = null, spread = 10.0):
+    if not GameController.particles:
+        return
+
     assert(particles)
     assert(mesh)
     assert(transform)
