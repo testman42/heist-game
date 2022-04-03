@@ -30,6 +30,11 @@ func _process(delta):
 
     if health <= 0:
         destroyCar()
+        return
+
+
+    CheckOverlappingCars(delta)
+
 
     # update previous
     previousSpeed = speed
@@ -207,3 +212,22 @@ func destroyCar():
         part.material = part.material.duplicate()
         part.material.albedo_color = Color(.1, .1, .1)
 
+
+
+# Hopefully this actually improves anything. I'm trying to
+# fix a situation when two cars slowly "merge" together and overlap.
+const nudgeForce = .4
+func CheckOverlappingCars(delta):
+    if heading < 0:
+        # not a problem for cars in the opposite direction
+        return
+
+    if spinning:
+        return
+
+    var bodies = get_colliding_bodies()
+
+    for body in bodies:
+        if 'steeringSpeed' in body:
+            var diff = body.transform.origin.x - transform.origin.x
+            translate(Vector3(-sign(diff) * delta * nudgeForce, 0, 0))
