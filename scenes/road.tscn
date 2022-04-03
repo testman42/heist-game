@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://blocks/start.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://objects/car.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/sedan.tscn" type="PackedScene" id=9]
 [ext_resource path="res://objects/combi.tscn" type="PackedScene" id=10]
+[ext_resource path="res://blocks/cones.tscn" type="PackedScene" id=11]
 
 [node name="road" type="Node"]
 
@@ -32,7 +33,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.2074, 4.19851 )
 
 [node name="blocks" type="Node" parent="."]
 script = ExtResource( 4 )
-possibleBlocks = [ ExtResource( 3 ), ExtResource( 5 ) ]
+possibleBlocks = [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 11 ) ]
 
 [node name="start" parent="blocks" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -54.1038 )
