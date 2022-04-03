@@ -14,7 +14,8 @@ func _ready():
     var global = get_global_transform()
 
     get_parent().call_deferred('remove_child', self)
-    get_node('/root').call_deferred('add_child', self)
+    var root = get_node('/root')
+    root.get_child(root.get_child_count() - 1).call_deferred('add_child', self)
 
     transform = global
 

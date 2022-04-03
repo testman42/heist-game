@@ -136,7 +136,7 @@ light_energy = 3.349
 shadow_enabled = true
 
 [node name="camera-base" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.5489, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.1981, 0 )
 script = ExtResource( 6 )
 
 [node name="camera" type="Camera" parent="camera-base"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Particles
+
+
+func _ready():
+    emitting = true
+    $timer.wait_time = lifetime
+    $timer.start()
+
+
+func _on_timer_timeout():
+    queue_free()
+"
+
+[node name="particle-effect" type="Particles"]
+emitting = false
+one_shot = true
+explosiveness = 0.8
+randomness = 0.3
+local_coords = false
+script = SubResource( 5 )
+
+[node name="timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
