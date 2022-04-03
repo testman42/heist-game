@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.490196, 0.321569, 0.0823529, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.4, 0.584314, 0.12549, 1 )
+
+[node name="tree" type="Spatial"]
+
+[node name="trunk" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+width = 0.5
+depth = 0.5
+material = SubResource( 1 )
+
+[node name="leaves" type="CSGBox" parent="trunk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7719, 0 )
+material = SubResource( 2 )

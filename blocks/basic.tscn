@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://materials/grass.tres" type="Material" id=1]
 [ext_resource path="res://materials/road.tres" type="Material" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://objects/road/road-lane-cross.tscn" type="PackedScene" id=4]
 [ext_resource path="res://blocks/block.gd" type="Script" id=5]
 [ext_resource path="res://models/fence.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/spawn-in-area.gd" type="Script" id=7]
+[ext_resource path="res://models/tree.tscn" type="PackedScene" id=8]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 100, 50 )
@@ -20,6 +22,9 @@ subdivide_depth = 10
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 50, 1, 25 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 10.7382, 0.302469, 23.9827 )
 
 [node name="basic" type="Spatial"]
 script = ExtResource( 5 )
@@ -109,3 +114,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -10 )
 
 [node name="fence-5" parent="fences/right" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20 )
+
+[node name="trees" type="Spatial" parent="."]
+
+[node name="left" type="CollisionShape" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8962, 0, 0 )
+shape = SubResource( 5 )
+script = ExtResource( 7 )
+spawnMax = 20
+instanceToSpawn = ExtResource( 8 )
+
+[node name="right" type="CollisionShape" parent="trees"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.2673, 0, 0 )
+shape = SubResource( 5 )
+script = ExtResource( 7 )
+spawnMax = 20
+instanceToSpawn = ExtResource( 8 )
