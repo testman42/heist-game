@@ -195,6 +195,10 @@ func destroyCar():
     get_node('model/wheels').queue_free()
     get_node('model/height-adjust/lights').queue_free()
 
+    var policeLights = get_node('model/height-adjust/police-lights')
+    if policeLights:
+        policeLights.queue_free()
+
     var parts = get_node('model/height-adjust').get_children()
     for part in parts:
         if not 'material' in part:
