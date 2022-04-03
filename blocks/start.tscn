@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://materials/grass.tres" type="Material" id=1]
 [ext_resource path="res://materials/building.tres" type="Material" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://objects/road/road-lane-cross.tscn" type="PackedScene" id=5]
 [ext_resource path="res://blocks/block.gd" type="Script" id=6]
 [ext_resource path="res://models/fence.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/police-car.tscn" type="PackedScene" id=8]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 100, 100 )
@@ -143,3 +144,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -10 )
 
 [node name="fence-5" parent="fences/right" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20 )
+
+[node name="cars" type="Spatial" parent="."]
+
+[node name="police" parent="cars" instance=ExtResource( 8 )]
+transform = Transform( 0.520011, 0, 0.854159, 0, 1, 0, -0.854159, 0, 0.520011, 13.4945, 0, 46.6901 )
+script = null
+
+[node name="police2" parent="cars" instance=ExtResource( 8 )]
+transform = Transform( 0.114452, 0, 0.993429, 0, 1, 0, -0.993429, 0, 0.114452, 13.7241, 0, 41.6876 )
+script = null
+
+[node name="police3" parent="cars" instance=ExtResource( 8 )]
+transform = Transform( -0.254669, 0, -0.967028, 0, 1, 0, 0.967028, 0, -0.254669, -9.48588, 0, 43.4127 )
+script = null
+
+[node name="police4" parent="cars" instance=ExtResource( 8 )]
+transform = Transform( 0.604863, 0, -0.796329, 0, 1, 0, 0.796329, 0, 0.604863, -3.34249, 0, 52.5243 )
+script = null

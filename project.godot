@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "CSGBox",
+"class": "BlinkingLight",
+"language": "GDScript",
+"path": "res://scripts/blinking-light.gd"
+}, {
 "base": "Spatial",
 "class": "Block",
 "language": "GDScript",
@@ -45,6 +50,7 @@ _global_script_classes=[ {
 "path": "res://objects/player.gd"
 } ]
 _global_script_class_icons={
+"BlinkingLight": "",
 "Block": "",
 "BlockSpawner": "",
 "Car": "",
