@@ -13,6 +13,7 @@ var heading = 1
 var speed = 0
 var steeringSpeed = 0
 var spinning = false
+var spinningSpeed = 0
 
 # maximums
 onready var maxSpeed = rand_range(maxSpeedFrom, maxSpeedTo)
@@ -62,10 +63,7 @@ func _physics_process(delta):
     if $model:
 
         if spinning:
-            var amount = delta * .8 * speed
-            if not is_equal_approx(steeringSpeed, 0):
-                amount *= -sign(steeringSpeed)
-
+            var amount = delta * .4 * speed * spinningSpeed
             $model.rotation.y += amount
         else:
             # rotate the modal according to the steering
@@ -131,6 +129,7 @@ func decreaseHealth(body):
 
         if diff > 14:
             spinning = true
+            spinningSpeed = rand_range(-diff / 20, diff / 20)
 
     else:
         # hit something solid
@@ -143,6 +142,7 @@ func decreaseHealth(body):
 
         if diff > 10:
             spinning = true
+            spinningSpeed = rand_range(0, diff / 10) * -sign(body.previousSteeringSpeed - previousSteeringSpeed)
 
     else:
         # hit something solid
@@ -150,6 +150,10 @@ func decreaseHealth(body):
 
 func destroyCar():
     call_deferred('set_script', null)
+
+    # disable collision reporting
+    disconnect('body_entered', self, '_on_car_body_entered')
+    contact_monitor = false
 
     # swap the kinetic body mode for rigid body
     mode = MODE_RIGID
@@ -161,5 +165,5 @@ func destroyCar():
     apply_impulse(Vector3.ZERO, Vector3(steeringSpeed, 0, speed * -heading))
 
     var amount = 10
-    apply_torque_impulse(Vector3(rand_range(-amount, amount), rand_range(-amount, amount), rand_range(-amount, amount)))
+    apply_torque_impulse(Vector3(rand_range(-amount, amount), spinningSpeed, rand_range(-amount, amount)))
 
