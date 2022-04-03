@@ -24,7 +24,7 @@ subdivide_depth = 10
 extents = Vector3( 50, 1, 25 )
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 10.7382, 0.302469, 23.9827 )
+extents = Vector3( 7.2128, 0.302469, 23.9827 )
 
 [node name="basic" type="Spatial"]
 script = ExtResource( 5 )
@@ -121,12 +121,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8962, 0, 0 )
 shape = SubResource( 5 )
 script = ExtResource( 7 )
-spawnMax = 20
 instanceToSpawn = ExtResource( 8 )
 
 [node name="right" type="CollisionShape" parent="trees"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.2673, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8665, 0, 0 )
 shape = SubResource( 5 )
 script = ExtResource( 7 )
-spawnMax = 20
 instanceToSpawn = ExtResource( 8 )
