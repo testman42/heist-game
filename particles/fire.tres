@@ -2,9 +2,9 @@
 
 [sub_resource type="SpatialMaterial" id=1]
 vertex_color_use_as_albedo = true
-albedo_color = Color( 1, 0.94902, 0.247059, 1 )
+albedo_color = Color( 1, 0.690196, 0.247059, 1 )
 emission_enabled = true
-emission = Color( 1, 0.909804, 0.439216, 1 )
+emission = Color( 0.858824, 0.470588, 0.117647, 1 )
 emission_energy = 3.0
 emission_operator = 0
 emission_on_uv2 = false

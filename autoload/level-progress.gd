@@ -8,6 +8,9 @@ export var targetDistance = 100
 
 var player: Player
 
+func _ready():
+    setup()
+
 func setup():
     if get_tree().get_nodes_in_group('player').size() <= 0:
         return
@@ -17,9 +20,9 @@ func setup():
     player.connect('player_collision', self, '_onPlayerCollided')
 
     # TODO
-    money = rand_range(600, 5000)
+    money = rand_range(800, 8000)
     distance = 0
-    targetDistance = rand_range(200, 800)
+    targetDistance = money * rand_range(.4, .9)
 
 
 func _process(_delta):

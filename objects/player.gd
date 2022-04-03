@@ -111,4 +111,20 @@ func destroyPlayer():
     var amount = 10
     apply_torque_impulse(Vector3(rand_range(-amount, amount), rand_range(-amount, amount), rand_range(-amount, amount)))
 
+    # particles
+    ParticleEffect.spawnExplosion(global_transform)
+
+    # turn into a wreck
+    get_node('model/wheels').queue_free()
+    get_node('model/height-adjust/lights').queue_free()
+
+    var parts = get_node('model/height-adjust').get_children()
+    for part in parts:
+        if not 'material' in part:
+            continue
+
+        part.material = part.material.duplicate()
+        part.material.albedo_color = Color(.1, .1, .1)
+
+
 

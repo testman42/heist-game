@@ -117,7 +117,7 @@ margin_bottom = 230.0
 text = "Start"
 flat = true
 script = SubResource( 2 )
-scene = "garage"
+scene = "intro"
 
 [node name="exit" type="Button" parent="ui/buttons"]
 margin_top = 234.0

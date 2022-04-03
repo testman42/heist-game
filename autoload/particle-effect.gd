@@ -2,7 +2,9 @@ extends Node
 
 onready var prefab = load('particles/particle-effect.tscn')
 onready var spark = load('particles/spark.tres')
+onready var fire = load('particles/fire.tres')
 onready var collision = load('particles/collision.tres')
+onready var explosion = load('particles/explosion.tres')
 
 func spawn(particles: ParticlesMaterial, mesh: Mesh, transform: Transform, amount: int, lifetime: float, velocity = null):
     assert(particles)
@@ -30,4 +32,8 @@ func spawn(particles: ParticlesMaterial, mesh: Mesh, transform: Transform, amoun
 
 func spawnCollisionSparks(transform: Transform, amount: int, velocity = null):
     spawn(collision, spark, transform, amount, .5, velocity)
+
+func spawnExplosion(transform: Transform):
+    spawn(explosion, spark, transform, 20, 1.2)
+    spawn(explosion, fire, transform, 16, 1.2)
 
