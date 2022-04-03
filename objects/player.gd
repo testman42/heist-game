@@ -48,7 +48,9 @@ func _process(delta):
         if speed > 8:
             speed -= 2
 
-        # TODO: particles
+        var transform = Transform(global_transform)
+        transform.origin.x += -sign(steeringSpeed) * 1.2
+        ParticleEffect.spawnCollisionSparks(transform, 10, Vector3(-steeringSpeed, 0, -speed))
 
 
 
@@ -88,4 +90,25 @@ func _on_player_body_entered(body):
 
     # amount is roughly 10-30
     emit_signal('player_collision', amount)
+
+
+func destroyPlayer():
+    call_deferred('set_script', null)
+
+    # disable collision reporting
+    disconnect('body_entered', self, '_on_player_body_entered')
+    contact_monitor = false
+
+    # swap the kinetic body mode for rigid body
+    mode = MODE_RIGID
+
+    # add the ground collision mask
+    collision_mask |= 1 << 11
+
+    # add force according to the current movement, and a random rotation
+    apply_impulse(Vector3.ZERO, Vector3(steeringSpeed, 0, speed * -heading))
+
+    var amount = 10
+    apply_torque_impulse(Vector3(rand_range(-amount, amount), rand_range(-amount, amount), rand_range(-amount, amount)))
+
 

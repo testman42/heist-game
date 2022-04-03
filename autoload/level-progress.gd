@@ -17,7 +17,7 @@ func setup():
     player.connect('player_collision', self, '_onPlayerCollided')
 
     # TODO
-    money = rand_range(4000, 10000)
+    money = rand_range(600, 5000)
     distance = 0
     targetDistance = rand_range(200, 800)
 
@@ -28,6 +28,10 @@ func _process(_delta):
         # TODO
         GameController.levelComplete()
 
+    if player and is_instance_valid(player) and money <= 0:
+        if player.has_method('destroyPlayer'):
+            player.destroyPlayer()
+
 
 func _onSceneChange():
     setup()
@@ -37,12 +41,12 @@ func _onPlayerMoved(delta):
 
 func _onPlayerCollided(amount):
     # TODO: this should decrease with armor and increase with difficulty
-    money -= amount * 2
+    money -= amount * 3.2
 
 func _onCarSpinned():
-    money += rand_range(10, 60)
+    money += rand_range(5, 20)
 
 func _onCarDestroyed():
-    money += rand_range(20, 100)
+    money += rand_range(20, 80)
 
 

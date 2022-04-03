@@ -10,4 +10,4 @@ func _on_player_player_collision(amount):
     if amount < 4:
         return
 
-    ParticleEffect.spawn(particlesMaterial, particlesMesh, global_transform)
+    ParticleEffect.spawn(particlesMaterial, particlesMesh, global_transform, round(rand_range(4, 4 + amount / 10)), 1)

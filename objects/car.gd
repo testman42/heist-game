@@ -56,7 +56,9 @@ func _process(delta):
         if abs(speed) > 8:
             speed -= 2 * sign(speed)
 
-        # TODO: particles
+        var transform = Transform(global_transform)
+        transform.origin.x += -sign(steeringSpeed) * 1.2
+        ParticleEffect.spawnCollisionSparks(transform, 10, Vector3(-steeringSpeed, 0, -speed))
 
 
 func _physics_process(delta):
@@ -101,6 +103,13 @@ func handleCollision(body):
         else:
             speed += heading * diff * .9
 
+        # particles
+        if abs(diff) > 6:
+            var transform = Transform()
+            transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
+            transform.origin.y = .8
+            ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 0, -ourSpeed))
+
     else:
         # hit something solid
         if speed > 6:
@@ -116,6 +125,13 @@ func handleCollision(body):
             steeringSpeed += diff * 1.6
         else:
             steeringSpeed += diff * .9
+
+        # particles
+        if abs(diff) > 6:
+            var transform = Transform()
+            transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
+            transform.origin.y = .8
+            ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 0, previousSpeed * -heading))
 
     else:
         # hit something solid

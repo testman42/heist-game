@@ -16,7 +16,10 @@ func _process(delta):
 func getTarget() -> Vector3:
     var target := player.get_transform().origin
     target.x /= 2
-    target.y = player.speed / player.maxSpeed * 13
+
+    if 'speed' in player and 'maxSpeed' in player:
+        target.y = player.speed / player.maxSpeed * 13
+
     return target
 
 func setPos(pos: Vector3):

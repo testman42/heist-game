@@ -52,7 +52,10 @@ func spawnNewCars():
 
 
     # TODO: this chance should increase in harder levels
-    var probability = lerp(0, .04, player.speed / player.maxSpeed)
+    var probability = .08
+
+    if 'speed' in player and 'maxSpeed' in player:
+        probability = lerp(0, .04, player.speed / player.maxSpeed)
 
     if randf() > probability:
         return
@@ -73,7 +76,10 @@ func spawnNewCars():
         car.rotate_y(PI)
         car.heading = -1
 
-    car.transform.origin.z = player.transform.origin.z - 60 - rand_range(0, 60)
+    if 'speed' in player and player.speed > 4:
+        car.transform.origin.z = player.transform.origin.z - 60 - rand_range(0, 60)
+    else:
+        car.transform.origin.z = player.transform.origin.z + 60
 
     add_child(car)
     car.connect('spinned', LevelProgress, '_onCarSpinned')

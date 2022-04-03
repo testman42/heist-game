@@ -5,7 +5,7 @@ class_name DynamicObject
 # from their initial position in a block do not get deleted when
 # the block gets deleted, rather when they get too far behind the player.
 
-var player: Player
+var player: Spatial
 
 func _ready():
     if get_tree().get_nodes_in_group('player').size() > 0:
@@ -20,6 +20,6 @@ func _ready():
     transform = global
 
 func _process(_delta):
-    if player and is_instance_valid(player) and transform.origin.z > player.transform.origin.z + 60:
+    if player and is_instance_valid(player) and transform.origin.z > player.transform.origin.z + 100:
         queue_free()
 
