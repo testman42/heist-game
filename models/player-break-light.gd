@@ -9,9 +9,9 @@ func _process(_delta):
 
     if Input.get_action_strength('break') > .1:
         $bulb.visible = true
-        material.emission_energy = 2
+        material.emission_energy = 5
     else:
         $bulb.visible = false
-        material.emission_energy = .2
+        material.emission_energy = 1.5
 
 

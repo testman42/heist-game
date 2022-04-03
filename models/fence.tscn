@@ -4,7 +4,7 @@
 albedo_color = Color( 0.305882, 0.239216, 0.203922, 1 )
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.713726, 0.717647, 0.721569, 1 )
+albedo_color = Color( 0.282353, 0.329412, 0.376471, 1 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.079, 0.349, 5 )

@@ -97,7 +97,7 @@ script = ExtResource( 7 )
 [node name="bulb" type="OmniLight" parent="height-adjust/lights/rl"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.035447 )
 light_color = Color( 1, 0.0588235, 0, 1 )
-light_energy = 3.128
+light_energy = 5.0
 shadow_enabled = true
 
 [node name="rr" type="CSGBox" parent="height-adjust/lights"]
@@ -112,5 +112,5 @@ script = ExtResource( 7 )
 [node name="bulb" type="OmniLight" parent="height-adjust/lights/rr"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.035447 )
 light_color = Color( 1, 0.0588235, 0, 1 )
-light_energy = 3.128
+light_energy = 5.0
 shadow_enabled = true
