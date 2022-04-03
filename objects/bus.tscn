@@ -52,5 +52,19 @@ depth = 1.38
 [node name="rear-window" parent="model/height-adjust" index="3"]
 visible = false
 
+[node name="fr" parent="model/height-adjust/lights" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.384771, 0.121443, -1.86255 )
+
+[node name="fl" parent="model/height-adjust/lights" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.385, 0.121386, -1.86273 )
+
+[node name="rl" parent="model/height-adjust/lights" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.385, 0.320749, 1.86794 )
+height = 0.3
+
+[node name="rr" parent="model/height-adjust/lights" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385, 0.320749, 1.86794 )
+height = 0.3
+
 [node name="front" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.572973, -1.94292 )
