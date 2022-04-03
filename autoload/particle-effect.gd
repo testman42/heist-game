@@ -6,7 +6,7 @@ onready var fire = load('particles/fire.tres')
 onready var collision = load('particles/collision.tres')
 onready var explosion = load('particles/explosion.tres')
 
-func spawn(particles: ParticlesMaterial, mesh: Mesh, transform: Transform, amount: int, lifetime: float, velocity = null):
+func spawn(particles: ParticlesMaterial, mesh: Mesh, transform: Transform, amount: int, lifetime: float, velocity = null, spread = 10.0):
     assert(particles)
     assert(mesh)
     assert(transform)
@@ -25,7 +25,7 @@ func spawn(particles: ParticlesMaterial, mesh: Mesh, transform: Transform, amoun
     if velocity:
         instance.process_material = instance.process_material.duplicate()
         instance.process_material.direction = velocity.normalized()
-        instance.process_material.spread = 10
+        instance.process_material.spread = spread
         instance.process_material.initial_velocity = velocity.length()
 
     add_child(instance)
@@ -33,7 +33,7 @@ func spawn(particles: ParticlesMaterial, mesh: Mesh, transform: Transform, amoun
 func spawnCollisionSparks(transform: Transform, amount: int, velocity = null):
     spawn(collision, spark, transform, amount, .5, velocity)
 
-func spawnExplosion(transform: Transform):
-    spawn(explosion, spark, transform, 20, 1.2)
-    spawn(explosion, fire, transform, 16, 1.2)
+func spawnExplosion(transform: Transform, velocity = null):
+    spawn(explosion, spark, transform, 20, 1.2, velocity, 60)
+    spawn(explosion, fire, transform, 16, 1.2, velocity, 60)
 

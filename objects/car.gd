@@ -58,7 +58,7 @@ func _process(delta):
 
         var transform = Transform(global_transform)
         transform.origin.x += -sign(steeringSpeed) * 1.2
-        ParticleEffect.spawnCollisionSparks(transform, 10, Vector3(-steeringSpeed, 0, -speed))
+        ParticleEffect.spawnCollisionSparks(transform, 10, Vector3(-steeringSpeed, 2, -speed))
 
 
 func _physics_process(delta):
@@ -108,7 +108,7 @@ func handleCollision(body):
             var transform = Transform()
             transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
             transform.origin.y = .8
-            ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 0, -ourSpeed))
+            ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, -ourSpeed))
 
     else:
         # hit something solid
@@ -131,7 +131,7 @@ func handleCollision(body):
             var transform = Transform()
             transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
             transform.origin.y = .8
-            ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 0, previousSpeed * -heading))
+            ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, previousSpeed * -heading))
 
     else:
         # hit something solid
@@ -189,7 +189,7 @@ func destroyCar():
     apply_torque_impulse(Vector3(rand_range(-amount, amount), spinningSpeed, rand_range(-amount, amount)))
 
     # particles
-    ParticleEffect.spawnExplosion(global_transform)
+    ParticleEffect.spawnExplosion(global_transform, Vector3(steeringSpeed, 1, speed * -heading))
 
     # turn into a wreck
     get_node('model/wheels').queue_free()
