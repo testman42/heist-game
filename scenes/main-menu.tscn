@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://models/player-van.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/road/cone.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://objects/police-car.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://ui/big-font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://objects/car.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/road/lamp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://objects/road/barrel.tscn" type="PackedScene" id=10]
 
@@ -80,6 +81,16 @@ script = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.126231, -1.90735e-06, 13.1184 )
 script = null
 
+[node name="cars" type="Spatial" parent="backdrop"]
+
+[node name="car" parent="backdrop/cars" instance=ExtResource( 8 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.61695, 0, 0.137073 )
+script = null
+
+[node name="flying-car" parent="backdrop/cars" instance=ExtResource( 8 )]
+transform = Transform( 0.477297, 0.650378, -0.590928, 0.22902, 0.557163, 0.798198, 0.848373, -0.516311, 0.116983, 2.13256, 4.27264, 19.3632 )
+script = null
+
 [node name="ui" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -117,7 +128,7 @@ margin_bottom = 230.0
 text = "Start"
 flat = true
 script = SubResource( 2 )
-scene = "intro"
+scene = "road"
 
 [node name="exit" type="Button" parent="ui/buttons"]
 margin_top = 234.0

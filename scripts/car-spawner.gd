@@ -47,14 +47,14 @@ func _process(_delta):
 
 func spawnNewCars():
     # TODO: this chance should increase in harder levels
-    if get_tree().get_nodes_in_group('car').size() > 30:
+    if get_tree().get_nodes_in_group('car').size() > 40:
         return
 
 
     # TODO: this chance should increase in harder levels
     var probability = .08
 
-    if 'speed' in player and 'maxSpeed' in player:
+    if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
         probability = lerp(0, .04, player.speed / player.maxSpeed)
 
     if randf() > probability:
