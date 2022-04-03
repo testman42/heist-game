@@ -7,6 +7,7 @@ class_name CarSpawner
 
 # Possible cars. Each one must be a Car type.
 export(Array, PackedScene) var possibleCars
+export(Array, PackedScene) var possiblePoliceCars
 
 # Where to spawn the cars, only x position is taken.
 export(Array, NodePath) var frontSpawnLocations
@@ -15,11 +16,15 @@ export(Array, NodePath) var backSpawnLocations
 var possibleCarInstances = []
 var totalProbability = 0
 
+var possiblePoliceCarInstances = []
+var totalPoliceProbability = 0
+
 onready var player: Player = get_tree().get_nodes_in_group('player')[0]
 
 
 func _ready():
     assert(possibleCars.size() > 0, "Missing possible cars for a spawner")
+    assert(possiblePoliceCars.size() > 0, "Missing possible police cars for a spawner")
     assert(frontSpawnLocations.size() > 0, "No front spawn locations")
     assert(backSpawnLocations.size() > 0, "No back spawn locations")
 
@@ -28,6 +33,10 @@ func _ready():
         var instance = b.instance() as Car
         possibleCarInstances.append(instance)
         totalProbability += instance.spawnProbability
+    for b in possiblePoliceCars:
+        var instance = b.instance() as Car
+        possiblePoliceCarInstances.append(instance)
+        totalPoliceProbability += instance.spawnProbability
 
     # preseed the cars going forward
 
@@ -43,21 +52,22 @@ func _ready():
 
 
 func _process(_delta):
-    spawnNewCars()
-
-func spawnNewCars():
-    # TODO: this chance should increase in harder levels
-    if get_tree().get_nodes_in_group('car').size() > 40:
-        return
-
-
     # TODO: this chance should increase in harder levels
     var probability = .08
+    var policeProbability = .008
 
     if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
         probability = lerp(0, .04, player.speed / player.maxSpeed)
+        policeProbability = lerp(0, .005, player.speed / player.maxSpeed)
 
-    if randf() > probability:
+    if randf() < probability:
+        spawnCar()
+    if randf() < policeProbability:
+        spawnPoliceCar()
+
+func spawnCar():
+    # limit max cars
+    if get_tree().get_nodes_in_group('car').size() > 30:
         return
 
     # choose a new model randomly
@@ -85,6 +95,30 @@ func spawnNewCars():
     car.connect('spinned', LevelProgress, '_onCarSpinned')
     car.connect('destroyed', LevelProgress, '_onCarDestroyed')
 
+func spawnPoliceCar():
+    # limit max police force
+    if get_tree().get_nodes_in_group('police').size() > 10:
+        return
+
+    # choose a new model randomly
+    var car = choosePoliceCar()
+
+    if 'speed' in player:
+        car.speed = player.speed
+    else:
+        car.speed = 6
+
+    if randf() > .6:
+        car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
+    else:
+        car.transform.origin.x = get_node(backSpawnLocations[randi() % backSpawnLocations.size()]).transform.origin.x
+
+    car.transform.origin.z = player.transform.origin.z + 25
+
+    add_child(car)
+    car.connect('spinned', LevelProgress, '_onCarSpinned')
+    car.connect('destroyed', LevelProgress, '_onCarDestroyed')
+
 
 func chooseCar() -> Car:
     assert(totalProbability > 0, "Total probability is 0 which makes this code crash!")
@@ -100,5 +134,22 @@ func chooseCar() -> Car:
     i -= 1
 
     return possibleCarInstances[i].duplicate()
+
+func choosePoliceCar() -> Car:
+    assert(totalPoliceProbability > 0, "Total police probability is 0 which makes this code crash!")
+
+    var i = 0
+    var counter = 0.0
+    var target = randf() * totalPoliceProbability
+
+    while counter < target and i <= possiblePoliceCarInstances.size():
+        counter += possiblePoliceCarInstances[i].spawnProbability
+        i += 1
+
+    i -= 1
+
+    return possiblePoliceCarInstances[i].duplicate()
+
+
 
 

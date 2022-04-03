@@ -5,8 +5,9 @@
 [ext_resource path="res://objects/police-lights.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/police-car.gd" type="Script" id=4]
 
-[node name="police-car" instance=ExtResource( 1 )]
+[node name="police-car" groups=["police"] instance=ExtResource( 1 )]
 script = ExtResource( 4 )
+spawnProbability = 0.07
 maxSpeedFrom = 18
 maxSpeedTo = 24
 health = 300
@@ -22,12 +23,3 @@ material = ExtResource( 2 )
 
 [node name="police-lights" parent="model/height-adjust" index="5" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03825, 0.227674 )
-
-[node name="front" parent="." index="2"]
-visible = false
-
-[node name="raycast1" parent="front" index="0"]
-enabled = false
-
-[node name="raycast2" parent="front" index="1"]
-enabled = false

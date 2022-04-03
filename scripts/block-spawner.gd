@@ -51,7 +51,11 @@ func spawnNewBlocks():
     # TODO: spawn required blocks bfore and after
 
     # spawn the block after the last one, which is 50 meters in front of it
-    var offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 50 + player.speed
+    var speed = 1
+    if 'speed' in player:
+        speed = player.speed
+
+    var offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 50 + speed
 
     block.translate(Vector3(0, 0, offset))
     add_child(block)

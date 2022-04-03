@@ -19,10 +19,9 @@ func setup():
     player.connect('player_moved', self, '_onPlayerMoved')
     player.connect('player_collision', self, '_onPlayerCollided')
 
-    # TODO
-    money = rand_range(800, 8000)
+    money = 50
     distance = 0
-    targetDistance = money * rand_range(.4, .9)
+    targetDistance = 10000 #money * rand_range(.4, .9)
 
 
 func _process(_delta):

@@ -157,7 +157,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -54.1038 )
 
 [node name="cars" type="Node" parent="."]
 script = ExtResource( 7 )
-possibleCars = [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 19 ) ]
+possibleCars = [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 19 ), ExtResource( 18 ) ]
+possiblePoliceCars = [ ExtResource( 18 ) ]
 frontSpawnLocations = [ NodePath("../car-spawn-locations/front"), NodePath("../car-spawn-locations/front2"), NodePath("../car-spawn-locations/front3") ]
 backSpawnLocations = [ NodePath("../car-spawn-locations/back"), NodePath("../car-spawn-locations/back2"), NodePath("../car-spawn-locations/back3") ]
 
@@ -183,7 +184,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, 0 )
 
 [node name="initial-police" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 34.5291 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32.8892 )
 
 [node name="police-car" parent="initial-police" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33254, 0, 0 )

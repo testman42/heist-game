@@ -14,7 +14,7 @@ func _process(_delta):
 
     var speed = abs(car.speed)
 
-    if speed < previousSpeed - .02 or speed < .1:
+    if speed < previousSpeed - .04 or speed < .1:
         $bulb.visible = true
         material.emission_energy = 5
     else:
