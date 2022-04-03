@@ -1,3 +1,119 @@
-[gd_scene format=2]
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/big-font.tres" type="DynamicFont" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label
+
+func _init():
+    text = \"You made it out with \" + str(round(LevelProgress.money)) + \" in cash!\"
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Button
+
+export var scene = ''
+func _on_start_pressed():
+    assert(scene != '', 'Missing switch to scene')
+    GameController.switchToScene(scene)
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Button
+
+
+
+func _on_exit_pressed():
+    get_tree().quit()
+"
 
 [node name="outro" type="Node"]
+
+[node name="ui" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="ui"]
+anchor_right = 1.0
+margin_top = 20.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0.635294, 0.92549, 0.635294, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Success!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="VBoxContainer" parent="ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 100.0
+margin_right = -20.0
+margin_bottom = -20.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="money" type="Label" parent="ui/container"]
+margin_top = 53.0
+margin_right = 984.0
+margin_bottom = 93.0
+text = "You made it with"
+script = SubResource( 1 )
+
+[node name="space" type="Control" parent="ui/container"]
+margin_top = 97.0
+margin_right = 984.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="credits" type="Label" parent="ui/container"]
+margin_top = 121.0
+margin_right = 984.0
+margin_bottom = 333.0
+text = "Thanks for playing my game. This is a submission for Ludum Dare #50, and I did not have time left for a proper outro... or sound effects... or much polishing... or perfomance, well, you get the idea.
+Here's what you can do next:"
+autowrap = true
+
+[node name="space2" type="Control" parent="ui/container"]
+margin_top = 337.0
+margin_right = 984.0
+margin_bottom = 377.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="buttons" type="HBoxContainer" parent="ui/container"]
+margin_top = 381.0
+margin_right = 984.0
+margin_bottom = 427.0
+alignment = 1
+
+[node name="start" type="Button" parent="ui/container/buttons"]
+margin_left = 290.0
+margin_right = 490.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 200, 0 )
+text = "Restart"
+flat = true
+script = SubResource( 2 )
+scene = "main-menu"
+
+[node name="exit" type="Button" parent="ui/container/buttons"]
+margin_left = 494.0
+margin_right = 694.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 200, 0 )
+text = "Exit"
+flat = true
+script = SubResource( 3 )
+
+[connection signal="pressed" from="ui/container/buttons/start" to="ui/container/buttons/start" method="_on_start_pressed"]
+[connection signal="pressed" from="ui/container/buttons/exit" to="ui/container/buttons/exit" method="_on_exit_pressed"]
