@@ -38,6 +38,9 @@ func _ready():
         car.transform.origin.z = player.transform.origin.z - 50 - rand_range(0, 100)
         add_child(car)
 
+        car.connect('spinned', LevelProgress, '_onCarSpinned')
+        car.connect('destroyed', LevelProgress, '_onCarDestroyed')
+
 
 func _process(_delta):
     spawnNewCars()
@@ -73,6 +76,8 @@ func spawnNewCars():
     car.transform.origin.z = player.transform.origin.z - 60 - rand_range(0, 60)
 
     add_child(car)
+    car.connect('spinned', LevelProgress, '_onCarSpinned')
+    car.connect('destroyed', LevelProgress, '_onCarDestroyed')
 
 
 func chooseCar() -> Car:

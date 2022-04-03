@@ -4,6 +4,9 @@ class_name Car
 # Car that is just driving around, about to be wrecked by the player.
 # Contains the probability that this particular model will spawn.
 
+signal spinned
+signal destroyed
+
 export var spawnProbability = 1.0
 export var maxSpeedFrom = 8
 export var maxSpeedTo = 14
@@ -130,6 +133,7 @@ func decreaseHealth(body):
         if diff > 14:
             spinning = true
             spinningSpeed = rand_range(-diff / 20, diff / 20)
+            emit_signal('spinned')
 
     else:
         # hit something solid
@@ -150,6 +154,7 @@ func decreaseHealth(body):
 
 func destroyCar():
     call_deferred('set_script', null)
+    emit_signal('destroyed')
 
     # disable collision reporting
     disconnect('body_entered', self, '_on_car_body_entered')

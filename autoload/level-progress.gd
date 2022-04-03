@@ -39,4 +39,10 @@ func _onPlayerCollided(amount):
     # TODO: this should decrease with armor and increase with difficulty
     money -= amount * 2
 
+func _onCarSpinned():
+    money += rand_range(10, 60)
+
+func _onCarDestroyed():
+    money += rand_range(20, 100)
+
 
