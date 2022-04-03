@@ -7,7 +7,7 @@ func _ready():
 
 func _process(_delta):
     var car := get_node('../../../..') as Car
-    if not car:
+    if not car or car.spinning:
         $bulb.visible = false
         material.emission_energy = 1.5
         return

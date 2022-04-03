@@ -1,6 +1,8 @@
 extends RigidBody
 class_name Player
 
+signal player_moved
+
 var heading = 1
 var speed = 6
 var steeringSpeed = 0
@@ -51,6 +53,7 @@ func _process(delta):
 func _physics_process(delta):
     # move the vehicle body
     translate(delta * Vector3(steeringSpeed * speed / 20, 0, -speed))
+    emit_signal('player_moved', delta * speed)
 
     # rotate the modal according to the steering
     if $model != null:

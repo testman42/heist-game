@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://blocks/start.tscn" type="PackedScene" id=2]
@@ -12,8 +12,110 @@
 [ext_resource path="res://objects/combi.tscn" type="PackedScene" id=10]
 [ext_resource path="res://blocks/cones.tscn" type="PackedScene" id=11]
 [ext_resource path="res://blocks/lamp.tscn" type="PackedScene" id=12]
+[ext_resource path="res://ui/theme.tres" type="Theme" id=13]
+[ext_resource path="res://ui/progress.gd" type="Script" id=14]
+[ext_resource path="res://sprites/van.png" type="Texture" id=15]
+[ext_resource path="res://sprites/money.png" type="Texture" id=16]
+[ext_resource path="res://ui/money.gd" type="Script" id=17]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.34902, 0.729412, 0.211765, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.560784, 0.560784, 0.560784, 1 )
+
+[sub_resource type="CanvasItemMaterial" id=3]
 
 [node name="road" type="Node"]
+
+[node name="ui" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bottom" type="Control" parent="ui"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="Control" parent="ui/bottom"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = -60.0
+margin_right = -40.0
+margin_bottom = -40.0
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progressbar" type="ProgressBar" parent="ui/bottom/progress"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+max_value = 1.0
+step = 0.001
+value = 0.368
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="Control" parent="ui/bottom/progress"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="image" type="TextureRect" parent="ui/bottom/progress/icon"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = -15.0
+margin_right = 18.0
+margin_bottom = 21.0
+texture = ExtResource( 15 )
+expand = true
+
+[node name="money" type="Control" parent="ui/bottom"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = -120.0
+margin_right = -40.0
+margin_bottom = -80.0
+script = ExtResource( 17 )
+
+[node name="image" type="TextureRect" parent="ui/bottom/money"]
+material = SubResource( 3 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = -18.0
+margin_right = 18.0
+margin_bottom = 18.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="text" type="Label" parent="ui/bottom/money"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+text = "0"
+valign = 1
 
 [node name="sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.865108, -0.426414, 0.26412, 0, 0.52657, 0.850132, -0.501586, -0.735456, 0.45554, 0, 19.2442, 0 )

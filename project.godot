@@ -73,6 +73,10 @@ config/description="Ludum Dare #50 submission."
 run/main_scene="res://scenes/road.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+LevelProgress="*res://autoload/level-progress.gd"
+
 [input]
 
 move_left={
