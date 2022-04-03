@@ -74,10 +74,12 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Heist"
+config/name="The Heist"
 config/description="Ludum Dare #50 submission."
 run/main_scene="res://scenes/main-menu.tscn"
-config/icon="res://icon.png"
+boot_splash/image="res://sprites/cover.png"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://sprites/icon.png"
 
 [autoload]
 
@@ -129,4 +131,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+environment/default_clear_color=Color( 0.235294, 0.254902, 0.341176, 1 )
+quality/filters/msaa=2
 environment/default_environment="res://default_env.tres"
