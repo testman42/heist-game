@@ -1,4 +1,4 @@
-extends Spatial
+extends RigidBody
 class_name DynamicObject
 
 # This make sure that dynamic objects that can be knocked away

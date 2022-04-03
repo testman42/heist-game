@@ -17,6 +17,11 @@ func _process(delta):
 
 func SpeedAdjust(delta):
 
+    if spinning:
+        for raycast in [$front/raycast1, $front/raycast2]:
+            raycast.enabled = false
+        return
+
     # handle special condition - when the player hits the car and it gets into reverse
     if speed < 0:
         # try to slow down
@@ -53,6 +58,10 @@ func SpeedAdjust(delta):
 
 
 func HandleLane(delta):
+
+    if spinning:
+        return
+
     # ignore for cars going in the opposite direction
     if heading < 0:
         return

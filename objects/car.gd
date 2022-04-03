@@ -7,10 +7,12 @@ class_name Car
 export var spawnProbability = 1.0
 export var maxSpeedFrom = 8
 export var maxSpeedTo = 14
+export var health = 100
 
 var heading = 1
 var speed = 0
 var steeringSpeed = 0
+var spinning = false
 
 # maximums
 onready var maxSpeed = rand_range(maxSpeedFrom, maxSpeedTo)
@@ -22,6 +24,9 @@ var previousSteeringSpeed = 0
 
 func _process(delta):
 
+    if health <= 0:
+        destroyCar()
+
     # update previous
     previousSpeed = speed
     previousSteeringSpeed = steeringSpeed
@@ -31,6 +36,9 @@ func _process(delta):
     # speed = clamp(speed, -maxSpeed, maxSpeed)
     if speed > maxSpeed:
         speed -= .72 * delta
+
+    if spinning:
+        speed = move_toward(speed, 0, delta * 8)
 
     # update steering
     steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
@@ -51,16 +59,31 @@ func _physics_process(delta):
     # move the vehicle body
     translate(delta * Vector3(steeringSpeed * speed / 20, 0, -speed))
 
-    # rotate the modal according to the steering
-    if $model != null:
-        $model.rotation.y = -steeringSpeed / 30
+    if $model:
+
+        if spinning:
+            var amount = delta * .8 * speed
+            if not is_equal_approx(steeringSpeed, 0):
+                amount *= -sign(steeringSpeed)
+
+            $model.rotation.y += amount
+        else:
+            # rotate the modal according to the steering
+            $model.rotation.y = -steeringSpeed / 30
 
 
 
 
 func _on_car_body_entered(body):
     # Called when this car collides with another one.
-    # *Note to self*: both cars will call this on collision, so only handle this car here.
+    handleCollision(body)
+    decreaseHealth(body)
+
+func handleCollision(body):
+    # *Note to self*: both cars will call this on collision, so only handle this car here!
+    # *Another note*: I had to add previousSpeed to make this work, because without it the cars would always
+    # just swap speeds (given that both would process this code and the second one would work with the speeds
+    # set by the first one)!
 
     if 'heading' in body and 'previousSpeed' in body:
         var otherSpeed = body.previousSpeed * body.heading
@@ -79,8 +102,8 @@ func _on_car_body_entered(body):
 
     else:
         # hit something solid
-        # speed = 0
-        pass
+        if speed > 6:
+            speed -= 2.5
 
 
     if 'previousSteeringSpeed' in body:
@@ -96,3 +119,47 @@ func _on_car_body_entered(body):
     else:
         # hit something solid
         steeringSpeed *= -.9
+
+func decreaseHealth(body):
+
+    if 'heading' in body and 'previousSpeed' in body:
+        var otherSpeed = body.previousSpeed * body.heading
+        var ourSpeed = previousSpeed * heading
+        var diff = abs(otherSpeed - ourSpeed)
+
+        health -= diff * 1.2
+
+        if diff > 14:
+            spinning = true
+
+    else:
+        # hit something solid
+        health -= abs(speed) / 6
+
+
+    if 'previousSteeringSpeed' in body:
+        var diff = abs(body.previousSteeringSpeed - previousSteeringSpeed)
+        health -= diff * 2
+
+        if diff > 10:
+            spinning = true
+
+    else:
+        # hit something solid
+        health -= abs(steeringSpeed) / 20
+
+func destroyCar():
+    call_deferred('set_script', null)
+
+    # swap the kinetic body mode for rigid body
+    mode = MODE_RIGID
+
+    # add the ground collision mask
+    collision_mask |= 1 << 11
+
+    # add force according to the current movement, and a random rotation
+    apply_impulse(Vector3.ZERO, Vector3(steeringSpeed, 0, speed * -heading))
+
+    var amount = 10
+    apply_torque_impulse(Vector3(rand_range(-amount, amount), rand_range(-amount, amount), rand_range(-amount, amount)))
+

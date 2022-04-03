@@ -1,13 +1,15 @@
 extends CSGBox
 
-onready var car := get_node('../../../..') as Car
 var previousSpeed = 0
 
 func _ready():
     material = material.duplicate()
 
 func _process(_delta):
-    if not car or not $bulb:
+    var car := get_node('../../../..') as Car
+    if not car:
+        $bulb.visible = false
+        material.emission_energy = 1.5
         return
 
     var speed = abs(car.speed)
