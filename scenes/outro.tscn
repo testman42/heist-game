@@ -8,7 +8,7 @@
 script/source = "extends Label
 
 func _init():
-    text = \"You made it out with \" + str(round(LevelProgress.money)) + \" in cash! But, they will inevitably catch you, eventually...\"
+    text = \"You made it out with \" + str(round(LevelProgress.money)) + \" in cash! But, they will catch you eventually. You're just delaying the inevitable...\"
 "
 
 [sub_resource type="GDScript" id=2]
