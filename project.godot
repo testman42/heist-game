@@ -70,12 +70,13 @@ _global_script_class_icons={
 
 config/name="Heist"
 config/description="Ludum Dare #50 submission."
-run/main_scene="res://scenes/road.tscn"
+run/main_scene="res://scenes/main-menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 LevelProgress="*res://autoload/level-progress.gd"
+GameController="*res://autoload/game-controller.gd"
 
 [input]
 

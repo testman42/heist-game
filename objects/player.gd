@@ -2,6 +2,7 @@ extends RigidBody
 class_name Player
 
 signal player_moved
+signal player_collision
 
 var heading = 1
 var speed = 6
@@ -42,6 +43,7 @@ func _process(delta):
     var posX = get_global_transform().origin.x
     if abs(posX) > 15:
         steeringSpeed *= -sign(posX) * sign(steeringSpeed) * .95
+        emit_signal('player_collision', abs(steeringSpeed) / 10)
 
         if speed > 8:
             speed -= 2
@@ -65,6 +67,8 @@ func _physics_process(delta):
 func _on_player_body_entered(body):
     # called when the player collides with another one
 
+    var amount = 0
+
     if 'heading' in body and 'previousSpeed' in body:
         var otherSpeed = body.previousSpeed * body.heading
         var ourSpeed = previousSpeed * heading
@@ -72,6 +76,7 @@ func _on_player_body_entered(body):
 
         # update speed, lower effect on the player
         speed += heading * diff * .4
+        amount += abs(diff)
 
 
     if 'previousSteeringSpeed' in body:
@@ -79,4 +84,8 @@ func _on_player_body_entered(body):
 
         # update steering, lower effect on the player
         steeringSpeed += diff * .7
+        amount += abs(diff)
+
+    # amount is roughly 10-30
+    emit_signal('player_collision', amount)
 

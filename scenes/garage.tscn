@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/theme.tres" type="Theme" id=6]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Button
+
+export var scene = ''
+func _on_start_pressed():
+    assert(scene != '', 'Missing switch to scene')
+    GameController.switchToScene(scene)
+"
+
+[node name="main-menu" type="Node"]
+
+[node name="ui" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buttons" type="VBoxContainer" parent="ui"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = 40.0
+margin_right = -40.0
+margin_bottom = -40.0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="start" type="Button" parent="ui/buttons"]
+margin_top = 424.0
+margin_right = 110.0
+margin_bottom = 470.0
+text = "Start"
+flat = true
+script = SubResource( 2 )
+scene = "road"
+
+[node name="exit" type="Button" parent="ui/buttons"]
+margin_top = 474.0
+margin_right = 110.0
+margin_bottom = 520.0
+text = "Exit"
+flat = true
+script = SubResource( 2 )
+scene = "main-menu"
+
+[connection signal="pressed" from="ui/buttons/start" to="ui/buttons/start" method="_on_start_pressed"]
+[connection signal="pressed" from="ui/buttons/exit" to="ui/buttons/exit" method="_on_start_pressed"]
