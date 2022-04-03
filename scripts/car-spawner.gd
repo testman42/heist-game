@@ -76,7 +76,7 @@ func spawnNewCars():
         car.rotate_y(PI)
         car.heading = -1
 
-    if 'speed' in player and player.speed > 4:
+    if ('speed' in player and player.speed > 4) or car.heading < 0:
         car.transform.origin.z = player.transform.origin.z - 60 - rand_range(0, 60)
     else:
         car.transform.origin.z = player.transform.origin.z + 60
