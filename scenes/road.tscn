@@ -26,6 +26,8 @@ script = ExtResource( 6 )
 [node name="camera" type="Camera" parent="camera-base"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.2074, 4.19851 )
 
+[node name="tween" type="Tween" parent="camera-base"]
+
 [node name="player" parent="." instance=ExtResource( 1 )]
 
 [node name="blocks" type="Node" parent="."]
