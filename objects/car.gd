@@ -79,7 +79,8 @@ func _on_car_body_entered(body):
 
     else:
         # hit something solid
-        speed = 0
+        # speed = 0
+        pass
 
 
     if 'previousSteeringSpeed' in body:
