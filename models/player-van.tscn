@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://materials/player-van.tres" type="Material" id=1]
 [ext_resource path="res://materials/window.tres" type="Material" id=2]
 [ext_resource path="res://materials/tires.tres" type="Material" id=3]
 [ext_resource path="res://materials/yellow-light.tres" type="Material" id=4]
 [ext_resource path="res://materials/red-light.tres" type="Material" id=5]
+[ext_resource path="res://objects/night-light.tscn" type="PackedScene" id=6]
 [ext_resource path="res://models/player-break-light.gd" type="Script" id=7]
 
 [node name="model" type="Spatial"]
@@ -77,6 +78,9 @@ height = 0.184
 depth = 0.0754329
 material = ExtResource( 4 )
 
+[node name="night-light" parent="height-adjust/lights/fr" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 0.984622, 0.174697, 0, -0.174697, 0.984622, 0, 0, -0.0263965 )
+
 [node name="fl" type="CSGBox" parent="height-adjust/lights"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.385, 0.362, -1.234 )
 cast_shadow = 0
@@ -84,6 +88,9 @@ width = 0.32
 height = 0.184
 depth = 0.0754329
 material = ExtResource( 4 )
+
+[node name="night-light2" parent="height-adjust/lights/fl" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 0.984622, 0.174697, 0, -0.174697, 0.984622, 0, 0, -0.026 )
 
 [node name="rl" type="CSGBox" parent="height-adjust/lights"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.385, 0.362, 1.234 )

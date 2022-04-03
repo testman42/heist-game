@@ -1,15 +1,30 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://models/player-van.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/road/cone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://blocks/basic.tscn" type="PackedScene" id=3]
-[ext_resource path="res://default_env.tres" type="Environment" id=4]
 [ext_resource path="res://objects/police-car.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://ui/big-font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://objects/car.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/road/lamp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://objects/road/barrel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://default_night_env.tres" type="Environment" id=11]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends DirectionalLight
+
+
+export(Environment) var nightEnv
+
+func _on_nightmode_toggled(button_pressed):
+    visible = !button_pressed
+
+    if button_pressed:
+        get_node('../camera').environment = nightEnv
+    else:
+        get_node('../camera').environment = null
+"
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Button
@@ -18,6 +33,13 @@ export var scene = ''
 func _on_start_pressed():
     assert(scene != '', 'Missing switch to scene')
     GameController.switchToScene(scene)
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends CheckBox
+
+func _ready():
+    connect('toggled', GameController, '_onNightModeToggled')
 "
 
 [sub_resource type="GDScript" id=1]
@@ -35,13 +57,14 @@ func _on_exit_pressed():
 
 [node name="camera" type="Camera" parent="backdrop"]
 transform = Transform( -0.954019, 0.0345592, 0.297747, 0, 0.993331, -0.115295, -0.299746, -0.109994, -0.947657, 1.7726, 0.568903, -3.64682 )
-environment = ExtResource( 4 )
 
 [node name="sun" type="DirectionalLight" parent="backdrop"]
 transform = Transform( 0.865108, -0.426414, 0.26412, 0, 0.52657, 0.850132, -0.501586, -0.735456, 0.45554, 0, 19.2442, 0 )
 light_color = Color( 1, 0.992157, 0.952941, 1 )
 light_energy = 3.349
 shadow_enabled = true
+script = SubResource( 4 )
+nightEnv = ExtResource( 11 )
 
 [node name="road" parent="backdrop" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.10179, 0, 20.207 )
@@ -122,13 +145,22 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="ui/buttons"]
-margin_top = 184.0
+margin_top = 132.0
 margin_right = 944.0
-margin_bottom = 230.0
+margin_bottom = 178.0
 text = "Start"
 flat = true
 script = SubResource( 2 )
 scene = "road"
+
+[node name="night-mode" type="CheckBox" parent="ui/buttons"]
+margin_top = 182.0
+margin_right = 944.0
+margin_bottom = 230.0
+text = "Night mode"
+flat = true
+align = 1
+script = SubResource( 3 )
 
 [node name="exit" type="Button" parent="ui/buttons"]
 margin_top = 234.0
@@ -139,4 +171,5 @@ flat = true
 script = SubResource( 1 )
 
 [connection signal="pressed" from="ui/buttons/start" to="ui/buttons/start" method="_on_start_pressed"]
+[connection signal="toggled" from="ui/buttons/night-mode" to="backdrop/sun" method="_on_nightmode_toggled"]
 [connection signal="pressed" from="ui/buttons/exit" to="ui/buttons/exit" method="_on_exit_pressed"]

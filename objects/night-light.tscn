@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://objects/night-light.gd" type="Script" id=1]
+
+[node name="night-light" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="bulb" type="SpotLight" parent="."]
+light_color = Color( 0.996078, 0.988235, 0.901961, 1 )
+light_energy = 16.0
+shadow_enabled = true
+shadow_bias = 0.602
+spot_range = 20.0
+spot_angle = 36.0

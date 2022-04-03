@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/dynamic-object.gd" type="Script" id=1]
 [ext_resource path="res://materials/yellow-light.tres" type="Material" id=2]
 [ext_resource path="res://materials/lamp.tres" type="Material" id=3]
+[ext_resource path="res://objects/night-light.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SphereShape" id=3]
 radius = 0.473284
@@ -66,6 +67,9 @@ height = 0.25
 depth = 0.25
 material = ExtResource( 2 )
 
+[node name="night-light" parent="base/post2/left/lamp" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0613723, 0, 0 )
+
 [node name="right" type="CSGBox" parent="base/post2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.68, 0 )
 width = 0.3
@@ -79,3 +83,6 @@ width = 0.1
 height = 0.25
 depth = 0.25
 material = ExtResource( 2 )
+
+[node name="night-light" parent="base/post2/right/lamp" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0613723, 0, 0 )

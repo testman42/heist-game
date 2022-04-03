@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://blocks/start.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://ui/money.gd" type="Script" id=17]
 [ext_resource path="res://objects/police-car.tscn" type="PackedScene" id=18]
 [ext_resource path="res://objects/bus.tscn" type="PackedScene" id=19]
+[ext_resource path="res://default_night_env.tres" type="Environment" id=20]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.34902, 0.729412, 0.211765, 1 )
@@ -27,6 +28,18 @@ bg_color = Color( 0.34902, 0.729412, 0.211765, 1 )
 bg_color = Color( 0.560784, 0.560784, 0.560784, 1 )
 
 [sub_resource type="CanvasItemMaterial" id=3]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends DirectionalLight
+
+export(Environment) var nightEnv
+
+# I know, this is super dirty... But not much time left!
+func _ready():
+    if GameController.nightMode:
+        get_node('../camera-base/camera').environment = nightEnv
+        visible = false
+"
 
 [node name="road" type="Node"]
 
@@ -136,6 +149,8 @@ transform = Transform( 0.865108, -0.426414, 0.26412, 0, 0.52657, 0.850132, -0.50
 light_color = Color( 1, 0.992157, 0.952941, 1 )
 light_energy = 3.349
 shadow_enabled = true
+script = SubResource( 4 )
+nightEnv = ExtResource( 20 )
 
 [node name="camera-base" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.1981, 0 )
