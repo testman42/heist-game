@@ -61,5 +61,19 @@ func _physics_process(delta):
 
 func _on_player_body_entered(body):
     # called when the player collides with another one
-    print('PLAYER COLLISION')
+
+    if 'heading' in body and 'previousSpeed' in body:
+        var otherSpeed = body.previousSpeed * body.heading
+        var ourSpeed = previousSpeed * heading
+        var diff = otherSpeed - ourSpeed
+
+        # update speed, lower effect on the player
+        speed += heading * diff * .3
+
+
+    if 'previousSteeringSpeed' in body:
+        var diff = body.previousSteeringSpeed - previousSteeringSpeed
+
+        # update steering, lower effect on the player
+        steeringSpeed += diff * .6
 

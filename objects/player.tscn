@@ -9,7 +9,7 @@ extents = Vector3( 0.816, 1, 1.276 )
 [node name="player" type="RigidBody" groups=["player"]]
 collision_layer = 3
 mode = 3
-contacts_reported = 3
+contacts_reported = 6
 contact_monitor = true
 script = ExtResource( 1 )
 

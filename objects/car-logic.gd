@@ -5,7 +5,17 @@ class_name CarLogic
 # Basically an AI for cars to make them much better than just moving
 # by a constant speed all the time.
 
+onready var currentLane = transform.origin.x
+onready var previousLane = transform.origin.x
+
+const lanes = [1.5, 5, 8.5]
+
 func _process(delta):
+    SpeedAdjust(delta)
+    HandleLane(delta)
+
+
+func SpeedAdjust(delta):
 
     # handle special condition - when the player hits the car and it gets into reverse
     if speed < 0:
@@ -42,3 +52,29 @@ func _process(delta):
         speed += delta * 8
 
 
+func HandleLane(delta):
+    # ignore for cars going in the opposite direction
+    if heading < 0:
+        return
+
+    # TODO: these are just some hard-coded values which should be in the editor but there's no time...
+    if not is_equal_approx(currentLane, previousLane):
+        if abs(transform.origin.x - currentLane) < .1:
+            # done
+            previousLane = currentLane
+
+    # randomly choose to change the lane
+    elif randf() < .003:
+        currentLane = lanes[randi() % lanes.size()] * heading
+
+
+    var total = currentLane - transform.origin.x
+    var absTotal = abs(total)
+
+    # try steering towards the lane
+    if absTotal > 2:
+        if abs(steeringSpeed) < absTotal:
+            steeringSpeed += 21 * delta * sign(total)
+
+    elif absTotal > .2:
+        steeringSpeed += 11 * delta * sign(total)
