@@ -16,6 +16,19 @@ func setup():
     player.connect('player_moved', self, '_onPlayerMoved')
     player.connect('player_collision', self, '_onPlayerCollided')
 
+    # TODO
+    money = rand_range(4000, 10000)
+    distance = 0
+    targetDistance = rand_range(200, 800)
+
+
+func _process(_delta):
+    if distance >= targetDistance:
+        # level complete
+        # TODO
+        GameController.levelComplete()
+
+
 func _onSceneChange():
     setup()
 
@@ -23,6 +36,7 @@ func _onPlayerMoved(delta):
     distance += delta
 
 func _onPlayerCollided(amount):
-    money -= amount * 8
+    # TODO: this should decrease with armor and increase with difficulty
+    money -= amount * 2
 
 

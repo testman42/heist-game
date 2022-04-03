@@ -111,11 +111,23 @@ texture = ExtResource( 16 )
 expand = true
 
 [node name="text" type="Label" parent="ui/bottom/money"]
-anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 30.0
+margin_right = 300.0
 text = "0"
 valign = 1
+
+[node name="diff" type="Label" parent="ui/bottom/money"]
+anchor_top = -1.0
+margin_left = 30.0
+margin_right = 300.0
+text = "0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="ui/bottom/money"]
 
 [node name="sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.865108, -0.426414, 0.26412, 0, 0.52657, 0.850132, -0.501586, -0.735456, 0.45554, 0, 19.2442, 0 )

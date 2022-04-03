@@ -7,7 +7,7 @@ class_name Car
 export var spawnProbability = 1.0
 export var maxSpeedFrom = 8
 export var maxSpeedTo = 14
-export var health = 100
+export var health = 200
 
 var heading = 1
 var speed = 0

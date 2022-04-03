@@ -105,22 +105,24 @@ margin_left = 40.0
 margin_top = 40.0
 margin_right = -40.0
 margin_bottom = -40.0
+alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="start" type="Button" parent="ui/buttons"]
+margin_top = 184.0
 margin_right = 944.0
-margin_bottom = 46.0
+margin_bottom = 230.0
 text = "Start"
 flat = true
 script = SubResource( 2 )
 scene = "garage"
 
 [node name="exit" type="Button" parent="ui/buttons"]
-margin_top = 50.0
+margin_top = 234.0
 margin_right = 944.0
-margin_bottom = 96.0
+margin_bottom = 280.0
 text = "Exit"
 flat = true
 script = SubResource( 1 )

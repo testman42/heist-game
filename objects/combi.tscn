@@ -3,7 +3,7 @@
 [ext_resource path="res://objects/car.tscn" type="PackedScene" id=1]
 
 [node name="car" instance=ExtResource( 1 )]
-health = 140
+health = 280
 
 [node name="fr" parent="model/wheels" index="0"]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.6, 0, -0.682177 )

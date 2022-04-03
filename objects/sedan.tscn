@@ -3,6 +3,7 @@
 [ext_resource path="res://objects/car.tscn" type="PackedScene" id=1]
 
 [node name="car" instance=ExtResource( 1 )]
+health = 220
 
 [node name="roof" parent="model/height-adjust" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.888, 0, 0.794735, 0.065737 )
