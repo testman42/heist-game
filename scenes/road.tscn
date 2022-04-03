@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://blocks/start.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://scripts/camera.gd" type="Script" id=6]
 [ext_resource path="res://scripts/car-spawner.gd" type="Script" id=7]
 [ext_resource path="res://objects/car.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/sedan.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/combi.tscn" type="PackedScene" id=10]
 
 [node name="road" type="Node"]
 
@@ -35,7 +37,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -54.1038 )
 
 [node name="cars" type="Node" parent="."]
 script = ExtResource( 7 )
-possibleCars = [ ExtResource( 8 ) ]
+possibleCars = [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
 frontSpawnLocations = [ NodePath("../car-spawn-locations/front"), NodePath("../car-spawn-locations/front2"), NodePath("../car-spawn-locations/front3") ]
 backSpawnLocations = [ NodePath("../car-spawn-locations/back"), NodePath("../car-spawn-locations/back2"), NodePath("../car-spawn-locations/back3") ]
 

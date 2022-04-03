@@ -5,13 +5,15 @@ class_name Car
 # Contains the probability that this particular model will spawn.
 
 export var spawnProbability = 1.0
+export var maxSpeedFrom = 8
+export var maxSpeedTo = 14
 
 var heading = 1
 var speed = 0
 var steeringSpeed = 0
 
 # maximums
-var maxSpeed = rand_range(8, 14)
+onready var maxSpeed = rand_range(maxSpeedFrom, maxSpeedTo)
 var maxTurning = 14
 
 # previous speeds used for collisions
