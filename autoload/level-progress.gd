@@ -7,6 +7,7 @@ export var distance = 0
 export var targetDistance = 100
 
 var player: Player
+export var playerDead = false
 
 func _ready():
     setup()
@@ -23,6 +24,11 @@ func setup():
     distance = 0
     targetDistance = money * rand_range(.4, .9)
 
+    # TODO: this is for testing and should never end in the final build!
+    #if OS.is_debug_build():
+        #money = 20
+        #targetDistance = 10000
+
 
 func _process(_delta):
     if distance >= targetDistance:
@@ -33,6 +39,7 @@ func _process(_delta):
     if player and is_instance_valid(player) and money <= 0:
         if player.has_method('destroyPlayer'):
             player.destroyPlayer()
+            playerDead = true
 
 
 func _onSceneChange():

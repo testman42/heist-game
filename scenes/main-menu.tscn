@@ -170,7 +170,7 @@ __meta__ = {
 margin_top = 81.0
 margin_right = 944.0
 margin_bottom = 127.0
-text = "Start"
+text = "<Start>"
 flat = true
 script = SubResource( 2 )
 scene = "road"
@@ -231,7 +231,7 @@ rect_min_size = Vector2( 0, 20 )
 margin_top = 234.0
 margin_right = 944.0
 margin_bottom = 280.0
-text = "Exit"
+text = "<Exit>"
 flat = true
 script = SubResource( 1 )
 

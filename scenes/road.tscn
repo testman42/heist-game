@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://blocks/start.tscn" type="PackedScene" id=2]
@@ -29,6 +29,35 @@ bg_color = Color( 0.34902, 0.729412, 0.211765, 1 )
 bg_color = Color( 0.560784, 0.560784, 0.560784, 1 )
 
 [sub_resource type="CanvasItemMaterial" id=3]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Control
+
+var tweening = false
+
+func _ready():
+    visible = false
+
+func _process(_delta):
+    if LevelProgress.playerDead and not tweening:
+        tweening = true
+        yield(get_tree().create_timer(3), 'timeout')
+
+        $tween.interpolate_property(self, 'margin_top', -100, 0, .6, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+        $tween.start()
+
+        margin_top = -100
+        visible = true
+"
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Button
+
+export var scene = ''
+func _on_start_pressed():
+    assert(scene != '', 'Missing switch to scene')
+    GameController.switchToScene(scene)
+"
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends DirectionalLight
@@ -145,6 +174,39 @@ __meta__ = {
 
 [node name="tween" type="Tween" parent="ui/bottom/money"]
 
+[node name="restart" type="Control" parent="ui"]
+anchor_right = 1.0
+script = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="ui/restart"]
+
+[node name="container" type="HBoxContainer" parent="ui/restart"]
+anchor_right = 1.0
+margin_bottom = 100.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="Label" parent="ui/restart/container"]
+margin_left = 297.0
+margin_top = 30.0
+margin_right = 610.0
+margin_bottom = 70.0
+text = "They caught you!"
+
+[node name="exit" type="Button" parent="ui/restart/container"]
+margin_left = 614.0
+margin_right = 727.0
+margin_bottom = 100.0
+text = "<Exit>"
+flat = true
+script = SubResource( 5 )
+scene = "main-menu"
+
 [node name="sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.865108, -0.426414, 0.26412, 0, 0.52657, 0.850132, -0.501586, -0.735456, 0.45554, 0, 19.2442, 0 )
 light_color = Color( 1, 0.992157, 0.952941, 1 )
@@ -207,3 +269,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33254, 0, 0 )
 
 [node name="police-car2" parent="initial-police" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18672, 0, -1.82642 )
+
+[connection signal="pressed" from="ui/restart/container/exit" to="ui/restart/container/exit" method="_on_start_pressed"]
