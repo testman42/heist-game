@@ -29,14 +29,27 @@ func _ready():
         possibleCarInstances.append(instance)
         totalProbability += instance.spawnProbability
 
+    # preseed the cars going forward
+
+    for _i in range(10):
+        var car = chooseCar()
+        car.speed = rand_range(4, 12)
+        car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
+        car.transform.origin.z = player.transform.origin.z - 50 - rand_range(0, 100)
+        add_child(car)
+
 
 func _process(_delta):
     spawnNewCars()
 
 func spawnNewCars():
+    # TODO: this chance should increase in harder levels
+    if get_tree().get_nodes_in_group('car').size() > 30:
+        return
 
-    # TODO: this change should increase in harder levels
-    var probability = lerp(0, .03, player.speed / player.maxSpeed)
+
+    # TODO: this chance should increase in harder levels
+    var probability = lerp(0, .04, player.speed / player.maxSpeed)
 
     if randf() > probability:
         return
@@ -45,7 +58,7 @@ func spawnNewCars():
     var car = chooseCar()
     car.speed = rand_range(4, 12)
 
-    if randf() > .4:
+    if randf() > .6:
         # higher chance to spawn forward facing car
         car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
 
@@ -57,7 +70,7 @@ func spawnNewCars():
         car.rotate_y(PI)
         car.heading = -1
 
-    car.transform.origin.z = player.transform.origin.z - 100
+    car.transform.origin.z = player.transform.origin.z - 60 - rand_range(0, 60)
 
     add_child(car)
 

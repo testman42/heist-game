@@ -64,7 +64,7 @@ func HandleLane(delta):
             previousLane = currentLane
 
     # randomly choose to change the lane
-    elif randf() < .003:
+    elif randf() < .0012:
         currentLane = lanes[randi() % lanes.size()] * heading
 
 
