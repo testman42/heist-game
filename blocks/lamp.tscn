@@ -5,7 +5,7 @@
 [ext_resource path="res://objects/road/barrel.tscn" type="PackedScene" id=5]
 
 [node name="lamp" instance=ExtResource( 1 )]
-spawnProbability = 100.0
+spawnProbability = 0.2
 
 [node name="lamp" parent="." index="3" instance=ExtResource( 2 )]
 
