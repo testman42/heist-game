@@ -17,6 +17,8 @@ export var maxSpeedFrom = 8
 export var maxSpeedTo = 14
 export var health = 200
 
+export(SpatialMaterial) var wreckMaterial
+
 # Current state of the car, used by its sub-components and the AI.
 
 var heading = 1
@@ -224,11 +226,8 @@ func destroyCar():
 
     var parts = get_node('model/height-adjust').get_children()
     for part in parts:
-        if not 'material' in part:
-            continue
-
-        part.material = part.material.duplicate()
-        part.material.albedo_color = Color(.1, .1, .1)
+        if 'material' in part:
+            part.material = wreckMaterial
 
 
 

@@ -1,6 +1,8 @@
 extends RigidBody
 class_name Player
 
+export(SpatialMaterial) var wreckMaterial
+
 signal player_moved
 signal player_collision
 
@@ -120,11 +122,8 @@ func destroyPlayer():
 
     var parts = get_node('model/height-adjust').get_children()
     for part in parts:
-        if not 'material' in part:
-            continue
-
-        part.material = part.material.duplicate()
-        part.material.albedo_color = Color(.1, .1, .1)
+        if 'material' in part:
+            part.material = wreckMaterial
 
 
 
