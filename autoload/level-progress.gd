@@ -36,6 +36,9 @@ func _process(_delta):
         # TODO
         GameController.levelComplete()
 
+        # Reset distance so this does not get triggered endlessly!!!
+        distance = 0
+
     if player and is_instance_valid(player) and money <= 0:
         if player.has_method('destroyPlayer'):
             player.destroyPlayer()
