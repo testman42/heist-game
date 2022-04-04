@@ -174,7 +174,7 @@ func decreaseHealth(body):
         if diff > 14:
             spinning = true
             spinningSpeed = rand_range(-diff / 20, diff / 20)
-            emit_signal('spinned')
+            emit_signal('spinned', self)
 
     else:
         # hit something solid
@@ -195,7 +195,7 @@ func decreaseHealth(body):
 
 func destroyCar():
     call_deferred('set_script', null)
-    emit_signal('destroyed')
+    emit_signal('destroyed', self)
 
     # disable collision reporting
     disconnect('body_entered', self, '_on_car_body_entered')

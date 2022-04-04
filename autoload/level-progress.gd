@@ -53,12 +53,14 @@ func _onPlayerMoved(delta):
 
 func _onPlayerCollided(amount):
     # TODO: this should decrease with armor and increase with difficulty
-    money -= amount * 12.2
+    money -= amount * 9.2
 
-func _onCarSpinned():
-    money += rand_range(5, 20)
+func _onCarSpinned(car):
+    if car.is_in_group('police'):
+        money += rand_range(20, 60)
 
-func _onCarDestroyed():
-    money += rand_range(20, 80)
+func _onCarDestroyed(car):
+    if car.is_in_group('police'):
+        money += rand_range(50, 120)
 
 
