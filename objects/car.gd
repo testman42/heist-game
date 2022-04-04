@@ -7,22 +7,34 @@ class_name Car
 signal spinned
 signal destroyed
 
+signal startBreaking
+signal stopBreaking
+
+# Properties of this car model.
+
 export var spawnProbability = 1.0
 export var maxSpeedFrom = 8
 export var maxSpeedTo = 14
 export var health = 200
 
+# Current state of the car, used by its sub-components and the AI.
+
 var heading = 1
 var speed = 0
 var steeringSpeed = 0
+
 var spinning = false
 var spinningSpeed = 0
 
-# maximums
+var breaking = false
+
+# Maximums limits for this car model.
+
 onready var maxSpeed = rand_range(maxSpeedFrom, maxSpeedTo)
 var maxTurning = 14
 
-# previous speeds used for collisions
+# Previous speeds used primarily for collision handling.
+
 var previousSpeed = 0
 var previousSteeringSpeed = 0
 
@@ -43,23 +55,28 @@ func _process(delta):
 
     # update speed
     # speed = clamp(speed, -maxSpeed, maxSpeed)
-    if speed > maxSpeed:
-        speed -= .72 * delta
+    if abs(speed) > maxSpeed:
+        speed = move_toward(speed, 0, delta * 1.6)
 
     if spinning:
         speed = move_toward(speed, 0, delta * 8)
 
     # update steering
-    steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
-    steeringSpeed = move_toward(steeringSpeed, 0, delta * 8)
+    # steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
+
+    if abs(steeringSpeed) > maxTurning:
+        steeringSpeed = move_toward(steeringSpeed, 0, delta * 22)
+    else:
+        steeringSpeed = move_toward(steeringSpeed, 0, delta * 8)
 
     # bounce from the rails
     var posX = transform.origin.x
     if abs(posX) > 15:
+        transform.origin.x = 15 * sign(posX)
         steeringSpeed *= -sign(posX) * sign(steeringSpeed) * .9
 
-        if abs(speed) > 8:
-            speed -= 2 * sign(speed)
+        if abs(speed) > 2:
+            speed = move_toward(speed, 0, delta * 4)
 
         var transform = Transform(global_transform)
         transform.origin.x += -sign(steeringSpeed) * 1.2
@@ -86,6 +103,7 @@ func _on_car_body_entered(body):
     # Called when this car collides with another one.
     handleCollision(body)
     decreaseHealth(body)
+
 
 func handleCollision(body):
     # *Note to self*: both cars will call this on collision, so only handle this car here!
