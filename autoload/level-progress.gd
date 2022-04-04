@@ -16,6 +16,8 @@ func setup():
     if get_tree().get_nodes_in_group('player').size() <= 0:
         return
 
+    playerDead = false
+
     player = get_tree().get_nodes_in_group('player')[0]
     player.connect('player_moved', self, '_onPlayerMoved')
     player.connect('player_collision', self, '_onPlayerCollided')
