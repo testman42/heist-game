@@ -5,6 +5,9 @@
 
 [node name="bus" instance=ExtResource( 1 )]
 spawnProbability = 0.1
+maxSpeedFrom = 7
+maxSpeedTo = 11
+health = 350
 
 [node name="fr" parent="model/wheels" index="0"]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.652092, 0, -1.30656 )
