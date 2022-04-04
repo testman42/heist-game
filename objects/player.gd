@@ -36,6 +36,10 @@ func _process(delta):
     speed += speedInput * delta * 9
     speed = clamp(speed, 0, maxSpeed)
 
+    # slow down a little when not accelerating
+    if is_equal_approx(speedInput, 0):
+        speed = move_toward(speed, 0, 1.2 * delta)
+
     # update steering
     steeringSpeed += steerInput * delta * 28
     steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
