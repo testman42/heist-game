@@ -26,7 +26,7 @@ var steeringSpeed = 0
 var spinning = false
 var spinningSpeed = 0
 
-var breaking = false
+var isBreaking = false
 
 # Maximums limits for this car model.
 
@@ -249,3 +249,17 @@ func CheckOverlappingCars(delta):
         if 'steeringSpeed' in body:
             var diff = body.transform.origin.x - transform.origin.x
             translate(Vector3(-sign(diff) * delta * nudgeForce, 0, 0))
+
+
+
+func setBreaking(value: bool):
+    # handles the breaking signals and the breaking state
+    if isBreaking == value:
+        return
+
+    isBreaking = value
+
+    if isBreaking:
+        emit_signal('startBreaking')
+    else:
+        emit_signal('stopBreaking')

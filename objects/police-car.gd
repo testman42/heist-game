@@ -24,6 +24,7 @@ func _process(delta):
 
     # disable the AI when spinning
     if spinning:
+        setBreaking(false)
         return
 
 
@@ -43,9 +44,11 @@ func ChasePlayer(delta):
     # handle speed to get near the player
     if diff.z > 0:
         if speed < maxSpeed:
+            setBreaking(false)
             speed += delta * lerp(acceleration / 3, acceleration, clamp(diff.z / 4, 0, 1))
 
     elif speed > maxSpeed / 2:
+        setBreaking(true)
         speed -= breaking * delta
 
 
@@ -85,12 +88,12 @@ func StopNearPlayer(delta):
 
     # handle speed to get near the player
     if diff.z > .5 and speed < 6:
+        setBreaking(false)
         speed += delta * acceleration * .4
 
-    elif speed > breaking * delta:
-        speed -= breaking * delta
-    elif speed > 0:
-        speed = 0
+    else:
+        setBreaking(true)
+        speed = move_toward(speed, 0, breaking * delta)
 
 
     # try to avoid cars in front

@@ -2,7 +2,10 @@ extends CSGBox
 
 func _ready():
     if not GameController.lights:
-        queue_free()
+        call_deferred('set_script', null)
+
+        if $bulb:
+            $bulb.queue_free()
     else:
         material = material.duplicate()
 

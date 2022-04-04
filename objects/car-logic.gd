@@ -18,6 +18,7 @@ func _process(delta):
 func SpeedAdjust(delta):
 
     if spinning:
+        setBreaking(false)
         for raycast in [$front/raycast1, $front/raycast2]:
             raycast.enabled = false
         return
@@ -26,6 +27,7 @@ func SpeedAdjust(delta):
     if speed < 0:
         # try to slow down
         speed += 6 * delta
+        setBreaking(true)
         return
 
     # check the attached raycasts whether there's anything in front of us
@@ -45,14 +47,14 @@ func SpeedAdjust(delta):
                 distance += other.speed - speed
 
             # slow down
-            speed -= delta * lerp(8, 0, distance / 8)
-            # prevent the car from reversing
-            speed = max(0, speed)
+            speed = move_toward(speed, 0, delta * lerp(8, 0, distance / 8))
+            setBreaking(true)
 
             return
 
 
     # nothing in front, speed up
+    setBreaking(false)
     if speed < maxSpeed:
         speed += delta * 8
 
@@ -87,3 +89,4 @@ func HandleLane(delta):
 
     elif absTotal > .2:
         steeringSpeed += 11 * delta * sign(total)
+
