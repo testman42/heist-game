@@ -55,7 +55,7 @@ func _process(delta):
     # bounce from the rails
     if abs(posX) > 15:
         steeringSpeed *= -sign(posX) * sign(steeringSpeed) * .95
-        emit_signal('player_collision', abs(steeringSpeed) / 10)
+        emit_signal('player_collision', abs(steeringSpeed) / 26)
 
         if speed > 8:
             speed -= 2
@@ -98,7 +98,7 @@ func _on_player_body_entered(body):
 
         # update steering, lower effect on the player
         steeringSpeed += diff * .7
-        amount += abs(diff)
+        amount += abs(diff / 6)
 
     # amount is roughly 10-30
     emit_signal('player_collision', amount)
