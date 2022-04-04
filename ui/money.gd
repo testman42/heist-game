@@ -10,7 +10,7 @@ func _process(delta):
     var diff = currentValue - shownValue
 
     # reset the shown value when the counter is more than a few seconds
-    if counter > 2:
+    if counter > 2 or abs(diff) > 1000:
         counter = 0
         # shownValue = currentValue
         $tween.interpolate_property(self, 'shownValue', shownValue, currentValue, .5)
