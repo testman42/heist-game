@@ -24,6 +24,9 @@ func _ready():
 
 func _process(delta):
 
+
+    var posX = transform.origin.x
+
     # update previous
     previousSpeed = speed
     previousSteeringSpeed = steeringSpeed
@@ -40,13 +43,16 @@ func _process(delta):
     if is_equal_approx(speedInput, 0):
         speed = move_toward(speed, 0, 1.2 * delta)
 
+    # slow down if on the grass
+    if abs(posX) > 11:
+        speed = move_toward(speed, 0, 8 * delta)
+
     # update steering
     steeringSpeed += steerInput * delta * 28
     steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
     steeringSpeed = move_toward(steeringSpeed, 0, delta * 12)
 
     # bounce from the rails
-    var posX = get_global_transform().origin.x
     if abs(posX) > 15:
         steeringSpeed *= -sign(posX) * sign(steeringSpeed) * .95
         emit_signal('player_collision', abs(steeringSpeed) / 10)
