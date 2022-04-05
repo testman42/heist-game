@@ -10,7 +10,7 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.816, 1, 1.276 )
 
-[node name="player" type="RigidBody" groups=["player"]]
+[node name="player" type="RigidBody" groups=["car", "player"]]
 collision_layer = 3
 mode = 3
 contacts_reported = 6

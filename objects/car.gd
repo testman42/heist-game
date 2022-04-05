@@ -114,7 +114,7 @@ func handleCollision(body):
 
     var diffPos = body.transform.origin - transform.origin
 
-    if 'heading' in body and 'previousSpeed' in body:
+    if 'heading' in body and 'previousSpeed' in body and 'previousSteeringSpeed' in body:
 
         # only adjust speed if crashing to the back or the front of the car
         if abs(diffPos.z) > .6:
@@ -128,7 +128,7 @@ func handleCollision(body):
             # update speed
             if body.is_in_group('player'):
                 # the player is stronger
-                speed += heading * diff * 1.6
+                speed += heading * diff * 1.1
             else:
                 speed += heading * diff * .9
 
@@ -138,13 +138,6 @@ func handleCollision(body):
                 transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
                 transform.origin.y = .8
                 ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, -ourSpeed))
-
-    else:
-        # hit something solid
-        speed = move_toward(speed, 0, 1.5)
-
-
-    if 'previousSteeringSpeed' in body:
 
         # only adjust speed if crashing to the side of the car
         if abs(diffPos.x) > .2:
@@ -164,6 +157,10 @@ func handleCollision(body):
                 transform.origin.y = .8
                 ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, previousSpeed * -heading))
 
+    else:
+        # hit something solid
+        speed = move_toward(speed, 0, 1.5)
+
 func decreaseHealth(body):
 
     if 'heading' in body and 'previousSpeed' in body:
@@ -179,22 +176,10 @@ func decreaseHealth(body):
             spinningSpeed = rand_range(-diff / 20, diff / 20)
             emit_signal('spinned', self)
 
-    else:
-        # hit something solid
-        health -= abs(speed) / 12
-
-
-    if 'previousSteeringSpeed' in body:
-        var diff = abs(body.previousSteeringSpeed - previousSteeringSpeed)
-        health -= diff * 2
-
-        if diff > 10:
-            spinning = true
-            spinningSpeed = rand_range(0, diff / 10) * -sign(body.previousSteeringSpeed - previousSteeringSpeed)
 
     else:
         # hit something solid
-        health -= abs(steeringSpeed) / 20
+        health -= abs(speed) / 16 + abs(steeringSpeed) / 24
 
 func destroyCar():
     call_deferred('set_script', null)
