@@ -137,7 +137,7 @@ depth = 0.0754329
 material = ExtResource( 5 )
 script = ExtResource( 7 )
 
-[node name="light" type="OmniLight" parent="model/height-adjust/lights/rr"]
+[node name="bulb" type="OmniLight" parent="model/height-adjust/lights/rr"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.382486, 0, 0.0272087 )
 visible = false
 light_color = Color( 0.901961, 0.0862745, 0.0862745, 1 )
