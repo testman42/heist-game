@@ -40,6 +40,11 @@ var maxTurning = 14
 var previousSpeed = 0
 var previousSteeringSpeed = 0
 
+# Cache.
+
+onready var shape := $collision.shape as BoxShape
+onready var shapeExtents := shape.extents
+
 func _process(delta):
 
     if health <= 0:
@@ -78,9 +83,10 @@ func _process(delta):
         if abs(speed) > 2:
             speed = move_toward(speed, 0, delta * 4)
 
-        var transform = Transform(transform)
-        transform.origin.x += -sign(steeringSpeed) * 1.2
-        ParticleEffect.spawnCollisionSparks(transform, 10, Vector3(-steeringSpeed, 2, -speed))
+        var effectTransform = Transform()
+        effectTransform.origin = transform.origin
+        effectTransform.origin.x += -sign(steeringSpeed) * 1.2
+        ParticleEffect.spawnCollisionSparks(effectTransform, 10, Vector3(-steeringSpeed, 2, -speed))
 
 
 func _physics_process(delta):
@@ -135,10 +141,10 @@ func handleCollision(body):
 
             # particles
             if abs(diff) > 6:
-                var transform = Transform()
-                transform.origin = lerp(transform.origin, body.global_transform.origin, .5)
-                transform.origin.y = .8
-                ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, -ourSpeed))
+                var effectTransform = Transform()
+                effectTransform.origin = lerp(transform.origin, body.transform.origin, .5)
+                effectTransform.origin.y = .8
+                ParticleEffect.spawnCollisionSparks(effectTransform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, -ourSpeed))
 
         # only adjust steering if crashing to the side of the car
         if abs(diffPos.x) > .2:
@@ -153,14 +159,10 @@ func handleCollision(body):
 
             # particles
             if abs(diff) > 6:
-                var transform = Transform()
-                transform.origin = lerp(transform.origin, body.transform.origin, .5)
-                transform.origin.y = .8
-                ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, previousSpeed * -heading))
-
-        # TODO: move away from the car to prevent the car bodies from overlapping
-        var collision = body.get_node('collision')
-        assert(collision, 'Expected to find a node named "collision" in the other car!')
+                var effectTransform = Transform()
+                effectTransform.origin = lerp(transform.origin, body.transform.origin, .5)
+                effectTransform.origin.y = .8
+                ParticleEffect.spawnCollisionSparks(effectTransform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, previousSpeed * -heading))
 
 
     else:
