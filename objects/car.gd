@@ -106,6 +106,7 @@ func _on_car_body_entered(body):
 
 
 func handleCollision(body):
+
     # *Note to self*: both cars will call this on collision, so only handle this car here!
     # *Another note*: I had to add previousSpeed to make this work, because without it the cars would always
     # just swap speeds (given that both would process this code and the second one would work with the speeds
@@ -162,10 +163,6 @@ func handleCollision(body):
                 transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
                 transform.origin.y = .8
                 ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, previousSpeed * -heading))
-
-    else:
-        # hit something solid
-        steeringSpeed *= -.9
 
 func decreaseHealth(body):
 
