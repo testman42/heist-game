@@ -4,12 +4,12 @@
 [ext_resource path="res://objects/road/cone.tscn" type="PackedScene" id=2]
 
 [node name="cones" instance=ExtResource( 1 )]
-spawnProbability = 0.2
+spawnProbability = 0.15
 
 [node name="line" type="Spatial" parent="." index="3"]
 
 [node name="group" type="Spatial" parent="line" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.6325 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.7447 )
 
 [node name="cone" parent="line/group" index="0" instance=ExtResource( 2 )]
 
@@ -26,7 +26,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.067817, 0, 3.23597 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0277264, 0, 4.37734 )
 
 [node name="group2" type="Spatial" parent="line" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16.9932 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.10539 )
 
 [node name="cone" parent="line/group2" index="0" instance=ExtResource( 2 )]
 
@@ -43,7 +43,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.067817, 0, 3.23597 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0277264, 0, 4.37734 )
 
 [node name="group3" type="Spatial" parent="line" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.3082 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.57961 )
 
 [node name="cone" parent="line/group3" index="0" instance=ExtResource( 2 )]
 
@@ -57,72 +57,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.13382 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.067817, 0, 3.23597 )
 
 [node name="cone5" parent="line/group3" index="4" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0277264, 0, 4.37734 )
-
-[node name="group4" type="Spatial" parent="line" index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.62984 )
-
-[node name="cone" parent="line/group4" index="0" instance=ExtResource( 2 )]
-
-[node name="cone2" parent="line/group4" index="1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0372782, 0, 1.02431 )
-
-[node name="cone3" parent="line/group4" index="2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.13382 )
-
-[node name="cone4" parent="line/group4" index="3" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.067817, 0, 3.23597 )
-
-[node name="cone5" parent="line/group4" index="4" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0277264, 0, 4.37734 )
-
-[node name="group5" type="Spatial" parent="line" index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.302445 )
-
-[node name="cone" parent="line/group5" index="0" instance=ExtResource( 2 )]
-
-[node name="cone2" parent="line/group5" index="1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0372782, 0, 1.02431 )
-
-[node name="cone3" parent="line/group5" index="2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.13382 )
-
-[node name="cone4" parent="line/group5" index="3" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.067817, 0, 3.23597 )
-
-[node name="cone5" parent="line/group5" index="4" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0277264, 0, 4.37734 )
-
-[node name="group6" type="Spatial" parent="line" index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.16296 )
-
-[node name="cone" parent="line/group6" index="0" instance=ExtResource( 2 )]
-
-[node name="cone2" parent="line/group6" index="1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0372782, 0, 1.02431 )
-
-[node name="cone3" parent="line/group6" index="2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.13382 )
-
-[node name="cone4" parent="line/group6" index="3" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.067817, 0, 3.23597 )
-
-[node name="cone5" parent="line/group6" index="4" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0277264, 0, 4.37734 )
-
-[node name="group7" type="Spatial" parent="line" index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.0696 )
-
-[node name="cone" parent="line/group7" index="0" instance=ExtResource( 2 )]
-
-[node name="cone2" parent="line/group7" index="1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0372782, 0, 1.02431 )
-
-[node name="cone3" parent="line/group7" index="2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.13382 )
-
-[node name="cone4" parent="line/group7" index="3" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.067817, 0, 3.23597 )
-
-[node name="cone5" parent="line/group7" index="4" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0277264, 0, 4.37734 )
