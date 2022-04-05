@@ -12,7 +12,7 @@
 [ext_resource path="res://materials/wreck.tres" type="Material" id=10]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.731534, 0.7, 1.15826 )
+extents = Vector3( 0.731534, 0.7, 1.12341 )
 
 [node name="car" type="RigidBody" groups=["car"]]
 collision_layer = 5
