@@ -78,7 +78,7 @@ func _process(delta):
         if abs(speed) > 2:
             speed = move_toward(speed, 0, delta * 4)
 
-        var transform = Transform(global_transform)
+        var transform = Transform(transform)
         transform.origin.x += -sign(steeringSpeed) * 1.2
         ParticleEffect.spawnCollisionSparks(transform, 10, Vector3(-steeringSpeed, 2, -speed))
 
@@ -114,6 +114,7 @@ func handleCollision(body):
 
     var diffPos = body.transform.origin - transform.origin
 
+    # check if the other body is a car
     if 'heading' in body and 'previousSpeed' in body and 'previousSteeringSpeed' in body:
 
         # only adjust speed if crashing to the back or the front of the car
@@ -135,11 +136,11 @@ func handleCollision(body):
             # particles
             if abs(diff) > 6:
                 var transform = Transform()
-                transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
+                transform.origin = lerp(transform.origin, body.global_transform.origin, .5)
                 transform.origin.y = .8
                 ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, -ourSpeed))
 
-        # only adjust speed if crashing to the side of the car
+        # only adjust steering if crashing to the side of the car
         if abs(diffPos.x) > .2:
             var diff = body.previousSteeringSpeed - previousSteeringSpeed
 
@@ -153,9 +154,14 @@ func handleCollision(body):
             # particles
             if abs(diff) > 6:
                 var transform = Transform()
-                transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
+                transform.origin = lerp(transform.origin, body.transform.origin, .5)
                 transform.origin.y = .8
                 ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, previousSpeed * -heading))
+
+        # TODO: move away from the car to prevent the car bodies from overlapping
+        var collision = body.get_node('collision')
+        assert(collision, 'Expected to find a node named "collision" in the other car!')
+
 
     else:
         # hit something solid
@@ -202,7 +208,7 @@ func destroyCar():
     apply_torque_impulse(Vector3(rand_range(-amount, amount), spinningSpeed, rand_range(-amount, amount)))
 
     # particles
-    ParticleEffect.spawnExplosion(global_transform, Vector3(steeringSpeed, 1, speed * -heading))
+    ParticleEffect.spawnExplosion(transform, Vector3(steeringSpeed, 1, speed * -heading))
 
     # turn into a wreck
     get_node('model/wheels').queue_free()
