@@ -171,16 +171,17 @@ func decreaseHealth(body):
         var ourSpeed = previousSpeed * heading
         var diff = abs(otherSpeed - ourSpeed)
 
-        health -= diff * 1.2
+        if diff > 2:
+            health -= diff * .8
 
-        if diff > 14:
+        if diff > 18:
             spinning = true
             spinningSpeed = rand_range(-diff / 20, diff / 20)
             emit_signal('spinned', self)
 
     else:
         # hit something solid
-        health -= abs(speed) / 6
+        health -= abs(speed) / 12
 
 
     if 'previousSteeringSpeed' in body:
