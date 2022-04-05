@@ -12,7 +12,7 @@ var steeringSpeed = 0
 
 # maximums
 const maxSpeed = 18
-const maxTurning = 14
+const maxTurning = 18
 
 # previous speeds used for collisions
 var previousSpeed = 0
@@ -48,9 +48,16 @@ func _process(delta):
         speed = move_toward(speed, 0, 8 * delta)
 
     # update steering
-    steeringSpeed += steerInput * delta * 28
-    steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
-    steeringSpeed = move_toward(steeringSpeed, 0, delta * 12)
+    if is_equal_approx(steerInput, 0):
+        steeringSpeed = move_toward(steeringSpeed, 0, delta * 12)
+    else:
+        var force = 22
+        if sign(steerInput) != sign(steeringSpeed):
+            force = 40
+
+        steeringSpeed += steerInput * delta * force
+        steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
+
 
     # bounce from the rails
     if abs(posX) > 15:
