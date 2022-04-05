@@ -111,50 +111,57 @@ func handleCollision(body):
     # just swap speeds (given that both would process this code and the second one would work with the speeds
     # set by the first one)!
 
+    var diffPos = body.transform.origin - transform.origin
+
     if 'heading' in body and 'previousSpeed' in body:
-        var otherSpeed = body.previousSpeed * body.heading
-        var ourSpeed = previousSpeed * heading
-        var diff = otherSpeed - ourSpeed
 
-        # add random steering
-        steeringSpeed += rand_range(-.1, .1)
+        # only adjust speed if crashing to the back or the front of the car
+        if abs(diffPos.z) > .6:
+            var otherSpeed = body.previousSpeed * body.heading
+            var ourSpeed = previousSpeed * heading
+            var diff = otherSpeed - ourSpeed
 
-        # update speed
-        if body.is_in_group('player'):
-            # the player is stronger
-            speed += heading * diff * 1.6
-        else:
-            speed += heading * diff * .9
+            # add random steering
+            steeringSpeed += rand_range(-.1, .1)
 
-        # particles
-        if abs(diff) > 6:
-            var transform = Transform()
-            transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
-            transform.origin.y = .8
-            ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, -ourSpeed))
+            # update speed
+            if body.is_in_group('player'):
+                # the player is stronger
+                speed += heading * diff * 1.6
+            else:
+                speed += heading * diff * .9
+
+            # particles
+            if abs(diff) > 6:
+                var transform = Transform()
+                transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
+                transform.origin.y = .8
+                ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, -ourSpeed))
 
     else:
         # hit something solid
-        if speed > 6:
-            speed -= 2.5
+        speed = move_toward(speed, 0, 1.5)
 
 
     if 'previousSteeringSpeed' in body:
-        var diff = body.previousSteeringSpeed - previousSteeringSpeed
 
-        # update steering
-        if body.is_in_group('player'):
-            # the player is stronger
-            steeringSpeed += diff * 1.6
-        else:
-            steeringSpeed += diff * .9
+        # only adjust speed if crashing to the side of the car
+        if abs(diffPos.x) > .2:
+            var diff = body.previousSteeringSpeed - previousSteeringSpeed
 
-        # particles
-        if abs(diff) > 6:
-            var transform = Transform()
-            transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
-            transform.origin.y = .8
-            ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, previousSpeed * -heading))
+            # update steering
+            if body.is_in_group('player'):
+                # the player is stronger
+                steeringSpeed += diff * 1.6
+            else:
+                steeringSpeed += diff * .9
+
+            # particles
+            if abs(diff) > 6:
+                var transform = Transform()
+                transform.origin = lerp(global_transform.origin, body.global_transform.origin, .5)
+                transform.origin.y = .8
+                ParticleEffect.spawnCollisionSparks(transform, abs(diff) / 4, Vector3(previousSteeringSpeed, 2, previousSpeed * -heading))
 
     else:
         # hit something solid
