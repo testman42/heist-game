@@ -41,7 +41,6 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.148249, 0, 0 )
 light_color = Color( 0.937255, 0.0901961, 0.0901961, 1 )
 light_energy = 15.0
-shadow_enabled = true
 shadow_bias = 1.343
 omni_range = 14.0
 
@@ -58,6 +57,5 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1394, 0, 0 )
 light_color = Color( 0.0901961, 0.203922, 0.937255, 1 )
 light_energy = 15.0
-shadow_enabled = true
 shadow_bias = 1.343
 omni_range = 14.0
