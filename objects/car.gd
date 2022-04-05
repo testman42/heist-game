@@ -40,11 +40,6 @@ var maxTurning = 14
 var previousSpeed = 0
 var previousSteeringSpeed = 0
 
-# Cache.
-
-onready var shape := $collision.shape as BoxShape
-onready var shapeExtents := shape.extents
-
 func _process(delta):
 
     if health <= 0:
