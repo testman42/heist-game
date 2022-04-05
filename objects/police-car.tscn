@@ -23,3 +23,12 @@ material = ExtResource( 2 )
 
 [node name="police-lights" parent="model/height-adjust" index="5" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03825, 0.227674 )
+
+[node name="front" parent="." index="2"]
+visible = false
+
+[node name="raycast1" parent="front" index="0"]
+enabled = false
+
+[node name="raycast2" parent="front" index="1"]
+enabled = false

@@ -52,12 +52,6 @@ func ChasePlayer(delta):
         speed -= breaking * delta
 
 
-    # try to avoid cars in front
-    if $front/raycast1.is_colliding():
-        steeringSpeed += 34 * delta
-    elif $front/raycast2.is_colliding():
-        steeringSpeed -= 34 * delta
-
 
     # steer next to the player until we are in line, then hit them
     var targetX = player.transform.origin.x
