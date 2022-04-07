@@ -91,7 +91,7 @@ func _physics_process(delta):
     if $model:
 
         if spinning:
-            var amount = delta * .4 * speed * spinningSpeed
+            var amount = delta * .4 * speed * -spinningSpeed
             $model.rotation.y += amount
         else:
             # rotate the modal according to the steering
@@ -155,17 +155,20 @@ func handleCollision(body):
 
 func decreaseHealth(body):
 
-    if 'heading' in body and 'previousSpeed' in body:
+    if 'heading' in body and 'previousSpeed' in body and 'previousSteeringSpeed' in body:
         var otherSpeed = body.previousSpeed * body.heading
         var ourSpeed = previousSpeed * heading
-        var diff = abs(otherSpeed - ourSpeed)
 
-        if diff > 2:
-            health -= diff * .8
+        var diff = .8 * abs(otherSpeed - ourSpeed)
+        var diffSteering = .6 * abs(body.previousSteeringSpeed - previousSteeringSpeed)
+        var total = diff + diffSteering
 
-        if diff > 12:
+        if total > 2:
+            health -= total
+
+        if total > 16:
             spinning = true
-            spinningSpeed = rand_range(-diff / 20, diff / 20)
+            spinningSpeed = rand_range(0, total / 10)
             emit_signal('spinned', self)
 
 
@@ -191,7 +194,7 @@ func destroyCar():
     apply_impulse(Vector3.ZERO, Vector3(steeringSpeed, 0, speed * -heading))
 
     var amount = 10
-    apply_torque_impulse(Vector3(rand_range(-amount, amount), spinningSpeed, rand_range(-amount, amount)))
+    apply_torque_impulse(Vector3(rand_range(-amount, amount), -spinningSpeed, rand_range(-amount, amount)))
 
     # particles
     ParticleEffect.spawnExplosion(transform, Vector3(steeringSpeed, 1, speed * -heading))
