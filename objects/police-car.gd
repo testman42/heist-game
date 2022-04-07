@@ -6,13 +6,16 @@ class_name PoliceCar
 # follow the player and occasionally bump into it.
 
 
-var acceleration = rand_range(10, 18)
-var breaking = 6
+var acceleration = rand_range(10, 16)
+var breaking = 8
 
-var finalPos = rand_range(-3, 3)
+var finalPos = rand_range(3, 6)
 
 
 func _ready():
+    if randf() < .5:
+        finalPos *= -1
+
     if heading < 0:
         queue_free()
 
@@ -47,31 +50,37 @@ func ChasePlayer(delta):
             setBreaking(false)
             speed += delta * lerp(acceleration / 3, acceleration, clamp(diff.z / 4, 0, 1))
 
-    elif speed > maxSpeed / 2:
+    elif speed > player.speed / 2:
         setBreaking(true)
         speed -= breaking * delta
+
+    else:
+        setBreaking(false)
+        speed += delta * acceleration / 4
 
 
 
     # steer next to the player until we are in line, then hit them
     var targetX = player.transform.origin.x
-    if abs(diff.z) > .1:
-        targetX = player.transform.origin.x - sign(diff.x) * 4.4
+    var ramming = true
+    if diff.z > 1:
+        targetX += finalPos
+        ramming = false
 
     var total = targetX - transform.origin.x
     var absTotal = abs(total)
 
     # try steering towards the target
-    var force = 22
-    if abs(diff.z) < .2:
-        force = 28
+    if ramming:
+        if abs(steeringSpeed) < maxTurning:
+            steeringSpeed += 22 * delta * sign(total)
 
-    if absTotal > 2:
+    elif absTotal > 2:
         if abs(steeringSpeed) < absTotal:
-            steeringSpeed += force * delta * sign(total)
+            steeringSpeed += 16 * delta * sign(total)
 
     elif absTotal > .2:
-        steeringSpeed += force * .4 * delta * sign(total)
+        steeringSpeed += 10 * delta * sign(total)
 
 
 
