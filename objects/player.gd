@@ -91,28 +91,21 @@ func _on_player_body_entered(body):
     var amount = 0
     var diffPos = body.transform.origin - transform.origin
 
-    if 'heading' in body and 'previousSpeed' in body:# only adjust speed if crashing to the back or the front of the car
+    if 'heading' in body and 'previousSpeed' in body and 'previousSteeringSpeed' in body:
 
-        # only adjust speed if crashing to the back or the front of the car
-        if abs(diffPos.z) > .6:
-            var otherSpeed = body.previousSpeed * body.heading
-            var ourSpeed = previousSpeed * heading
-            var diff = otherSpeed - ourSpeed
+        var otherSpeed = body.previousSpeed * body.heading
+        var ourSpeed = previousSpeed * heading
 
-            # update speed, lower effect on the player
-            speed += heading * diff * .4
-            amount += abs(diff)
+        var diff = otherSpeed - ourSpeed
+        var diffSteering = body.previousSteeringSpeed - previousSteeringSpeed
 
+        # update speed, lower effect on the player
+        speed += heading * diff * .4
+        amount += abs(diff)
 
-    if 'previousSteeringSpeed' in body:
-
-        # only adjust speed if crashing to the side of the car
-        if abs(diffPos.x) > .2:
-            var diff = body.previousSteeringSpeed - previousSteeringSpeed
-
-            # update steering, lower effect on the player
-            steeringSpeed += diff * .7
-            amount += abs(diff / 6)
+        # update steering, lower effect on the player
+        steeringSpeed += diffSteering * .7
+        amount += abs(diffSteering / 6)
 
     # amount is roughly 10-30
     emit_signal('player_collision', amount)
