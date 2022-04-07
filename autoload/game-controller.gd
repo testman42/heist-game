@@ -6,6 +6,9 @@ var trees = true
 var lights = true
 var particles = false
 
+var traffic = true
+var police = true
+
 func _ready():
     randomize()
 
@@ -29,3 +32,7 @@ func _onLightsToggled(value):
 func _onParticlesToggled(value):
     particles = value
 
+func _onTrafficToggled(value):
+    traffic = value
+func _onPoliceToggled(value):
+    police = value

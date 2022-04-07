@@ -40,15 +40,16 @@ func _ready():
 
     # preseed the cars going forward
 
-    for _i in range(10):
-        var car = chooseCar()
-        car.speed = rand_range(4, 12)
-        car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
-        car.transform.origin.z = player.transform.origin.z - 50 - rand_range(0, 100)
-        add_child(car)
+    if GameController.traffic:
+        for _i in range(10):
+            var car = chooseCar()
+            car.speed = rand_range(4, 12)
+            car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
+            car.transform.origin.z = player.transform.origin.z - 50 - rand_range(0, 100)
+            add_child(car)
 
-        car.connect('spinned', LevelProgress, '_onCarSpinned')
-        car.connect('destroyed', LevelProgress, '_onCarDestroyed')
+            car.connect('spinned', LevelProgress, '_onCarSpinned')
+            car.connect('destroyed', LevelProgress, '_onCarDestroyed')
 
 
 func _process(_delta):
@@ -60,9 +61,9 @@ func _process(_delta):
         probability = lerp(0, .04, player.speed / player.maxSpeed)
         policeProbability = lerp(0, .002, player.speed / player.maxSpeed)
 
-    if randf() < probability:
+    if GameController.traffic and randf() < probability:
         spawnCar()
-    if randf() < policeProbability:
+    if GameController.police and randf() < policeProbability:
         spawnPoliceCar()
 
 func spawnCar():
