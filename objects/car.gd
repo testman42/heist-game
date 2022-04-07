@@ -120,24 +120,18 @@ func handleCollision(body):
 
         var otherSpeed = body.previousSpeed * body.heading
         var ourSpeed = previousSpeed * heading
+        var otherSteering = body.previousSteeringSpeed * body.heading
+        var ourSteering = previousSteeringSpeed * heading
 
         var diff = otherSpeed - ourSpeed
-        var diffSteering = body.previousSteeringSpeed - previousSteeringSpeed
+        var diffSteering = otherSteering - ourSteering
 
         # update speed
         if abs(diffPos.x) < 1.2:
-            if body.is_in_group('player'):
-                # the player is stronger
-                speed += heading * diff * 1.1
-            else:
-                speed += heading * diff * .9
+            speed += heading * diff * .9
 
         # update steering
-        if body.is_in_group('player'):
-            # the player is stronger
-            steeringSpeed += diffSteering * 1.6
-        else:
-            steeringSpeed += diffSteering * .9
+        steeringSpeed += diffSteering * .9
 
 
         # ensure some minimum diff is applied to make the cars

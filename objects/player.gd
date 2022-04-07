@@ -100,9 +100,11 @@ func _on_player_body_entered(body):
 
         var otherSpeed = body.previousSpeed * body.heading
         var ourSpeed = previousSpeed * heading
+        var otherSteering = body.previousSteeringSpeed * body.heading
+        var ourSteering = previousSteeringSpeed * heading
 
         var diff = otherSpeed - ourSpeed
-        var diffSteering = body.previousSteeringSpeed - previousSteeringSpeed
+        var diffSteering = otherSteering - ourSteering
 
         # update speed, lower effect on the player
         if abs(diffPos.x) < 1.2:
