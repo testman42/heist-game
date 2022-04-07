@@ -153,7 +153,7 @@ func decreaseHealth(body):
         if diff > 2:
             health -= diff * .8
 
-        if diff > 18:
+        if diff > 12:
             spinning = true
             spinningSpeed = rand_range(-diff / 20, diff / 20)
             emit_signal('spinned', self)
