@@ -8,7 +8,7 @@
 [node name="police-car" groups=["police"] instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 spawnProbability = 0.07
-maxSpeedFrom = 18
+maxSpeedFrom = 20
 maxSpeedTo = 24
 health = 300
 
