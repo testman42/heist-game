@@ -36,8 +36,10 @@ func _process(delta):
     var speedInput = Input.get_axis('break', 'accelerate')
 
     # update speed
-    speed += speedInput * delta * 9
-    speed = clamp(speed, 0, maxSpeed)
+    if abs(speed) < maxSpeed:
+        speed += speedInput * delta * 9
+    else:
+        speed = move_toward(speed, 0, delta * 4)
 
     # slow down a little when not accelerating
     if is_equal_approx(speedInput, 0):
@@ -48,15 +50,17 @@ func _process(delta):
         speed = move_toward(speed, 0, 8 * delta)
 
     # update steering
-    if is_equal_approx(steerInput, 0):
-        steeringSpeed = move_toward(steeringSpeed, 0, delta * 12)
-    else:
-        var force = 22
-        if sign(steerInput) != sign(steeringSpeed):
-            force = 40
+    if abs(steeringSpeed) < maxTurning:
+        if is_equal_approx(steerInput, 0):
+            steeringSpeed = move_toward(steeringSpeed, 0, delta * 12)
+        else:
+            var force = 22
+            if sign(steerInput) != sign(steeringSpeed):
+                force = 40
 
-        steeringSpeed += steerInput * delta * force
-        steeringSpeed = clamp(steeringSpeed, -maxTurning, maxTurning)
+            steeringSpeed += steerInput * delta * force
+    else:
+        steeringSpeed = move_toward(steeringSpeed, 0, delta * 22)
 
 
     # bounce from the rails
