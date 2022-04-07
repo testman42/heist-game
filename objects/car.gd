@@ -125,11 +125,12 @@ func handleCollision(body):
         var diffSteering = body.previousSteeringSpeed - previousSteeringSpeed
 
         # update speed
-        if body.is_in_group('player'):
-            # the player is stronger
-            speed += heading * diff * 1.1
-        else:
-            speed += heading * diff * .9
+        if abs(diffPos.x) < 1.2:
+            if body.is_in_group('player'):
+                # the player is stronger
+                speed += heading * diff * 1.1
+            else:
+                speed += heading * diff * .9
 
         # update steering
         if body.is_in_group('player'):
