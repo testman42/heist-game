@@ -38,6 +38,7 @@ func _process(delta):
     # update speed
     if abs(speed) < maxSpeed:
         speed += speedInput * delta * 9
+        speed = max(0, speed)
     else:
         speed = move_toward(speed, 0, delta * 4)
 
@@ -110,6 +111,14 @@ func _on_player_body_entered(body):
         # update steering, lower effect on the player
         steeringSpeed += diffSteering * .7
         amount += abs(diffSteering / 6)
+
+
+        # ensure some minimum diff is applied to make the cars
+        # bounce from each other and not "merge" into one - see #2
+        if abs(diff) < 4:
+            speed += heading * sign(diff) * 1.5
+        if abs(diffSteering) < 4:
+            steeringSpeed += sign(diffSteering) * 1.5
 
     # amount is roughly 10-30
     emit_signal('player_collision', amount)

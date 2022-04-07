@@ -139,6 +139,15 @@ func handleCollision(body):
             steeringSpeed += diffSteering * .9
 
 
+        # ensure some minimum diff is applied to make the cars
+        # bounce from each other and not "merge" into one - see #2
+        if abs(diff) < 4:
+            speed += heading * sign(diff) * 1.5
+        if abs(diffSteering) < 4:
+            steeringSpeed += sign(diffSteering) * 1.5
+
+
+
     else:
         # hit something solid
         speed = move_toward(speed, 0, 1.5)
