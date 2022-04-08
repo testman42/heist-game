@@ -3,6 +3,8 @@ class_name Player
 
 export(SpatialMaterial) var wreckMaterial
 
+export var ignoreInput = false
+
 signal player_moved
 signal player_collision
 
@@ -34,6 +36,10 @@ func _process(delta):
 
     var steerInput = Input.get_axis('move_left', 'move_right')
     var speedInput = Input.get_axis('break', 'accelerate')
+
+    if ignoreInput:
+        steerInput = 0
+        speedInput = 0
 
     # update speed
     if abs(speed) < maxSpeed:
