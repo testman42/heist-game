@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/random-color.gd" type="Script" id=1]
-[ext_resource path="res://objects/car-logic.gd" type="Script" id=2]
+[ext_resource path="res://objects/vehicles/car-logic.gd" type="Script" id=2]
 [ext_resource path="res://materials/tires.tres" type="Material" id=3]
 [ext_resource path="res://materials/yellow-light.tres" type="Material" id=4]
 [ext_resource path="res://materials/red-light.tres" type="Material" id=5]
 [ext_resource path="res://materials/car.tres" type="Material" id=6]
-[ext_resource path="res://objects/car-break-light.gd" type="Script" id=7]
+[ext_resource path="res://objects/vehicles/car-break-light.gd" type="Script" id=7]
 [ext_resource path="res://materials/window.tres" type="Material" id=8]
-[ext_resource path="res://objects/night-light.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/vehicles/night-light.tscn" type="PackedScene" id=9]
 [ext_resource path="res://materials/wreck.tres" type="Material" id=10]
 
 [sub_resource type="BoxShape" id=1]

@@ -27,12 +27,12 @@ _global_script_classes=[ {
 "base": "DynamicObject",
 "class": "Car",
 "language": "GDScript",
-"path": "res://objects/car.gd"
+"path": "res://objects/vehicles/car.gd"
 }, {
 "base": "Car",
 "class": "CarLogic",
 "language": "GDScript",
-"path": "res://objects/car-logic.gd"
+"path": "res://objects/vehicles/car-logic.gd"
 }, {
 "base": "Node",
 "class": "CarSpawner",
@@ -47,12 +47,12 @@ _global_script_classes=[ {
 "base": "RigidBody",
 "class": "Player",
 "language": "GDScript",
-"path": "res://objects/player.gd"
+"path": "res://objects/player/player.gd"
 }, {
 "base": "Car",
 "class": "PoliceCar",
 "language": "GDScript",
-"path": "res://objects/police-car.gd"
+"path": "res://objects/vehicles/police-car.gd"
 }, {
 "base": "CollisionShape",
 "class": "SpawnInArea",
@@ -132,4 +132,4 @@ common/enable_pause_aware_picking=true
 
 environment/default_clear_color=Color( 0.235294, 0.254902, 0.341176, 1 )
 quality/filters/msaa=2
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://environments/default_env.tres"

@@ -5,8 +5,8 @@
 [ext_resource path="res://materials/tires.tres" type="Material" id=3]
 [ext_resource path="res://materials/yellow-light.tres" type="Material" id=4]
 [ext_resource path="res://materials/red-light.tres" type="Material" id=5]
-[ext_resource path="res://objects/night-light.tscn" type="PackedScene" id=6]
-[ext_resource path="res://models/player-break-light.gd" type="Script" id=7]
+[ext_resource path="res://objects/vehicles/night-light.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/player/player-break-light.gd" type="Script" id=7]
 
 [node name="model" type="Spatial"]
 

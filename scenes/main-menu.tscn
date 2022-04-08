@@ -1,15 +1,15 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://models/player-van.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/player/player-van.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/road/cone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://blocks/basic.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/small-font.tres" type="DynamicFont" id=4]
-[ext_resource path="res://objects/police-car.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/vehicles/police-car.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://ui/big-font.tres" type="DynamicFont" id=7]
-[ext_resource path="res://objects/car.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/vehicles/car.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/road/barrel.tscn" type="PackedScene" id=10]
-[ext_resource path="res://default_night_env.tres" type="Environment" id=11]
+[ext_resource path="res://environments/default_night_env.tres" type="Environment" id=11]
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends DirectionalLight
@@ -183,7 +183,7 @@ margin_bottom = 127.0
 text = "<Start>"
 flat = true
 script = SubResource( 2 )
-scene = "road"
+scene = "highway"
 
 [node name="hint" type="Label" parent="ui/buttons"]
 margin_top = 131.0

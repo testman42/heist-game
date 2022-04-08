@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://objects/car.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/vehicles/car.tscn" type="PackedScene" id=1]
 
 [node name="car" instance=ExtResource( 1 )]
 health = 220

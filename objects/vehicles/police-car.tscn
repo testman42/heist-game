@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://objects/car.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/vehicles/car.tscn" type="PackedScene" id=1]
 [ext_resource path="res://materials/police-white.tres" type="Material" id=2]
-[ext_resource path="res://objects/police-lights.tscn" type="PackedScene" id=3]
-[ext_resource path="res://objects/police-car.gd" type="Script" id=4]
+[ext_resource path="res://objects/vehicles/police-lights.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/vehicles/police-car.gd" type="Script" id=4]
 
 [node name="police-car" groups=["police"] instance=ExtResource( 1 )]
 script = ExtResource( 4 )

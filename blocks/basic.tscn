@@ -5,9 +5,9 @@
 [ext_resource path="res://objects/road/road-lane.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/road/road-lane-cross.tscn" type="PackedScene" id=4]
 [ext_resource path="res://blocks/block.gd" type="Script" id=5]
-[ext_resource path="res://models/fence.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/road/fence.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/spawn-in-area.gd" type="Script" id=7]
-[ext_resource path="res://models/tree.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/road/tree.tscn" type="PackedScene" id=8]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 100, 50 )
