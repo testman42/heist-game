@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://models/player-van.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/road/cone.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://ui/big-font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://objects/car.tscn" type="PackedScene" id=8]
-[ext_resource path="res://objects/road/lamp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://objects/road/barrel.tscn" type="PackedScene" id=10]
 [ext_resource path="res://default_night_env.tres" type="Environment" id=11]
 
@@ -128,10 +127,6 @@ mode = 1
 
 [node name="cone3" parent="backdrop/van-foreground" instance=ExtResource( 2 )]
 transform = Transform( 0.944841, 0.307252, 0.113454, 0.144563, -0.702037, 0.697313, 0.293899, -0.642449, -0.707731, 2.9644, 1.40888, 7.74008 )
-mode = 1
-
-[node name="lamp" parent="backdrop/van-foreground" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.09427, 9.53674e-07, 0.243688 )
 mode = 1
 
 [node name="barrel" parent="backdrop/van-foreground" instance=ExtResource( 10 )]
