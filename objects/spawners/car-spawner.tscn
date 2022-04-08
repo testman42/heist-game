@@ -1,0 +1,15 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/spawners/car-spawner.gd" type="Script" id=1]
+[ext_resource path="res://objects/vehicles/police-car.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/vehicles/sedan.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/vehicles/car.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/vehicles/bus.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/vehicles/combi.tscn" type="PackedScene" id=6]
+
+[node name="car-spawner" type="Node"]
+script = ExtResource( 1 )
+possibleCars = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 2 ) ]
+possiblePoliceCars = [ ExtResource( 2 ) ]
+frontSpawnLocations = [ NodePath("../car-spawn-locations/front"), NodePath("../car-spawn-locations/front2"), NodePath("../car-spawn-locations/front3") ]
+backSpawnLocations = [ NodePath("../car-spawn-locations/back"), NodePath("../car-spawn-locations/back2"), NodePath("../car-spawn-locations/back3") ]

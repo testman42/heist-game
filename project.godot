@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "BlockSpawner",
 "language": "GDScript",
-"path": "res://scripts/block-spawner.gd"
+"path": "res://objects/spawners/block-spawner.gd"
 }, {
 "base": "DynamicObject",
 "class": "Car",
@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "CarSpawner",
 "language": "GDScript",
-"path": "res://scripts/car-spawner.gd"
+"path": "res://objects/spawners/car-spawner.gd"
 }, {
 "base": "RigidBody",
 "class": "DynamicObject",
