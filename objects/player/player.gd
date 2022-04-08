@@ -7,7 +7,7 @@ signal player_moved
 signal player_collision
 
 var heading = 1
-var speed = 6
+var speed = 0
 var steeringSpeed = 0
 
 # maximums

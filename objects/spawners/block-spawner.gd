@@ -55,7 +55,11 @@ func spawnNewBlocks():
     if 'speed' in player:
         speed = player.speed
 
-    var offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 50 + speed
+
+    var offset = 0
+
+    if get_child_count() > 0:
+        offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 50 + speed
 
     block.translate(Vector3(0, 0, offset))
     add_child(block)

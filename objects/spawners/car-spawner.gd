@@ -9,6 +9,9 @@ class_name CarSpawner
 export(Array, PackedScene) var possibleCars
 export(Array, PackedScene) var possiblePoliceCars
 
+export var disableCars = false
+export var disablePolice = false
+
 # Where to spawn the cars, only x position is taken.
 const lanes = [1.5, 5, 8.5]
 
@@ -37,7 +40,7 @@ func _ready():
 
     # preseed the cars going forward
 
-    if GameController.traffic:
+    if GameController.traffic and !disableCars:
         for _i in range(10):
             var car = chooseCar()
             car.speed = rand_range(4, 12)
@@ -58,9 +61,9 @@ func _process(_delta):
         probability = lerp(0, .04, player.speed / player.maxSpeed)
         policeProbability = lerp(0, .002, player.speed / player.maxSpeed)
 
-    if GameController.traffic and randf() < probability:
+    if GameController.traffic and !disableCars and randf() < probability:
         spawnCar()
-    if GameController.police and randf() < policeProbability:
+    if GameController.police and !disablePolice and randf() < policeProbability:
         spawnPoliceCar()
 
 func spawnCar():
