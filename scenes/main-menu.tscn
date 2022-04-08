@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://models/player-van.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/road/cone.tscn" type="PackedScene" id=2]
@@ -54,13 +54,6 @@ script/source = "extends CheckBox
 
 func _ready():
     connect('toggled', GameController, '_onTreesToggled')
-"
-
-[sub_resource type="GDScript" id=7]
-script/source = "extends CheckBox
-
-func _ready():
-    connect('toggled', GameController, '_onParticlesToggled')
 "
 
 [sub_resource type="GDScript" id=8]
@@ -207,8 +200,8 @@ margin_bottom = 206.0
 alignment = 1
 
 [node name="night-mode" type="CheckBox" parent="ui/buttons/options"]
-margin_left = 124.0
-margin_right = 341.0
+margin_left = 222.0
+margin_right = 439.0
 margin_bottom = 48.0
 text = "Night mode"
 flat = true
@@ -216,27 +209,20 @@ align = 1
 script = SubResource( 3 )
 
 [node name="lights" type="CheckBox" parent="ui/buttons/options"]
-margin_left = 345.0
-margin_right = 482.0
+margin_left = 443.0
+margin_right = 580.0
 margin_bottom = 48.0
 pressed = true
 text = "Lights"
 script = SubResource( 5 )
 
 [node name="trees" type="CheckBox" parent="ui/buttons/options"]
-margin_left = 486.0
-margin_right = 624.0
+margin_left = 584.0
+margin_right = 722.0
 margin_bottom = 48.0
 pressed = true
 text = "Trees"
 script = SubResource( 6 )
-
-[node name="particles" type="CheckBox" parent="ui/buttons/options"]
-margin_left = 628.0
-margin_right = 820.0
-margin_bottom = 48.0
-text = "Particles"
-script = SubResource( 7 )
 
 [node name="debug-options" type="HBoxContainer" parent="ui/buttons"]
 visible = false

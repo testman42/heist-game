@@ -85,7 +85,6 @@ config/icon="res://sprites/icon.png"
 
 LevelProgress="*res://autoload/level-progress.gd"
 GameController="*res://autoload/game-controller.gd"
-ParticleEffect="*res://autoload/particle-effect.gd"
 
 [input]
 
