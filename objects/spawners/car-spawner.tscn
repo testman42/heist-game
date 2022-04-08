@@ -9,7 +9,5 @@
 
 [node name="car-spawner" type="Node"]
 script = ExtResource( 1 )
-possibleCars = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 2 ) ]
+possibleCars = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ) ]
 possiblePoliceCars = [ ExtResource( 2 ) ]
-frontSpawnLocations = [ NodePath("../car-spawn-locations/front"), NodePath("../car-spawn-locations/front2"), NodePath("../car-spawn-locations/front3") ]
-backSpawnLocations = [ NodePath("../car-spawn-locations/back"), NodePath("../car-spawn-locations/back2"), NodePath("../car-spawn-locations/back3") ]

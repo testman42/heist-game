@@ -10,8 +10,7 @@ export(Array, PackedScene) var possibleCars
 export(Array, PackedScene) var possiblePoliceCars
 
 # Where to spawn the cars, only x position is taken.
-export(Array, NodePath) var frontSpawnLocations
-export(Array, NodePath) var backSpawnLocations
+const lanes = [1.5, 5, 8.5]
 
 var possibleCarInstances = []
 var totalProbability = 0
@@ -25,8 +24,6 @@ onready var player: Player = get_tree().get_nodes_in_group('player')[0]
 func _ready():
     assert(possibleCars.size() > 0, "Missing possible cars for a spawner")
     assert(possiblePoliceCars.size() > 0, "Missing possible police cars for a spawner")
-    assert(frontSpawnLocations.size() > 0, "No front spawn locations")
-    assert(backSpawnLocations.size() > 0, "No back spawn locations")
 
     # preload all cars so we can work with their probabilities
     for b in possibleCars:
@@ -44,7 +41,7 @@ func _ready():
         for _i in range(10):
             var car = chooseCar()
             car.speed = rand_range(4, 12)
-            car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
+            car.transform.origin.x = lanes[randi() % lanes.size()]
             car.transform.origin.z = player.transform.origin.z - 50 - rand_range(0, 100)
             add_child(car)
 
@@ -77,11 +74,11 @@ func spawnCar():
 
     if randf() > .6:
         # higher chance to spawn forward facing car
-        car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
+        car.transform.origin.x = lanes[randi() % lanes.size()]
 
     else:
         # lower chance to spawn backward facing car
-        car.transform.origin.x = get_node(backSpawnLocations[randi() % backSpawnLocations.size()]).transform.origin.x
+        car.transform.origin.x = -lanes[randi() % lanes.size()]
 
         # flip the car
         car.rotate_y(PI)
@@ -109,12 +106,11 @@ func spawnPoliceCar():
     else:
         car.speed = 6
 
-    if randf() > .6:
-        car.transform.origin.x = get_node(frontSpawnLocations[randi() % frontSpawnLocations.size()]).transform.origin.x
-    else:
-        car.transform.origin.x = get_node(backSpawnLocations[randi() % backSpawnLocations.size()]).transform.origin.x
-
+    car.transform.origin.x = rand_range(-10, 10)
     car.transform.origin.z = player.transform.origin.z + 25
+
+    if randf() < .4:
+        car.transform.origin.z *= -1
 
     add_child(car)
     car.connect('spinned', LevelProgress, '_onCarSpinned')
