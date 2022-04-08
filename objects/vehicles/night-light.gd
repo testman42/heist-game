@@ -4,7 +4,7 @@ var inMenu = false
 
 # Turns on only at night.
 func _ready():
-    inMenu = get_node('/root/main-menu')
+    inMenu = get_node_or_null('/root/main-menu')
     process()
 
     if not GameController.nightMode and not inMenu:
