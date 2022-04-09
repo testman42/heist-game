@@ -48,12 +48,12 @@ func _ready():
 
 func _process(_delta):
     # TODO: this chance should increase in harder levels
-    var probability = .08
-    var policeProbability = .004
+    var probability = .18
+    var policeProbability = .003
 
     if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
-        probability = lerp(0, .06, player.speed / player.maxSpeed)
-        policeProbability = lerp(0, .002, player.speed / player.maxSpeed)
+        probability = lerp(0, probability, player.speed / player.maxSpeed)
+        policeProbability = lerp(0, policeProbability, player.speed / player.maxSpeed)
 
     if GameController.traffic and !disableCars and randf() < probability:
         spawnCar()

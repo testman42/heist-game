@@ -131,6 +131,7 @@ break={
 3d_physics/layer_4="Car"
 3d_physics/layer_5="Police"
 3d_physics/layer_6="Prop"
+3d_physics/layer_7="Wreck"
 
 [physics]
 

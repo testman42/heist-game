@@ -42,8 +42,8 @@ func _process(_delta):
         distance = 0
 
     if player and is_instance_valid(player) and money <= 0:
-        if player.has_method('destroyPlayer'):
-            player.destroyPlayer()
+        if player.has_method('destroyCar'):
+            player.destroyCar()
             playerDead = true
 
 

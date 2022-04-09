@@ -74,28 +74,3 @@ func _on_car_body_entered(body):
     emit_signal('player_collision', amount)
 
 
-func destroyPlayer():
-    call_deferred('set_script', null)
-
-    # TODO: implement changing the node to rigid body
-
-    # swap the kinetic body mode for rigid body
-    #mode = MODE_RIGID
-
-    # add the ground collision mask
-    set_collision_mask_bit(11, true)
-
-    # add force according to the current movement, and a random rotation
-    #apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
-
-    var amount = 10
-    #apply_torque_impulse(Vector3(rand_range(-amount, amount), rand_range(-amount, amount), rand_range(-amount, amount)))
-
-    # turn into a wreck
-    get_node('model/wheels').queue_free()
-    get_node('model/height-adjust/lights').queue_free()
-
-    var parts = get_node('model/height-adjust').get_children()
-    for part in parts:
-        if 'material' in part:
-            part.material = wreckMaterial

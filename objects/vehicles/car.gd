@@ -152,6 +152,8 @@ func handleCollision(collider: Object, normal: Vector3):
         # hit something solid
         speed = move_toward(speed, 0, propHitSlowing)
 
+    emit_signal('collided')
+
 
 func decreaseHealth(collider: Object, normal: Vector3):
 
@@ -179,28 +181,34 @@ func decreaseHealth(collider: Object, normal: Vector3):
 
 
 func destroyCar():
-    call_deferred('set_script', null)
     emit_signal('destroyed')
 
-    # TODO: implement changing to a rigid body node
+    var newNode = DynamicObject.new()
 
-    # swap the kinetic body mode for rigid body
-    #mode = MODE_RIGID
+    # set correct rigid body properties
+    newNode.mode = RigidBody.MODE_RIGID
+    newNode.transform = transform.translated(Vector3.UP * .1)
 
-    # add the ground collision mask
-    set_collision_mask_bit(11, true)
+    newNode.collision_layer = 0
+    newNode.set_collision_layer_bit(6, true)
+
+    newNode.collision_mask = 0
+    for i in range(8):
+        newNode.set_collision_mask_bit(i, true)
 
     # add force according to the current movement, and a random rotation
-    #apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
+    newNode.apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
 
     var amount = 10
     var spinningSpeed = 0
     if isSpinning:
         spinningSpeed = -sign(steering) * rand_range(4, 10)
 
-    #apply_torque_impulse(Vector3(rand_range(-amount, amount), -spinningSpeed, rand_range(-amount, amount)))
+    newNode.apply_torque_impulse(Vector3(rand_range(-amount, amount), -spinningSpeed, rand_range(-amount, amount)))
 
-    # turn into a wreck
+    # delete parts that should not appear on a wreck
+
+    # TODO: turn wheels into props
     get_node('model/wheels').queue_free()
     get_node('model/height-adjust/lights').queue_free()
 
@@ -208,10 +216,27 @@ func destroyCar():
     if policeLights:
         policeLights.queue_free()
 
+    # assign the wreck material to visible parts
     var parts = get_node('model/height-adjust').get_children()
     for part in parts:
         if 'material' in part:
             part.material = wreckMaterial
+
+    # move child nodes over
+    var collision = $collision
+    var model = $model
+
+    remove_child(collision)
+    remove_child(model)
+    newNode.add_child(collision)
+    newNode.add_child(model)
+
+    # swap nodes
+    var parent = get_parent()
+    parent.remove_child(self)
+    parent.add_child(newNode)
+
+    queue_free()
 
 
 func setBreaking(value: bool):
