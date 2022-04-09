@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/dynamic-object.gd"
 }, {
-"base": "RigidBody",
+"base": "Car",
 "class": "Player",
 "language": "GDScript",
 "path": "res://objects/player/player.gd"

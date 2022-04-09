@@ -17,6 +17,8 @@ export var maxSpeedFrom = 8
 export var maxSpeedTo = 14
 export var health = 200
 
+export var canSpin = true
+
 export(SpatialMaterial) var wreckMaterial
 
 # Current state of the car, used by its sub-components and the AI.
@@ -156,7 +158,7 @@ func decreaseHealth(body):
         if total > 2:
             health -= total
 
-        if total > 16:
+        if total > 16 and canSpin:
             spinning = true
             spinningSpeed = rand_range(0, total / 10)
             emit_signal('spinned', self)

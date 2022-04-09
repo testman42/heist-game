@@ -13,6 +13,11 @@ mode = 3
 contacts_reported = 6
 contact_monitor = true
 script = ExtResource( 1 )
+spawnProbability = 0.0
+maxSpeedFrom = 16
+maxSpeedTo = 16
+health = 1000000
+canSpin = false
 wreckMaterial = ExtResource( 6 )
 
 [node name="collision" type="CollisionShape" parent="."]
@@ -21,4 +26,4 @@ shape = SubResource( 1 )
 
 [node name="model" parent="." instance=ExtResource( 2 )]
 
-[connection signal="body_entered" from="." to="." method="_on_player_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_car_body_entered"]

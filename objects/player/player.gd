@@ -1,37 +1,17 @@
-extends RigidBody
+extends Car
 class_name Player
 
-export(SpatialMaterial) var wreckMaterial
 
 export var ignoreInput = false
 
 signal player_moved
 signal player_collision
 
-var heading = 1
-var speed = 0
-var steeringSpeed = 0
-
-# maximums
-const maxSpeed = 18
-const maxTurning = 18
-
-# previous speeds used for collisions
-var previousSpeed = 0
-var previousSteeringSpeed = 0
-
-func _ready():
-    pass
-
 
 func _process(delta):
 
 
     var posX = transform.origin.x
-
-    # update previous
-    previousSpeed = speed
-    previousSteeringSpeed = steeringSpeed
 
 
     var steerInput = Input.get_axis('move_left', 'move_right')
@@ -45,8 +25,6 @@ func _process(delta):
     if abs(speed) < maxSpeed:
         speed += speedInput * delta * 9
         speed = max(0, speed)
-    else:
-        speed = move_toward(speed, 0, delta * 4)
 
     # slow down a little when not accelerating
     if is_equal_approx(speedInput, 0):
@@ -70,30 +48,17 @@ func _process(delta):
         steeringSpeed = move_toward(steeringSpeed, 0, delta * 22)
 
 
-    # bounce from the rails
-    if abs(posX) > 15:
-        steeringSpeed *= -sign(posX) * sign(steeringSpeed) * .95
-        emit_signal('player_collision', abs(steeringSpeed) / 26)
-
-        if speed > 8:
-            speed -= 2
-
 
 
 
 func _physics_process(delta):
-    # move the vehicle body
-    translate(delta * Vector3(steeringSpeed * speed / 20, 0, -speed))
     emit_signal('player_moved', delta * speed)
 
-    # rotate the modal according to the steering
-    if $model != null:
-        $model.rotation.y = -steeringSpeed / 30
 
 
 
-
-func _on_player_body_entered(body):
+func _on_car_body_entered(body):
+    ._on_car_body_entered(body)
     # called when the player collides with another one
 
     var amount = 0
@@ -109,22 +74,11 @@ func _on_player_body_entered(body):
         var diff = otherSpeed - ourSpeed
         var diffSteering = otherSteering - ourSteering
 
-        # update speed, lower effect on the player
         if abs(diffPos.x) < 1.2:
-            speed += heading * diff * .4
             amount += abs(diff)
 
-        # update steering, lower effect on the player
-        steeringSpeed += diffSteering * .7
         amount += abs(diffSteering / 6)
 
-
-        # ensure some minimum diff is applied to make the cars
-        # bounce from each other and not "merge" into one - see #2
-        if abs(diff) < 4:
-            speed += heading * sign(diff) * 1.5
-        if abs(diffSteering) < 4:
-            steeringSpeed += sign(diffSteering) * 1.5
 
     # amount is roughly 10-30
     emit_signal('player_collision', amount)
@@ -158,6 +112,3 @@ func destroyPlayer():
     for part in parts:
         if 'material' in part:
             part.material = wreckMaterial
-
-
-
