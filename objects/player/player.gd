@@ -10,9 +10,7 @@ signal player_collision
 
 func _process(delta):
 
-
     var posX = transform.origin.x
-
 
     var steerInput = Input.get_axis('move_left', 'move_right')
     var speedInput = Input.get_axis('break', 'accelerate')
@@ -22,54 +20,48 @@ func _process(delta):
         speedInput = 0
 
     # update speed
-    if abs(speed) < maxSpeed:
-        speed += speedInput * delta * 9
+    if speed < maxSpeed:
+        speed += speedInput * acceleration * delta
+
+        # the player can never go backwards
         speed = max(0, speed)
 
     # slow down a little when not accelerating
     if is_equal_approx(speedInput, 0):
-        speed = move_toward(speed, 0, 1.2 * delta)
-
-    # slow down if on the grass
-    if abs(posX) > 11:
-        speed = move_toward(speed, 0, 8 * delta)
+        speed = move_toward(speed, 0, idleSlowing * delta)
 
     # update steering
-    if abs(steeringSpeed) < maxTurning:
+    if abs(steering) < maxSteering:
         if is_equal_approx(steerInput, 0):
-            steeringSpeed = move_toward(steeringSpeed, 0, delta * 12)
+            steering = move_toward(steering, 0, delta * 12)
         else:
-            var force = 22
-            if sign(steerInput) != sign(steeringSpeed):
-                force = 40
+            var force = steeringForce
+            if sign(steerInput) != sign(steering):
+                force *= 1.4
 
-            steeringSpeed += steerInput * delta * force
-    else:
-        steeringSpeed = move_toward(steeringSpeed, 0, delta * 22)
-
-
-
+            steering += steerInput * delta * force
 
 
 func _physics_process(delta):
     emit_signal('player_moved', delta * speed)
 
 
-
-
 func _on_car_body_entered(body):
+    # delegate to the parent logic
     ._on_car_body_entered(body)
-    # called when the player collides with another one
+
+    # Here just calculate the money lost from the collision.
+    # TODO: utilize Car's collision signal
 
     var amount = 0
     var diffPos = body.transform.origin - transform.origin
 
-    if 'heading' in body and 'previousSpeed' in body and 'previousSteeringSpeed' in body:
+    if 'heading' in body and 'previousSpeed' in body and 'previousSteering' in body:
 
         var otherSpeed = body.previousSpeed * body.heading
         var ourSpeed = previousSpeed * heading
-        var otherSteering = body.previousSteeringSpeed * body.heading
-        var ourSteering = previousSteeringSpeed * heading
+        var otherSteering = body.previousSteering * body.heading
+        var ourSteering = previousSteering * heading
 
         var diff = otherSpeed - ourSpeed
         var diffSteering = otherSteering - ourSteering
@@ -88,21 +80,20 @@ func destroyPlayer():
     call_deferred('set_script', null)
 
     # disable collision reporting
-    disconnect('body_entered', self, '_on_player_body_entered')
+    disconnect('body_entered', self, '_on_car_body_entered')
     contact_monitor = false
 
     # swap the kinetic body mode for rigid body
     mode = MODE_RIGID
 
     # add the ground collision mask
-    collision_mask |= 1 << 11
+    set_collision_mask_bit(11, true)
 
     # add force according to the current movement, and a random rotation
-    apply_impulse(Vector3.ZERO, Vector3(steeringSpeed, 0, speed * -heading))
+    apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
 
     var amount = 10
     apply_torque_impulse(Vector3(rand_range(-amount, amount), rand_range(-amount, amount), rand_range(-amount, amount)))
-
 
     # turn into a wreck
     get_node('model/wheels').queue_free()

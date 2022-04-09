@@ -10,14 +10,21 @@ extents = Vector3( 0.816, 1, 1.276 )
 [node name="player" type="RigidBody" groups=["car", "player"]]
 collision_layer = 3
 mode = 3
+mass = 4.0
 contacts_reported = 6
 contact_monitor = true
 script = ExtResource( 1 )
-spawnProbability = 0.0
-maxSpeedFrom = 16
-maxSpeedTo = 16
-health = 1000000
+maxSpeedFrom = 16.0
+maxSpeedTo = 16.0
+maxSteering = 20.0
+acceleration = 12.0
+breakingForce = 9.0
+steeringForce = 28.0
+idleSlowing = 1.6
+onGrassSlowing = 8.0
+propHitSlowing = 1.0
 canSpin = false
+canTakeDamage = false
 wreckMaterial = ExtResource( 6 )
 
 [node name="collision" type="CollisionShape" parent="."]

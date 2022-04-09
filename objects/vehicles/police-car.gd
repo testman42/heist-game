@@ -5,14 +5,12 @@ class_name PoliceCar
 # so expect weird code and shortcuts. Anyway, this class makes the police car
 # follow the player and occasionally bump into it.
 
-
-var acceleration = rand_range(10, 16)
-var breaking = 8
-
 var finalPos = rand_range(3, 6)
 
 
 func _ready():
+    $front.queue_free()
+
     if randf() < .5:
         finalPos *= -1
 
@@ -21,12 +19,11 @@ func _ready():
 
 
 func _process(delta):
-    # #safety - ignore if the player does not exist
     if not player or not is_instance_valid(player):
         return
 
     # disable the AI when spinning
-    if spinning:
+    if isSpinning:
         setBreaking(false)
         return
 
@@ -37,9 +34,6 @@ func _process(delta):
         StopNearPlayer(delta)
 
 
-
-
-
 func ChasePlayer(delta):
 
     var diff := transform.origin - player.transform.origin
@@ -48,16 +42,17 @@ func ChasePlayer(delta):
     if diff.z > 0:
         if speed < maxSpeed:
             setBreaking(false)
-            speed += delta * lerp(acceleration / 3, acceleration, clamp(diff.z / 4, 0, 1))
+            speed += delta * lerp(acceleration / 4, acceleration, clamp(diff.z / 4, 0, 1))
 
+
+    # when in front of the player, try to maintain half the speed of the player
     elif speed > player.speed / 2:
         setBreaking(true)
-        speed -= breaking * delta
+        speed -= breakingForce * delta
 
     else:
         setBreaking(false)
         speed += delta * acceleration / 4
-
 
 
     # steer next to the player until we are in line, then hit them
@@ -72,17 +67,15 @@ func ChasePlayer(delta):
 
     # try steering towards the target
     if ramming:
-        if abs(steeringSpeed) < maxTurning:
-            steeringSpeed += 22 * delta * sign(total)
+        if abs(steering) < maxSteering:
+            steering += steeringForce * delta * sign(total)
 
     elif absTotal > 2:
-        if abs(steeringSpeed) < absTotal:
-            steeringSpeed += 16 * delta * sign(total)
+        if abs(steering) < absTotal and abs(steering) < maxSteering:
+            steering += steeringForce * delta * sign(total)
 
-    elif absTotal > .2:
-        steeringSpeed += 10 * delta * sign(total)
-
-
+    elif absTotal > .1:
+        steering += delta * sign(total) * lerp(0, steeringForce, absTotal / 2)
 
 
 func StopNearPlayer(delta):
@@ -96,14 +89,7 @@ func StopNearPlayer(delta):
 
     else:
         setBreaking(true)
-        speed = move_toward(speed, 0, breaking * delta)
-
-
-    # try to avoid cars in front
-    if $front/raycast1.is_colliding():
-        steeringSpeed += 34 * delta
-    elif $front/raycast2.is_colliding():
-        steeringSpeed -= 34 * delta
+        speed = move_toward(speed, 0, breakingForce * delta)
 
 
     # steer next to the player until we are in line, then hit them
@@ -112,14 +98,10 @@ func StopNearPlayer(delta):
     var absTotal = abs(total)
 
     # try steering towards the target
-    var force = 22
-
     if absTotal > 2:
-        if abs(steeringSpeed) < absTotal:
-            steeringSpeed += force * delta * sign(total)
+        if abs(steering) < absTotal and abs(steering) < maxSteering:
+            steering += steeringForce * delta * sign(total)
 
-    elif absTotal > .2:
-        steeringSpeed += force * .4 * delta * sign(total)
-
-
+    elif absTotal > .1:
+        steering += delta * sign(total) * lerp(0, steeringForce, absTotal / 2)
 

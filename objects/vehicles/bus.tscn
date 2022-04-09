@@ -7,10 +7,15 @@
 extents = Vector3( 0.732, 0.82, 1.908 )
 
 [node name="bus" instance=ExtResource( 1 )]
+mass = 3.0
 spawnProbability = 0.1
-maxSpeedFrom = 7
-maxSpeedTo = 11
 health = 350
+maxSpeedFrom = 8.0
+maxSpeedTo = 10.0
+maxSteering = 12.0
+acceleration = 5.0
+breakingForce = 4.0
+steeringForce = 16.0
 
 [node name="collision" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, 0 )

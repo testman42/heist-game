@@ -116,8 +116,8 @@ func spawnPoliceCar():
         car.transform.origin.z *= -1
 
     add_child(car)
-    car.connect('spinned', LevelProgress, '_onCarSpinned')
-    car.connect('destroyed', LevelProgress, '_onCarDestroyed')
+    car.connect('spinned', LevelProgress, '_onCarSpinned', [car])
+    car.connect('destroyed', LevelProgress, '_onCarDestroyed', [car])
 
 
 func chooseCar() -> Car:

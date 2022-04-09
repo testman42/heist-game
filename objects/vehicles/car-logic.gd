@@ -1,9 +1,8 @@
 extends Car
 class_name CarLogic
 
-# Extends from Car and handles car acceleration, breaking, crash state, etc.
-# Basically an AI for cars to make them much better than just moving
-# by a constant speed all the time.
+# Handles the logic of cars in traffic. They maintain speed, break
+# if there's anything in front, and change lanes.
 
 onready var currentLane = transform.origin.x
 onready var previousLane = transform.origin.x
@@ -17,7 +16,7 @@ func _process(delta):
 
 func SpeedAdjust(delta):
 
-    if spinning:
+    if isSpinning:
         setBreaking(false)
         for raycast in [$front/raycast1, $front/raycast2]:
             raycast.enabled = false
@@ -26,12 +25,11 @@ func SpeedAdjust(delta):
     # handle special condition - when the player hits the car and it gets into reverse
     if speed < 0:
         # try to slow down
-        speed += 6 * delta
+        speed += breakingForce * delta
         setBreaking(true)
         return
 
     # check the attached raycasts whether there's anything in front of us
-
     for raycast in [$front/raycast1, $front/raycast2]:
 
         if raycast.is_colliding():
@@ -43,11 +41,10 @@ func SpeedAdjust(delta):
                 continue
 
             if "speed" in other:
-                # TODO
                 distance += other.speed - speed
 
             # slow down
-            var breakStrength = lerp(8, 0, distance / 8)
+            var breakStrength = lerp(breakingForce, 0, clamp(distance / 8, 0, 1))
             speed = move_toward(speed, 0, delta * breakStrength)
 
             setBreaking(breakStrength > .2)
@@ -58,22 +55,22 @@ func SpeedAdjust(delta):
     # nothing in front, speed up
     setBreaking(false)
     if speed < maxSpeed:
-        speed += delta * 8
+        speed += delta * acceleration
 
 
 func HandleLane(delta):
 
-    if spinning:
+    if isSpinning:
         return
 
-    # ignore for cars going in the opposite direction
+    # ignore for cars going in the opposite direction, they don't change lanes
     if heading < 0:
         return
 
     # TODO: these are just some hard-coded values which should be in the editor but there's no time...
     if not is_equal_approx(currentLane, previousLane):
         if abs(transform.origin.x - currentLane) < .1:
-            # done
+            # done changing lanes
             previousLane = currentLane
 
     # randomly choose to change the lane
@@ -86,9 +83,9 @@ func HandleLane(delta):
 
     # try steering towards the lane
     if absTotal > 2:
-        if abs(steeringSpeed) < absTotal:
-            steeringSpeed += 21 * delta * sign(total)
+        if abs(steering) < absTotal and abs(steering) < maxSteering:
+            steering += steeringForce * delta * sign(total)
 
-    elif absTotal > .2:
-        steeringSpeed += 11 * delta * sign(total)
+    elif absTotal > .1:
+        steering += delta * sign(total) * lerp(0, steeringForce, absTotal / 2)
 
