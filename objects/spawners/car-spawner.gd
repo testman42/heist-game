@@ -12,6 +12,9 @@ export(Array, PackedScene) var possiblePoliceCars
 export var disableCars = false
 export var disablePolice = false
 
+export var maxTraffic = 30
+export var maxPolice = 10
+
 # Where to spawn the cars, only x position is taken.
 const lanes = [1.5, 5, 8.5]
 
@@ -39,17 +42,8 @@ func _ready():
         totalPoliceProbability += instance.spawnProbability
 
     # preseed the cars going forward
-
-    if GameController.traffic and !disableCars:
-        for _i in range(10):
-            var car = chooseCar()
-            car.speed = rand_range(4, 12)
-            car.transform.origin.x = lanes[randi() % lanes.size()]
-            car.transform.origin.z = player.transform.origin.z - 50 - rand_range(0, 100)
-            add_child(car)
-
-            car.connect('spinned', LevelProgress, '_onCarSpinned')
-            car.connect('destroyed', LevelProgress, '_onCarDestroyed')
+    for _i in range(20):
+        spawnCar(true)
 
 
 func _process(_delta):
@@ -58,7 +52,7 @@ func _process(_delta):
     var policeProbability = .004
 
     if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
-        probability = lerp(0, .04, player.speed / player.maxSpeed)
+        probability = lerp(0, .06, player.speed / player.maxSpeed)
         policeProbability = lerp(0, .002, player.speed / player.maxSpeed)
 
     if GameController.traffic and !disableCars and randf() < probability:
@@ -66,25 +60,19 @@ func _process(_delta):
     if GameController.police and !disablePolice and randf() < policeProbability:
         spawnPoliceCar()
 
-func spawnCar():
+func spawnCar(randomizeZ = false):
     # limit max cars
-    if get_tree().get_nodes_in_group('car').size() > 30:
+    if get_tree().get_nodes_in_group('car').size() > maxTraffic:
         return
 
     # choose a new model randomly
     var car = chooseCar()
-    car.speed = rand_range(4, 12)
+    car.speed = car.maxSpeedFrom
 
-    if randf() > .6:
-        # higher chance to spawn forward facing car
+    if randf() > .4:
         car.transform.origin.x = lanes[randi() % lanes.size()]
-
     else:
-        # lower chance to spawn backward facing car
         car.transform.origin.x = -lanes[randi() % lanes.size()]
-
-        # flip the car
-        car.rotate_y(PI)
         car.heading = -1
 
     if ('speed' in player and player.speed > 4) or car.heading < 0:
@@ -92,13 +80,20 @@ func spawnCar():
     else:
         car.transform.origin.z = player.transform.origin.z + 60
 
+    if randomizeZ:
+        car.transform.origin.z += rand_range(-10, 10)
+
+    # check whether the car collides with anything, if true, just move it back
+    while car.move_and_collide(Vector3(0, 0, -.1), true, true, true):
+        car.transform.origin.z -= 2
+
     add_child(car)
     car.connect('spinned', LevelProgress, '_onCarSpinned')
     car.connect('destroyed', LevelProgress, '_onCarDestroyed')
 
 func spawnPoliceCar():
     # limit max police force
-    if get_tree().get_nodes_in_group('police').size() > 10:
+    if get_tree().get_nodes_in_group('police').size() > maxPolice:
         return
 
     # choose a new model randomly
@@ -114,6 +109,10 @@ func spawnPoliceCar():
 
     if randf() < .4:
         car.transform.origin.z *= -1
+
+    # check whether the car collides with anything, if true, just move it back
+    while car.move_and_collide(Vector3(0, 0, .1), true, true, true):
+        car.transform.origin.z += 2
 
     add_child(car)
     car.connect('spinned', LevelProgress, '_onCarSpinned', [car])

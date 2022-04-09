@@ -60,6 +60,13 @@ onready var maxHealth = health
 var previousSpeed = 0
 var previousSteering = 0
 
+
+func _ready():
+    # rotate according to the heading
+    if heading < 0:
+        rotation.y = PI
+
+
 func _process(delta):
 
     if canTakeDamage and health <= 0:
