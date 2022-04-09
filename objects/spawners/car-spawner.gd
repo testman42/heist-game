@@ -41,14 +41,10 @@ func _ready():
         possiblePoliceCarInstances.append(instance)
         totalPoliceProbability += instance.spawnProbability
 
-    # preseed the cars going forward
-    for _i in range(20):
-        spawnCar(true)
-
 
 func _process(_delta):
     # TODO: this chance should increase in harder levels
-    var probability = .18
+    var probability = .04
     var policeProbability = .003
 
     if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
@@ -60,7 +56,7 @@ func _process(_delta):
     if GameController.police and !disablePolice and randf() < policeProbability:
         spawnPoliceCar()
 
-func spawnCar(randomizeZ = false):
+func spawnCar():
     # limit max cars
     if get_tree().get_nodes_in_group('car').size() > maxTraffic:
         return
@@ -80,16 +76,13 @@ func spawnCar(randomizeZ = false):
     else:
         car.transform.origin.z = player.transform.origin.z + 60
 
-    if randomizeZ:
-        car.transform.origin.z += rand_range(-10, 10)
+    add_child(car)
+    car.connect('spinned', LevelProgress, '_onCarSpinned', [car])
+    car.connect('destroyed', LevelProgress, '_onCarDestroyed', [car])
 
     # check whether the car collides with anything, if true, just move it back
     while car.move_and_collide(Vector3(0, 0, -.1), true, true, true):
-        car.transform.origin.z -= 2
-
-    add_child(car)
-    car.connect('spinned', LevelProgress, '_onCarSpinned')
-    car.connect('destroyed', LevelProgress, '_onCarDestroyed')
+        car.transform.origin.z -= 1
 
 func spawnPoliceCar():
     # limit max police force
@@ -105,18 +98,19 @@ func spawnPoliceCar():
         car.speed = 6
 
     car.transform.origin.x = rand_range(-10, 10)
-    car.transform.origin.z = player.transform.origin.z + 25
 
     if randf() < .4:
-        car.transform.origin.z *= -1
-
-    # check whether the car collides with anything, if true, just move it back
-    while car.move_and_collide(Vector3(0, 0, .1), true, true, true):
-        car.transform.origin.z += 2
+        car.transform.origin.z = player.transform.origin.z - 25
+    else:
+        car.transform.origin.z = player.transform.origin.z + 25
 
     add_child(car)
     car.connect('spinned', LevelProgress, '_onCarSpinned', [car])
     car.connect('destroyed', LevelProgress, '_onCarDestroyed', [car])
+
+    # check whether the car collides with anything, if true, just move it back
+    while car.move_and_collide(Vector3(0, 0, .1), true, true, true):
+        car.transform.origin.z += 1
 
 
 func chooseCar() -> Car:

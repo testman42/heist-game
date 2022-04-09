@@ -20,6 +20,6 @@ func _ready():
     transform = global
 
 func _process(_delta):
-    if player and is_instance_valid(player) and transform.origin.z > player.transform.origin.z + 100:
+    if player and is_instance_valid(player) and transform.origin.distance_squared_to(player.transform.origin) > 10000:
         queue_free()
 
