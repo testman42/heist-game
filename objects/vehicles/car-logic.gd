@@ -74,7 +74,7 @@ func HandleLane(delta):
             previousLane = currentLane
 
     # randomly choose to change the lane
-    elif randf() < .0012:
+    elif randf() < .012:
         currentLane = lanes[randi() % lanes.size()] * heading
 
 
@@ -82,10 +82,9 @@ func HandleLane(delta):
     var absTotal = abs(total)
 
     # try steering towards the lane
-    if absTotal > 2:
-        if abs(steering) < absTotal and abs(steering) < maxSteering:
-            steering += steeringForce * delta * sign(total)
+    if abs(steering) > absTotal * 2:
+        steering -= steeringForce * delta * sign(total)
 
-    elif absTotal > .1:
-        steering += delta * sign(total) * lerp(0, steeringForce, absTotal / 2)
+    elif absTotal > .1 and abs(steering) < maxSteering:
+        steering += steeringForce * delta * sign(total)
 
