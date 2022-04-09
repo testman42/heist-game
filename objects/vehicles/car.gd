@@ -102,28 +102,28 @@ func _physics_process(delta):
         $model.rotation.y = -steering / 30
 
     # move the vehicle body
-    translate(delta * Vector3(steering * speed / 20, 0, -speed))
+    var collisionInfo = move_and_collide(delta * Vector3(steering * speed / 20, 0, -speed))
+
+    if collisionInfo:
+        handleCollision(collisionInfo)
+        decreaseHealth(collisionInfo)
+
+        # TODO: what about the remainder?
 
 
-func _on_car_body_entered(body):
-    # Called when this car collides with another one.
-    handleCollision(body)
-    decreaseHealth(body)
-
-
-func handleCollision(body):
+func handleCollision(collisionInfo):
 
     # *Note to self*: both cars will call this on collision, so only handle this car here!
     # *Another note*: I had to add previousSpeed to make this work, because without it the cars would always
     # just swap speeds (given that both would process this code and the second one would work with the speeds
     # set by the first one)!
 
-    # check if the other body is a car
-    if 'heading' in body and 'previousSpeed' in body and 'previousSteering' in body:
+    # check if the other collider is a car
+    if 'heading' in collisionInfo.collider and 'previousSpeed' in collisionInfo.collider and 'previousSteering' in collisionInfo.collider:
 
-        var otherSpeed = body.previousSpeed * body.heading
+        var otherSpeed = collisionInfo.collider.previousSpeed * collisionInfo.collider.heading
         var ourSpeed = previousSpeed * heading
-        var otherSteering = body.previousSteering * body.heading
+        var otherSteering = collisionInfo.collider.previousSteering * collisionInfo.collider.heading
         var ourSteering = previousSteering * heading
 
         var diff = otherSpeed - ourSpeed
@@ -132,21 +132,15 @@ func handleCollision(body):
         speed += heading * diff * .9
         steering += diffSteering * .9
 
-        # ensure some minimum diff is applied to make the cars
-        # bounce from each other and not "merge" into one - see #2
-        if abs(diff) < 4:
-            speed += heading * sign(diff) * 1.5
-        if abs(diffSteering) < 4:
-            steering += sign(diffSteering) * 1.5
-
 
     else:
         # hit something solid
         speed = move_toward(speed, 0, propHitSlowing)
 
 
-func decreaseHealth(body):
+func decreaseHealth(collisionInfo: KinematicCollision):
 
+    var body = collisionInfo.collider
     if 'heading' in body and 'previousSpeed' in body and 'previousSpeed' in body:
         var otherSpeed = body.previousSpeed * body.heading
         var ourSpeed = previousSpeed * heading
