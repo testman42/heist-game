@@ -6,6 +6,7 @@
 [ext_resource path="res://objects/vehicles/police-car.gd" type="Script" id=4]
 
 [node name="police-car" groups=["police"] instance=ExtResource( 1 )]
+collision_layer = 24
 script = ExtResource( 4 )
 health = 250.0
 maxSpeedFrom = 17.0

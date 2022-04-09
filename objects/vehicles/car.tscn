@@ -15,7 +15,8 @@
 extents = Vector3( 0.731534, 0.7, 1.12341 )
 
 [node name="car" type="KinematicBody" groups=["car"]]
-collision_layer = 5
+collision_layer = 8
+collision_mask = 30
 script = ExtResource( 2 )
 wreckMaterial = ExtResource( 10 )
 
@@ -147,13 +148,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.572973, -1.18382 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.464451, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -8 )
-collision_mask = 6
+collision_mask = 8
 
 [node name="raycast2" type="RayCast" parent="front"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.487608, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -8 )
-collision_mask = 6
+collision_mask = 8
 
 [connection signal="startBreaking" from="." to="model/height-adjust/lights/rl" method="_on_car_startBreaking"]
 [connection signal="startBreaking" from="." to="model/height-adjust/lights/rr" method="_on_car_startBreaking"]

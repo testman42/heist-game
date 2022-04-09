@@ -26,6 +26,7 @@ depth = 10.0
 material = SubResource( 2 )
 
 [node name="collision" type="StaticBody" parent="."]
+collision_layer = 2
 
 [node name="shape" type="CollisionShape" parent="collision"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.332525, 0 )

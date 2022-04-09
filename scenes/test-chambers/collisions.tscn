@@ -46,11 +46,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.2074, 4.19851 )
 
 [node name="bus" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.80601, -9.53674e-07, -16.3458 )
+collision_layer = 5
+collision_mask = 1
 script = ExtResource( 5 )
 
 [node name="car" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3307, 0, -7.71563 )
+collision_layer = 5
+collision_mask = 1
 script = ExtResource( 5 )
 
 [node name="police-car" parent="." instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54756, 0, 9.13858 )
+collision_layer = 5
+collision_mask = 1
