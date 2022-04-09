@@ -97,13 +97,11 @@ func _physics_process(delta):
     # move the vehicle body
     translate(delta * Vector3(steering * speed / 20, 0, -speed))
 
-    var model = get_node_or_null('model')
-    if model:
-        if isSpinning:
-            model.rotation.y += delta * speed * -1.6
-        else:
-            # rotate the modal according to the steering
-            model.rotation.y = -steering / 30
+    if isSpinning:
+        $model.rotation.y += delta * speed * -1.6
+    else:
+        # rotate the modal according to the steering
+        $model.rotation.y = -steering / 30
 
 
 func _on_car_body_entered(body):
