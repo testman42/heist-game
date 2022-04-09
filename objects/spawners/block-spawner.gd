@@ -3,6 +3,8 @@ class_name BlockSpawner
 
 # Spawns level blocks as the player is moving forward.
 # **All blocks must be 50 meters long.**
+# The spawner always assumes that the child nodes - blocks are ordered from back to front. It always
+# checks just the first block for deleting and appends new blocks at the end.
 
 # Possible blocks. Each one must be a Block type.
 export(Array, PackedScene) var possibleBlocks
@@ -32,38 +34,34 @@ func _process(_delta):
 func deleteOldBlocks():
     # all blocks that are already a few meters behind the player can be deleted
 
-    for child in get_children():
-        var block = child as Block
+    if get_child_count() == 0:
+        return
 
-        assert(block != null, "Unexpected child node which is not a Block")
+    var block = get_child(0)
+    assert(block != null, "Unexpected child node which is not a Block")
 
-        if (block.get_global_transform().origin.z - player.get_global_transform().origin.z) > 60:
-            block.queue_free()
+    if (block.transform.origin.z - player.transform.origin.z) > 100:
+        block.queue_free()
+
 
 func spawnNewBlocks():
 
-    if get_child_count() >= 5:
+    if get_child_count() >= 6:
         return
 
     # choose a new block randomly
     var block = chooseBlock()
 
-    # TODO: spawn required blocks bfore and after
+    # TODO: spawn required blocks before and after
 
     # spawn the block after the last one, which is 50 meters in front of it
-    var speed = 1
-    if 'speed' in player:
-        speed = player.speed
-
-
     var offset = 0
 
     if get_child_count() > 0:
-        offset = get_child(get_child_count() - 1).get_global_transform().origin.z - 50 + speed
+        offset = get_child(get_child_count() - 1).transform.origin.z - 50
 
-    block.translate(Vector3(0, 0, offset))
+    block.transform.origin.z = offset
     add_child(block)
-
 
 
 func chooseBlock() -> Block:
