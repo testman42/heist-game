@@ -97,7 +97,7 @@ func _physics_process(delta):
         $model.rotation.y = -steering / 30
 
     # move the vehicle body
-    var collisionInfo = move_and_collide(delta * Vector3(steering * speed / 20, 0, -speed))
+    var collisionInfo = move_and_collide(delta * Vector3(steering * speed / 20, 0, speed * -heading))
 
     if collisionInfo:
         handleCollision(collisionInfo.collider, collisionInfo.normal)
