@@ -72,7 +72,7 @@ func spawnCar():
         car.heading = -1
 
     if ('speed' in player and player.speed > 4) or car.heading < 0:
-        car.transform.origin.z = player.transform.origin.z - 60 - rand_range(0, 60)
+        car.transform.origin.z = player.transform.origin.z - 60
     else:
         car.transform.origin.z = player.transform.origin.z + 60
 
@@ -100,9 +100,9 @@ func spawnPoliceCar():
     car.transform.origin.x = rand_range(-10, 10)
 
     if randf() < .4:
-        car.transform.origin.z = player.transform.origin.z - 25
+        car.transform.origin.z = player.transform.origin.z - 60
     else:
-        car.transform.origin.z = player.transform.origin.z + 25
+        car.transform.origin.z = player.transform.origin.z + 60
 
     add_child(car)
     car.connect('spinned', LevelProgress, '_onCarSpinned', [car])
