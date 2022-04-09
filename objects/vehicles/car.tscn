@@ -14,12 +14,8 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.731534, 0.7, 1.12341 )
 
-[node name="car" type="RigidBody" groups=["car"]]
+[node name="car" type="KinematicBody" groups=["car"]]
 collision_layer = 5
-mode = 3
-contacts_reported = 4
-contact_monitor = true
-can_sleep = false
 script = ExtResource( 2 )
 wreckMaterial = ExtResource( 10 )
 

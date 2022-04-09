@@ -1,10 +1,10 @@
-extends DynamicObject
+extends DynamicObjectKinematic
 class_name Car
 
 # This is the base class for all cars in the game. It handles collision and
 # physics of vehicles, emits signals, handles the health and damage of the car, etc.
 
-signal collision
+signal collided
 signal spinned
 signal destroyed
 
@@ -94,14 +94,15 @@ func _process(delta):
 
 
 func _physics_process(delta):
-    # move the vehicle body
-    translate(delta * Vector3(steering * speed / 20, 0, -speed))
-
+    # Handle the rotation of the model. Note that only the visual model rotates, the collision shape stays the same.
     if isSpinning:
         $model.rotation.y += delta * speed * -1.6
     else:
         # rotate the modal according to the steering
         $model.rotation.y = -steering / 30
+
+    # move the vehicle body
+    translate(delta * Vector3(steering * speed / 20, 0, -speed))
 
 
 func _on_car_body_entered(body):
@@ -166,25 +167,23 @@ func destroyCar():
     call_deferred('set_script', null)
     emit_signal('destroyed')
 
-    # disable collision reporting
-    disconnect('body_entered', self, '_on_car_body_entered')
-    contact_monitor = false
+    # TODO: implement changing to a rigid body node
 
     # swap the kinetic body mode for rigid body
-    mode = MODE_RIGID
+    #mode = MODE_RIGID
 
     # add the ground collision mask
     set_collision_mask_bit(11, true)
 
     # add force according to the current movement, and a random rotation
-    apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
+    #apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
 
     var amount = 10
     var spinningSpeed = 0
     if isSpinning:
         spinningSpeed = -sign(steering) * rand_range(4, 10)
 
-    apply_torque_impulse(Vector3(rand_range(-amount, amount), -spinningSpeed, rand_range(-amount, amount)))
+    #apply_torque_impulse(Vector3(rand_range(-amount, amount), -spinningSpeed, rand_range(-amount, amount)))
 
     # turn into a wreck
     get_node('model/wheels').queue_free()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://objects/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/vehicles/bus.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/spawners/block-spawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/vehicles/sedan.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/vehicles/car-logic.gd" type="Script" id=5]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=6]
 [ext_resource path="res://objects/vehicles/police-car.tscn" type="PackedScene" id=18]
 [ext_resource path="res://environments/default_night_env.tres" type="Environment" id=20]
@@ -45,9 +46,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.2074, 4.19851 )
 
 [node name="bus" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.80601, -9.53674e-07, -16.3458 )
+script = ExtResource( 5 )
 
 [node name="car" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3307, 0, -7.71563 )
+script = ExtResource( 5 )
 
 [node name="police-car" parent="." instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54756, 0, 9.13858 )

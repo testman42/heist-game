@@ -10,8 +10,6 @@ signal player_collision
 
 func _process(delta):
 
-    var posX = transform.origin.x
-
     var steerInput = Input.get_axis('move_left', 'move_right')
     var speedInput = Input.get_axis('break', 'accelerate')
 
@@ -79,21 +77,19 @@ func _on_car_body_entered(body):
 func destroyPlayer():
     call_deferred('set_script', null)
 
-    # disable collision reporting
-    disconnect('body_entered', self, '_on_car_body_entered')
-    contact_monitor = false
+    # TODO: implement changing the node to rigid body
 
     # swap the kinetic body mode for rigid body
-    mode = MODE_RIGID
+    #mode = MODE_RIGID
 
     # add the ground collision mask
     set_collision_mask_bit(11, true)
 
     # add force according to the current movement, and a random rotation
-    apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
+    #apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
 
     var amount = 10
-    apply_torque_impulse(Vector3(rand_range(-amount, amount), rand_range(-amount, amount), rand_range(-amount, amount)))
+    #apply_torque_impulse(Vector3(rand_range(-amount, amount), rand_range(-amount, amount), rand_range(-amount, amount)))
 
     # turn into a wreck
     get_node('model/wheels').queue_free()

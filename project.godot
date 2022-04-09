@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://objects/spawners/block-spawner.gd"
 }, {
-"base": "DynamicObject",
+"base": "DynamicObjectKinematic",
 "class": "Car",
 "language": "GDScript",
 "path": "res://objects/vehicles/car.gd"
@@ -43,6 +43,11 @@ _global_script_classes=[ {
 "class": "DynamicObject",
 "language": "GDScript",
 "path": "res://scripts/dynamic-object.gd"
+}, {
+"base": "KinematicBody",
+"class": "DynamicObjectKinematic",
+"language": "GDScript",
+"path": "res://scripts/dynamic-object-kinematic.gd"
 }, {
 "base": "Car",
 "class": "Player",
@@ -67,6 +72,7 @@ _global_script_class_icons={
 "CarLogic": "",
 "CarSpawner": "",
 "DynamicObject": "",
+"DynamicObjectKinematic": "",
 "Player": "",
 "PoliceCar": "",
 "SpawnInArea": ""
