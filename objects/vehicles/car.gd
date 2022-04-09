@@ -105,13 +105,18 @@ func _physics_process(delta):
     var collisionInfo = move_and_collide(delta * Vector3(steering * speed / 20, 0, -speed))
 
     if collisionInfo:
-        handleCollision(collisionInfo)
-        decreaseHealth(collisionInfo)
+        handleCollision(collisionInfo.collider, collisionInfo.normal)
+        decreaseHealth(collisionInfo.collider)
+
+        if collisionInfo.collider.has_method('handleCollision'):
+            collisionInfo.collider.handleCollision(self, -collisionInfo.normal)
+        if collisionInfo.collider.has_method('decreaseHealth'):
+            collisionInfo.collider.decreaseHealth(self)
 
         # TODO: what about the remainder?
 
 
-func handleCollision(collisionInfo):
+func handleCollision(collider, normal):
 
     # *Note to self*: both cars will call this on collision, so only handle this car here!
     # *Another note*: I had to add previousSpeed to make this work, because without it the cars would always
@@ -119,11 +124,11 @@ func handleCollision(collisionInfo):
     # set by the first one)!
 
     # check if the other collider is a car
-    if 'heading' in collisionInfo.collider and 'previousSpeed' in collisionInfo.collider and 'previousSteering' in collisionInfo.collider:
+    if 'heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider:
 
-        var otherSpeed = collisionInfo.collider.previousSpeed * collisionInfo.collider.heading
+        var otherSpeed = collider.previousSpeed * collider.heading
         var ourSpeed = previousSpeed * heading
-        var otherSteering = collisionInfo.collider.previousSteering * collisionInfo.collider.heading
+        var otherSteering = collider.previousSteering * collider.heading
         var ourSteering = previousSteering * heading
 
         var diff = otherSpeed - ourSpeed
@@ -138,15 +143,14 @@ func handleCollision(collisionInfo):
         speed = move_toward(speed, 0, propHitSlowing)
 
 
-func decreaseHealth(collisionInfo: KinematicCollision):
+func decreaseHealth(collider):
 
-    var body = collisionInfo.collider
-    if 'heading' in body and 'previousSpeed' in body and 'previousSpeed' in body:
-        var otherSpeed = body.previousSpeed * body.heading
+    if 'heading' in collider and 'previousSpeed' in collider and 'previousSpeed' in collider:
+        var otherSpeed = collider.previousSpeed * collider.heading
         var ourSpeed = previousSpeed * heading
 
         var diff = .8 * abs(otherSpeed - ourSpeed)
-        var diffSteering = .6 * abs(body.previousSteering - previousSteering)
+        var diffSteering = .6 * abs(collider.previousSteering - previousSteering)
         var total = diff + diffSteering
 
         if total > 2 and canTakeDamage:
