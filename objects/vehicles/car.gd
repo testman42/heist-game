@@ -48,6 +48,8 @@ var steering = 0
 var isBreaking = false
 var isSpinning = false
 
+var spinningDirection = 0
+
 # Maximums limits for this car model.
 
 onready var maxSpeed = rand_range(maxSpeedFrom, maxSpeedTo)
@@ -85,18 +87,11 @@ func _process(delta):
     else:
         steering = move_toward(steering, 0, delta * idleSteeringDecrease)
 
-    # bounce from the rails
-    var posX = transform.origin.x
-    if abs(posX) > 15:
-        transform.origin.x = 15 * sign(posX)
-        steering *= -.9
-        speed = move_toward(speed, 0, delta * railHitSlowing)
-
 
 func _physics_process(delta):
     # Handle the rotation of the model. Note that only the visual model rotates, the collision shape stays the same.
     if isSpinning:
-        $model.rotation.y += delta * speed * -1.6
+        $model.rotation.y += delta * speed * .6 * spinningDirection
     else:
         # rotate the modal according to the steering
         $model.rotation.y = -steering / 30
@@ -140,6 +135,12 @@ func handleCollision(collider: Object, normal: Vector3):
             steering += diffSteering * .9
 
 
+    # bounce from the rails
+    elif collider.get_collision_layer_bit(1):
+        steering *= -.9
+        speed = move_toward(speed, 0, railHitSlowing)
+
+
     else:
         # hit something solid
         speed = move_toward(speed, 0, propHitSlowing)
@@ -160,6 +161,7 @@ func decreaseHealth(collider):
 
         if canSpin and (total > 16 or health/maxHealth < .2):
             isSpinning = true
+            spinningDirection = sign(collider.transform.origin.x - transform.origin.x)
             emit_signal('spinned')
 
 
