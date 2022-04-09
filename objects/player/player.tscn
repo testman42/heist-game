@@ -11,6 +11,7 @@ extents = Vector3( 0.816, 1, 1.276 )
 collision_layer = 12
 collision_mask = 26
 script = ExtResource( 1 )
+mass = 2.0
 maxSpeedFrom = 16.0
 maxSpeedTo = 16.0
 maxSteering = 20.0

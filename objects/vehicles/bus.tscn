@@ -7,9 +7,9 @@
 extents = Vector3( 0.732, 0.82, 1.908 )
 
 [node name="bus" instance=ExtResource( 1 )]
-mass = 3.0
 spawnProbability = 0.1
 health = 350
+mass = 4.0
 maxSpeedFrom = 8.0
 maxSpeedTo = 10.0
 maxSteering = 12.0

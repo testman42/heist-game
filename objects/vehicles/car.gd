@@ -15,6 +15,7 @@ signal stopBreaking
 
 export var spawnProbability = 1.0
 export var health = 200.0
+export var mass = 1.0
 
 export var maxSpeedFrom = 10.0
 export var maxSpeedTo = 14.0
@@ -98,7 +99,7 @@ func _process(delta):
 func _physics_process(delta):
     # Handle the rotation of the model. Note that only the visual model rotates, the collision shape stays the same.
     if isSpinning:
-        $model.rotation.y += delta * speed * .6 * spinningDirection
+        $model.rotation.y += delta * clamp(speed, -10, 10) * .6 * spinningDirection
     else:
         # rotate the modal according to the steering
         $model.rotation.y = -steering / 30
@@ -135,6 +136,10 @@ func handleCollision(collider: Object, normal: Vector3):
 
         var diff = otherSpeed - ourSpeed
         var diffSteering = otherSteering - ourSteering
+
+        var avgMass = (mass + collider.mass) / 2
+        diff *= collider.mass / avgMass
+        diffSteering *= collider.mass / avgMass
 
         if abs(normal.z) > abs(normal.x):
             speed += heading * diff * .9

@@ -3,8 +3,8 @@
 [ext_resource path="res://objects/vehicles/car.tscn" type="PackedScene" id=1]
 
 [node name="car" instance=ExtResource( 1 )]
-mass = 1.4
 health = 240
+mass = 1.1
 maxSpeedTo = 13
 acceleration = 7.2
 breakingForce = 5
