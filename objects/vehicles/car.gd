@@ -116,7 +116,7 @@ func _physics_process(delta):
         # TODO: what about the remainder?
 
 
-func handleCollision(collider, normal):
+func handleCollision(collider: Object, normal: Vector3):
 
     # *Note to self*: both cars will call this on collision, so only handle this car here!
     # *Another note*: I had to add previousSpeed to make this work, because without it the cars would always
@@ -134,8 +134,10 @@ func handleCollision(collider, normal):
         var diff = otherSpeed - ourSpeed
         var diffSteering = otherSteering - ourSteering
 
-        speed += heading * diff * .9
-        steering += diffSteering * .9
+        if abs(normal.z) > abs(normal.x):
+            speed += heading * diff * .9
+        else:
+            steering += diffSteering * .9
 
 
     else:
