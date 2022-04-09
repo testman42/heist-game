@@ -101,12 +101,12 @@ func _physics_process(delta):
 
     if collisionInfo:
         handleCollision(collisionInfo.collider, collisionInfo.normal)
-        decreaseHealth(collisionInfo.collider)
+        decreaseHealth(collisionInfo.collider, collisionInfo.normal)
 
         if collisionInfo.collider.has_method('handleCollision'):
             collisionInfo.collider.handleCollision(self, -collisionInfo.normal)
         if collisionInfo.collider.has_method('decreaseHealth'):
-            collisionInfo.collider.decreaseHealth(self)
+            collisionInfo.collider.decreaseHealth(self, -collisionInfo.normal)
 
         # TODO: what about the remainder?
 
@@ -146,7 +146,7 @@ func handleCollision(collider: Object, normal: Vector3):
         speed = move_toward(speed, 0, propHitSlowing)
 
 
-func decreaseHealth(collider):
+func decreaseHealth(collider: Object, normal: Vector3):
 
     if 'heading' in collider and 'previousSpeed' in collider and 'previousSpeed' in collider:
         var otherSpeed = collider.previousSpeed * collider.heading
@@ -154,7 +154,13 @@ func decreaseHealth(collider):
 
         var diff = .8 * abs(otherSpeed - ourSpeed)
         var diffSteering = .6 * abs(collider.previousSteering - previousSteering)
-        var total = diff + diffSteering
+
+        var total
+
+        if abs(normal.z) > abs(normal.x):
+            total = diff
+        else:
+            total = diffSteering
 
         if total > 2 and canTakeDamage:
             health -= total
