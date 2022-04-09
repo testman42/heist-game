@@ -159,7 +159,6 @@ enabled = true
 cast_to = Vector3( 0, 0, -8 )
 collision_mask = 6
 
-[connection signal="body_entered" from="." to="." method="_on_car_body_entered"]
 [connection signal="startBreaking" from="." to="model/height-adjust/lights/rl" method="_on_car_startBreaking"]
 [connection signal="startBreaking" from="." to="model/height-adjust/lights/rr" method="_on_car_startBreaking"]
 [connection signal="stopBreaking" from="." to="model/height-adjust/lights/rl" method="_on_car_stopBreaking"]
