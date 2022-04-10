@@ -4,6 +4,10 @@ class_name CarLogic
 # Handles the logic of cars in traffic. They maintain speed, break
 # if there's anything in front, and change lanes.
 
+signal startTurningLeft
+signal startTurningRight
+signal stopTurning
+
 onready var currentLane = transform.origin.x
 onready var previousLane = transform.origin.x
 
@@ -67,15 +71,23 @@ func HandleLane(delta):
     if heading < 0:
         return
 
+    var threshold = .3
+
     # TODO: these are just some hard-coded values which should be in the editor but there's no time...
     if not is_equal_approx(currentLane, previousLane):
-        if abs(transform.origin.x - currentLane) < .1:
+        if abs(transform.origin.x - currentLane) < threshold:
             # done changing lanes
             previousLane = currentLane
+            emit_signal('stopTurning')
 
     # randomly choose to change the lane
     elif randf() < .0012:
         currentLane = lanes[randi() % lanes.size()] * heading
+
+        if currentLane > previousLane:
+            emit_signal('startTurningRight')
+        else:
+            emit_signal('startTurningLeft')
 
 
     var total = currentLane - transform.origin.x
@@ -85,6 +97,5 @@ func HandleLane(delta):
     if abs(steering) > absTotal:
         steering -= steeringForce * delta * sign(total)
 
-    elif absTotal > .1 and abs(steering) < maxSteering:
+    elif absTotal > threshold and abs(steering) < maxSteering:
         steering += steeringForce * delta * sign(total)
-

@@ -50,3 +50,8 @@ health = 200.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3307, 0, -7.71563 )
 health = 200.0
 breakingForce = 6.0
+
+[connection signal="collided" from="bus" to="bus/model/height-adjust/lights/rl/turn" method="stop"]
+[connection signal="collided" from="bus" to="bus/model/height-adjust/lights/rr/turn" method="stop"]
+[connection signal="collided" from="car" to="car/model/height-adjust/lights/rl/turn" method="stop"]
+[connection signal="collided" from="car" to="car/model/height-adjust/lights/rr/turn" method="stop"]

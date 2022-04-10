@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/random-color.gd" type="Script" id=1]
 [ext_resource path="res://objects/vehicles/car-logic.gd" type="Script" id=2]
@@ -11,6 +11,9 @@
 [ext_resource path="res://objects/vehicles/night-light.tscn" type="PackedScene" id=9]
 [ext_resource path="res://materials/wreck.tres" type="Material" id=10]
 [ext_resource path="res://materials/red-light-active.tres" type="Material" id=11]
+[ext_resource path="res://materials/orange-light-active.tres" type="Material" id=12]
+[ext_resource path="res://materials/orange-light.tres" type="Material" id=13]
+[ext_resource path="res://objects/vehicles/car-turn-light.gd" type="Script" id=14]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.731534, 0.7, 1.12341 )
@@ -118,9 +121,9 @@ material = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, 0.97057, 0.240821, 0, -0.240821, 0.97057, 0, -2.08616e-05, -0.0584937 )
 
 [node name="rl" type="CSGBox" parent="model/height-adjust/lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.385, 0.320749, 1.08108 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.321, 1.081 )
 cast_shadow = 0
-width = 0.32
+width = 0.25
 height = 0.184
 depth = 0.0754329
 material = ExtResource( 5 )
@@ -134,10 +137,27 @@ light_color = Color( 0.901961, 0.0862745, 0.0862745, 1 )
 light_energy = 12.0
 omni_range = 2.0
 
-[node name="rr" type="CSGBox" parent="model/height-adjust/lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385, 0.320749, 1.08108 )
+[node name="turn" type="CSGBox" parent="model/height-adjust/lights/rl"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.173415, 0, 0 )
 cast_shadow = 0
-width = 0.32
+width = 0.1
+height = 0.184
+depth = 0.0754329
+material = ExtResource( 13 )
+script = ExtResource( 14 )
+activeMaterial = ExtResource( 12 )
+
+[node name="bulb" type="OmniLight" parent="model/height-adjust/lights/rl/turn"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08 )
+visible = false
+light_color = Color( 0.901961, 0.584314, 0.0862745, 1 )
+light_energy = 4.0
+omni_range = 2.0
+
+[node name="rr" type="CSGBox" parent="model/height-adjust/lights"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.321, 1.081 )
+cast_shadow = 0
+width = 0.25
 height = 0.184
 depth = 0.0754329
 material = ExtResource( 5 )
@@ -149,6 +169,23 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08 )
 visible = false
 light_color = Color( 0.901961, 0.0862745, 0.0862745, 1 )
 light_energy = 12.0
+omni_range = 2.0
+
+[node name="turn" type="CSGBox" parent="model/height-adjust/lights/rr"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 0, 0 )
+cast_shadow = 0
+width = 0.1
+height = 0.184
+depth = 0.0754329
+material = ExtResource( 13 )
+script = ExtResource( 14 )
+activeMaterial = ExtResource( 12 )
+
+[node name="bulb" type="OmniLight" parent="model/height-adjust/lights/rr/turn"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08 )
+visible = false
+light_color = Color( 0.901961, 0.584314, 0.0862745, 1 )
+light_energy = 4.0
 omni_range = 2.0
 
 [node name="front" type="Position3D" parent="."]
@@ -166,7 +203,15 @@ enabled = true
 cast_to = Vector3( 0, 0, -8 )
 collision_mask = 8
 
+[connection signal="collided" from="." to="model/height-adjust/lights/rl/turn" method="_on_car_collided"]
+[connection signal="collided" from="." to="model/height-adjust/lights/rr/turn" method="_on_car_collided"]
 [connection signal="startBreaking" from="." to="model/height-adjust/lights/rl" method="_on_car_startBreaking"]
 [connection signal="startBreaking" from="." to="model/height-adjust/lights/rr" method="_on_car_startBreaking"]
+[connection signal="startTurningLeft" from="." to="model/height-adjust/lights/rl/turn" method="start"]
+[connection signal="startTurningLeft" from="." to="model/height-adjust/lights/rr/turn" method="stop"]
+[connection signal="startTurningRight" from="." to="model/height-adjust/lights/rl/turn" method="stop"]
+[connection signal="startTurningRight" from="." to="model/height-adjust/lights/rr/turn" method="start"]
 [connection signal="stopBreaking" from="." to="model/height-adjust/lights/rl" method="_on_car_stopBreaking"]
 [connection signal="stopBreaking" from="." to="model/height-adjust/lights/rr" method="_on_car_stopBreaking"]
+[connection signal="stopTurning" from="." to="model/height-adjust/lights/rl/turn" method="stop"]
+[connection signal="stopTurning" from="." to="model/height-adjust/lights/rr/turn" method="stop"]

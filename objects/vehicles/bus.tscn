@@ -78,8 +78,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.385, 0.121386, -1.86273 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.385, 0.320749, 1.86794 )
 height = 0.3
 
+[node name="turn" parent="model/height-adjust/lights/rl" index="1"]
+height = 0.3
+
 [node name="rr" parent="model/height-adjust/lights" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385, 0.320749, 1.86794 )
+height = 0.3
+
+[node name="turn" parent="model/height-adjust/lights/rr" index="1"]
 height = 0.3
 
 [node name="front" parent="." index="2"]
