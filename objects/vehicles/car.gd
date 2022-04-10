@@ -23,7 +23,7 @@ export var maxSteering = 14.0
 
 export var acceleration = 8.0
 export var breakingForce = 6.0
-export var steeringForce = 14.0
+export var steeringForce = 10.0
 
 export var idleSlowing = 0.0
 export var aboveLimitSlowing = 2.4

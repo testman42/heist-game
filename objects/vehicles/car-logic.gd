@@ -82,7 +82,7 @@ func HandleLane(delta):
     var absTotal = abs(total)
 
     # try steering towards the lane
-    if abs(steering) > absTotal * 2:
+    if abs(steering) > absTotal:
         steering -= steeringForce * delta * sign(total)
 
     elif absTotal > .1 and abs(steering) < maxSteering:
