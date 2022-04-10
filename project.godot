@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "CSGBox",
 "class": "BlinkingLight",
 "language": "GDScript",
-"path": "res://scripts/blinking-light.gd"
+"path": "res://objects/vehicles/police-light.gd"
 }, {
 "base": "Spatial",
 "class": "Block",

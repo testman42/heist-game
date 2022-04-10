@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://materials/police-white.tres" type="Material" id=1]
-[ext_resource path="res://scripts/blinking-light.gd" type="Script" id=3]
+[ext_resource path="res://objects/vehicles/police-light.gd" type="Script" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.921569, 0.2, 0.2, 1 )
