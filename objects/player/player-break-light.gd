@@ -1,23 +1,21 @@
 extends CSGBox
 
+export(SpatialMaterial) var activeMaterial
+onready var bulb = get_node_or_null('bulb')
+
 func _ready():
+    assert(activeMaterial, 'Missing player breaking light active material')
+
     if not GameController.lights:
         call_deferred('set_script', null)
 
-        if $bulb:
-            $bulb.queue_free()
-    else:
-        material = material.duplicate()
+        if bulb:
+            bulb.queue_free()
 
 func _process(_delta):
-    if not $bulb:
-        return
-
     if Input.get_action_strength('break') > .1:
-        $bulb.visible = true
-        material.emission_energy = 5
+        material_override = activeMaterial
+        if bulb: bulb.visible = true
     else:
-        $bulb.visible = false
-        material.emission_energy = 1.5
-
-
+        material_override = null
+        if bulb: bulb.visible = false

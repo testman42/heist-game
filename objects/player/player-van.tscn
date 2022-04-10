@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://materials/player-van.tres" type="Material" id=1]
 [ext_resource path="res://materials/window.tres" type="Material" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://materials/red-light.tres" type="Material" id=5]
 [ext_resource path="res://objects/vehicles/night-light.tscn" type="PackedScene" id=6]
 [ext_resource path="res://objects/player/player-break-light.gd" type="Script" id=7]
+[ext_resource path="res://materials/red-light-active.tres" type="Material" id=8]
 
 [node name="model" type="Spatial"]
 
@@ -100,9 +101,11 @@ height = 0.184
 depth = 0.0754329
 material = ExtResource( 5 )
 script = ExtResource( 7 )
+activeMaterial = ExtResource( 8 )
 
 [node name="bulb" type="OmniLight" parent="height-adjust/lights/rl"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.035447 )
+visible = false
 light_color = Color( 1, 0.0588235, 0, 1 )
 light_energy = 5.0
 shadow_enabled = true
@@ -115,9 +118,11 @@ height = 0.184
 depth = 0.0754329
 material = ExtResource( 5 )
 script = ExtResource( 7 )
+activeMaterial = ExtResource( 8 )
 
 [node name="bulb" type="OmniLight" parent="height-adjust/lights/rr"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.035447 )
+visible = false
 light_color = Color( 1, 0.0588235, 0, 1 )
 light_energy = 5.0
 shadow_enabled = true
