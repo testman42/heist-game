@@ -30,3 +30,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 1 )
 
 [node name="model" parent="." instance=ExtResource( 2 )]
+
+[connection signal="collided" from="." to="." method="onCollided"]

@@ -44,12 +44,9 @@ func _physics_process(delta):
     emit_signal('player_moved', delta * speed)
 
 
-func _on_car_body_entered(body):
-    # delegate to the parent logic
-    ._on_car_body_entered(body)
+func onCollided(body, normal):
 
     # Here just calculate the money lost from the collision.
-    # TODO: utilize Car's collision signal
 
     var amount = 0
     var diffPos = body.transform.origin - transform.origin

@@ -157,7 +157,7 @@ func handleCollision(collider: Object, normal: Vector3):
         # hit something solid
         speed = move_toward(speed, 0, propHitSlowing)
 
-    emit_signal('collided')
+    emit_signal('collided', collider, normal)
 
 
 func decreaseHealth(collider: Object, normal: Vector3):
