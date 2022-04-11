@@ -105,7 +105,7 @@ func _physics_process(delta):
         $model.rotation.y = heading * -steering * CarConstants.steeringRotation
 
     # move the vehicle body
-    var collisionInfo = move_and_collide(delta * Vector3(steering * speed * CarConstants.steeringSpeedAdjust, 0, speed * -heading))
+    var collisionInfo = move_and_collide(delta * Vector3(steering * abs(speed) * CarConstants.steeringSpeedAdjust, 0, speed * -heading))
 
     if collisionInfo:
         handleCollision(collisionInfo.collider, collisionInfo.normal)
@@ -141,10 +141,9 @@ func handleCollision(collider: Object, normal: Vector3):
         diff *= collider.mass / avgMass
         diffSteering *= collider.mass / avgMass
 
-        if abs(normal.z) > abs(normal.x):
+        steering += diffSteering * CarConstants.collisionSteeringMultiplier
+        if abs(normal.z) > abs(normal.x) or abs(previousSpeed) < abs(collider.previousSpeed):
             speed += heading * diff * CarConstants.collisionSpeedMultiplier
-        else:
-            steering += diffSteering * CarConstants.collisionSteeringMultiplier
 
 
     # bounce from the rails
