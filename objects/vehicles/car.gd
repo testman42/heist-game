@@ -23,7 +23,7 @@ export var maxSteering = 14.0
 
 export var acceleration = 8.0
 export var breakingForce = 6.0
-export var steeringForce = 10.0
+export var steeringForce = 2.0
 
 export var idleSlowing = 0.0
 export var aboveLimitSlowing = 2.4
@@ -32,7 +32,7 @@ export var onGrassSlowing = 7.0
 export var railHitSlowing = 4.0
 export var propHitSlowing = 2.0
 
-export var idleSteeringDecrease = 8.0
+export var idleSteeringDecrease = 0.0
 export var aboveLimitSteeringDecrease = 22.0
 
 export var canSpin = true
