@@ -102,7 +102,7 @@ func _physics_process(delta):
         $model.rotation.y += delta * clamp(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection
     else:
         # rotate the modal according to the steering
-        $model.rotation.y = -steering * CarConstants.steeringRotation
+        $model.rotation.y = heading * -steering * CarConstants.steeringRotation
 
     # move the vehicle body
     var collisionInfo = move_and_collide(delta * Vector3(steering * speed * CarConstants.steeringSpeedAdjust, 0, speed * -heading))
@@ -192,7 +192,10 @@ func destroyCar():
 
     # set correct rigid body properties
     newNode.mode = RigidBody.MODE_RIGID
-    newNode.transform = transform.translated(Vector3.UP * .1)
+    newNode.transform = transform.translated(Vector3.UP * .01)
+
+    for group in get_groups():
+        newNode.add_to_group(group)
 
     newNode.collision_layer = 0
     newNode.set_collision_layer_bit(6, true)
