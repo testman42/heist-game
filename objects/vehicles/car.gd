@@ -192,7 +192,6 @@ func destroyCar():
 
     # set correct rigid body properties
     newNode.mode = RigidBody.MODE_RIGID
-    newNode.transform = transform.translated(Vector3.UP * .01)
 
     for group in get_groups():
         newNode.add_to_group(group)
@@ -203,6 +202,17 @@ func destroyCar():
     newNode.collision_mask = 0
     for i in range(8):
         newNode.set_collision_mask_bit(i, true)
+
+    # rotate the whole object according to the previous rotation of the model
+    newNode.rotation = $model.rotation
+    $model.rotation = Vector3.ZERO
+
+    # move the collision box to the center to have the correct center of gravity
+    var offset = $collision.shape.extents.y
+
+    newNode.transform = transform.translated(Vector3.UP * offset)
+    $collision.translate(Vector3.DOWN * offset)
+    $model.translate(Vector3.DOWN * offset)
 
     # add force according to the current movement, and a random rotation
     newNode.apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
