@@ -131,8 +131,8 @@ func handleCollision(collider: Object, normal: Vector3):
 
         var otherSpeed = collider.previousSpeed * collider.heading
         var ourSpeed = previousSpeed * heading
-        var otherSteering = collider.previousSteering * collider.heading
-        var ourSteering = previousSteering * heading
+        var otherSteering = collider.previousSteering
+        var ourSteering = previousSteering
 
         var diff = otherSpeed - ourSpeed
         var diffSteering = otherSteering - ourSteering
