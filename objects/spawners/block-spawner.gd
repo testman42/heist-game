@@ -12,8 +12,6 @@ export(Array, PackedScene) var possibleBlocks
 var possibleBlocksInstances = []
 var totalProbability = 0
 
-onready var player: Player = get_tree().get_nodes_in_group('player')[0]
-
 
 func _ready():
     assert(possibleBlocks.size() > 0, "Missing possible blocks for a spawner")
@@ -37,6 +35,11 @@ func deleteOldBlocks():
     if get_child_count() == 0:
         return
 
+    var nodes = get_tree().get_nodes_in_group('player')
+    if nodes.size() <= 0:
+        return
+
+    var player = nodes[0]
     var block = get_child(0)
     assert(block != null, "Unexpected child node which is not a Block")
 

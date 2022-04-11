@@ -18,7 +18,7 @@ var totalProbability = 0
 var possiblePoliceCarInstances = []
 var totalPoliceProbability = 0
 
-onready var player: Player = get_tree().get_nodes_in_group('player')[0]
+var player
 
 
 func _ready():
@@ -40,6 +40,12 @@ func _process(_delta):
     # TODO: this chance should increase in harder levels
     var probability = .04
     var policeProbability = .003
+
+    var nodes = get_tree().get_nodes_in_group('player')
+    if nodes.size() > 0:
+        player = nodes[0]
+    else:
+        player = null
 
     if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
         probability = lerp(0, probability, player.speed / player.maxSpeed)
