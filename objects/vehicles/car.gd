@@ -21,7 +21,7 @@ export var maxSpeedFrom = 10.0
 export var maxSpeedTo = 14.0
 export var maxSteering = 14.0
 
-export var acceleration = 8.0
+export var acceleration = 4.0
 export var breakingForce = 6.0
 export var steeringForce = 2.0
 

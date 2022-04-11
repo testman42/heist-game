@@ -13,9 +13,9 @@ mass = 1.4
 maxSpeedFrom = 17.0
 maxSpeedTo = 18.0
 maxSteering = 16.0
-acceleration = 10.0
+acceleration = 5.0
 breakingForce = 8.0
-steeringForce = 24.0
+steeringForce = 3.0
 
 [node name="height-adjust" parent="model" index="1"]
 script = null

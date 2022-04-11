@@ -6,8 +6,7 @@
 health = 240
 mass = 1.1
 maxSpeedTo = 13
-acceleration = 7.2
-breakingForce = 5
+breakingForce = 5.5
 
 [node name="fr" parent="model/wheels" index="0"]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.6, 0, -0.682177 )

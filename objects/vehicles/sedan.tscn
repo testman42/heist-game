@@ -4,7 +4,7 @@
 
 [node name="sedan" instance=ExtResource( 1 )]
 health = 220
-breakingForce = 9
+breakingForce = 7.0
 
 [node name="roof" parent="model/height-adjust" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.888, 0, 0.794735, 0.065737 )

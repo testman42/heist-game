@@ -13,7 +13,7 @@ mass = 4.0
 maxSpeedFrom = 8.0
 maxSpeedTo = 10.0
 maxSteering = 12.0
-acceleration = 5.0
+acceleration = 3.0
 breakingForce = 4.0
 steeringForce = 1.0
 
