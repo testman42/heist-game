@@ -71,13 +71,13 @@ func HandleLane(delta):
         return
 
     if not is_equal_approx(currentLane, previousLane):
-        if abs(transform.origin.x - currentLane) < TrafficConstants.laneMatchThreshold:
+        if abs(transform.origin.x - currentLane) < CarConstants.laneMatchThreshold:
             # done changing lanes
             previousLane = currentLane
             emit_signal('stopTurning')
 
     # randomly choose to change the lane
-    elif randf() < TrafficConstants.chanceToChangeLane:
+    elif randf() < CarConstants.chanceToChangeLane:
         currentLane = HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()] * heading
 
         if currentLane > previousLane:
@@ -93,5 +93,5 @@ func HandleLane(delta):
     if abs(steering) > absTotal:
         steering -= steeringForce * delta * sign(total)
 
-    elif absTotal > TrafficConstants.laneMatchThreshold and abs(steering) < maxSteering:
+    elif absTotal > CarConstants.laneMatchThreshold and abs(steering) < maxSteering:
         steering += steeringForce * delta * sign(total)

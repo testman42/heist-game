@@ -86,7 +86,7 @@ func _process(delta):
         speed = move_toward(speed, 0, delta * spinningSlowing)
 
     # slow down if on the grass
-    if abs(transform.origin.x) > 11:
+    if abs(transform.origin.x) > HighwayConstants.grass:
         speed = move_toward(speed, 0, onGrassSlowing * delta)
 
     # update steering
@@ -99,13 +99,13 @@ func _process(delta):
 func _physics_process(delta):
     # Handle the rotation of the model. Note that only the visual model rotates, the collision shape stays the same.
     if isSpinning:
-        $model.rotation.y += delta * clamp(speed, -10, 10) * .6 * spinningDirection
+        $model.rotation.y += delta * clamp(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection
     else:
         # rotate the modal according to the steering
-        $model.rotation.y = -steering / 30
+        $model.rotation.y = -steering * CarConstants.steeringRotation
 
     # move the vehicle body
-    var collisionInfo = move_and_collide(delta * Vector3(steering * speed / 20, 0, speed * -heading))
+    var collisionInfo = move_and_collide(delta * Vector3(steering * speed * CarConstants.steeringSpeedAdjust, 0, speed * -heading))
 
     if collisionInfo:
         handleCollision(collisionInfo.collider, collisionInfo.normal)
@@ -142,14 +142,14 @@ func handleCollision(collider: Object, normal: Vector3):
         diffSteering *= collider.mass / avgMass
 
         if abs(normal.z) > abs(normal.x):
-            speed += heading * diff * .9
+            speed += heading * diff * CarConstants.collisionSpeedMultiplier
         else:
-            steering += diffSteering * .9
+            steering += diffSteering * CarConstants.collisionSteeringMultiplier
 
 
     # bounce from the rails
     elif collider.get_collision_layer_bit(1):
-        steering *= -.9
+        steering *= -CarConstants.collisionSteeringMultiplier
         speed = move_toward(speed, 0, railHitSlowing)
 
 
@@ -166,8 +166,8 @@ func decreaseHealth(collider: Object, normal: Vector3):
         var otherSpeed = collider.previousSpeed * collider.heading
         var ourSpeed = previousSpeed * heading
 
-        var diff = .8 * abs(otherSpeed - ourSpeed)
-        var diffSteering = .6 * abs(collider.previousSteering - previousSteering)
+        var diff = CarConstants.collisionHealthSpeedMultipler * abs(otherSpeed - ourSpeed)
+        var diffSteering = CarConstants.collisionHealthSteeringMultipler * abs(collider.previousSteering - previousSteering)
 
         var total
 
@@ -179,7 +179,7 @@ func decreaseHealth(collider: Object, normal: Vector3):
         if total > 2 and canTakeDamage:
             health -= total
 
-        if canSpin and (total > 16 or health/maxHealth < .2):
+        if canSpin and (total > CarConstants.collisionSpinningThreshold or health/maxHealth < CarConstants.healthSpinningThreshold):
             isSpinning = true
             spinningDirection = sign(collider.transform.origin.x - transform.origin.x)
             emit_signal('spinned')
@@ -204,12 +204,11 @@ func destroyCar():
     # add force according to the current movement, and a random rotation
     newNode.apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
 
-    var amount = 10
-    var spinningSpeed = 0
-    if isSpinning:
-        spinningSpeed = -sign(steering) * rand_range(4, 10)
-
-    newNode.apply_torque_impulse(Vector3(rand_range(-amount, amount), -spinningSpeed, rand_range(-amount, amount)))
+    newNode.apply_torque_impulse(Vector3(
+        0,
+        clamp(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection,
+        0
+    ))
 
     # delete parts that should not appear on a wreck
 
