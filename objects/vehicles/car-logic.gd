@@ -66,10 +66,6 @@ func HandleLane(delta):
     if isSpinning:
         return
 
-    # ignore for cars going in the opposite direction, they don't change lanes
-    if heading < 0:
-        return
-
     if abs(transform.origin.x - currentLane) < CarConstants.laneMatchThreshold:
         if not is_equal_approx(currentLane, previousLane):
                 # done changing lanes
