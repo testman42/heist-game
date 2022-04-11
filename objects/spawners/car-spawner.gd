@@ -12,12 +12,6 @@ export(Array, PackedScene) var possiblePoliceCars
 export var disableCars = false
 export var disablePolice = false
 
-export var maxTraffic = 30
-export var maxPolice = 10
-
-# Where to spawn the cars, only x position is taken.
-const lanes = [1.5, 5, 8.5]
-
 var possibleCarInstances = []
 var totalProbability = 0
 
@@ -58,23 +52,23 @@ func _process(_delta):
 
 func spawnCar():
     # limit max cars
-    if get_tree().get_nodes_in_group('car').size() > maxTraffic:
+    if get_tree().get_nodes_in_group('car').size() > HighwayConstants.maxTraffic:
         return
 
     # choose a new model randomly
     var car = chooseCar()
     car.speed = car.maxSpeedFrom
 
-    if randf() > .4:
-        car.transform.origin.x = lanes[randi() % lanes.size()]
+    if randf() < .4:
+        car.transform.origin.x = HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()]
     else:
-        car.transform.origin.x = -lanes[randi() % lanes.size()]
+        car.transform.origin.x = -HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()]
         car.heading = -1
 
     if ('speed' in player and player.speed > 4) or car.heading < 0:
-        car.transform.origin.z = player.transform.origin.z - 60
+        car.transform.origin.z = player.transform.origin.z - HighwayConstants.blockLength * 1.5
     else:
-        car.transform.origin.z = player.transform.origin.z + 60
+        car.transform.origin.z = player.transform.origin.z + HighwayConstants.blockLength * 1.5
 
     add_child(car)
     car.connect('spinned', LevelProgress, '_onCarSpinned', [car])
@@ -86,7 +80,7 @@ func spawnCar():
 
 func spawnPoliceCar():
     # limit max police force
-    if get_tree().get_nodes_in_group('police').size() > maxPolice:
+    if get_tree().get_nodes_in_group('police').size() > HighwayConstants.maxPolice:
         return
 
     # choose a new model randomly
@@ -97,12 +91,12 @@ func spawnPoliceCar():
     else:
         car.speed = 6
 
-    car.transform.origin.x = rand_range(-10, 10)
+    car.transform.origin.x = rand_range(-HighwayConstants.grass, HighwayConstants.grass)
 
     if randf() < .4:
-        car.transform.origin.z = player.transform.origin.z - 60
+        car.transform.origin.z = player.transform.origin.z - HighwayConstants.blockLength * 1.5
     else:
-        car.transform.origin.z = player.transform.origin.z + 60
+        car.transform.origin.z = player.transform.origin.z + HighwayConstants.blockLength * 1.5
 
     add_child(car)
     car.connect('spinned', LevelProgress, '_onCarSpinned', [car])
@@ -142,7 +136,3 @@ func choosePoliceCar() -> Car:
     i -= 1
 
     return possiblePoliceCarInstances[i].duplicate()
-
-
-
-

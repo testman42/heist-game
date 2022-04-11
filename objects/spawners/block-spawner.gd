@@ -40,7 +40,7 @@ func deleteOldBlocks():
     var block = get_child(0)
     assert(block != null, "Unexpected child node which is not a Block")
 
-    if (block.transform.origin.z - player.transform.origin.z) > 100:
+    if (block.transform.origin.z - player.transform.origin.z) > HighwayConstants.blockLength * 2:
         block.queue_free()
 
 
@@ -58,7 +58,7 @@ func spawnNewBlocks():
     var offset = 0
 
     if get_child_count() > 0:
-        offset = get_child(get_child_count() - 1).transform.origin.z - 50
+        offset = get_child(get_child_count() - 1).transform.origin.z - HighwayConstants.blockLength
 
     block.transform.origin.z = offset
     add_child(block)

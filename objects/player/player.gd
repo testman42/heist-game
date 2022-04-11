@@ -61,10 +61,10 @@ func onCollided(body, normal):
         var diff = otherSpeed - ourSpeed
         var diffSteering = otherSteering - ourSteering
 
-        if abs(diffPos.x) < 1.2:
+        if abs(normal.z) > abs(normal.x):
             amount += abs(diff)
-
-        amount += abs(diffSteering / 6)
+        else:
+            amount += abs(diffSteering / 6)
 
 
     # amount is roughly 10-30

@@ -11,7 +11,6 @@ signal stopTurning
 onready var currentLane = transform.origin.x
 onready var previousLane = transform.origin.x
 
-const lanes = [1.5, 5, 8.5]
 
 func _process(delta):
     SpeedAdjust(delta)
@@ -71,18 +70,15 @@ func HandleLane(delta):
     if heading < 0:
         return
 
-    var threshold = .3
-
-    # TODO: these are just some hard-coded values which should be in the editor but there's no time...
     if not is_equal_approx(currentLane, previousLane):
-        if abs(transform.origin.x - currentLane) < threshold:
+        if abs(transform.origin.x - currentLane) < TrafficConstants.laneMatchThreshold:
             # done changing lanes
             previousLane = currentLane
             emit_signal('stopTurning')
 
     # randomly choose to change the lane
-    elif randf() < .0012:
-        currentLane = lanes[randi() % lanes.size()] * heading
+    elif randf() < TrafficConstants.chanceToChangeLane:
+        currentLane = HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()] * heading
 
         if currentLane > previousLane:
             emit_signal('startTurningRight')
@@ -97,5 +93,5 @@ func HandleLane(delta):
     if abs(steering) > absTotal:
         steering -= steeringForce * delta * sign(total)
 
-    elif absTotal > threshold and abs(steering) < maxSteering:
+    elif absTotal > TrafficConstants.laneMatchThreshold and abs(steering) < maxSteering:
         steering += steeringForce * delta * sign(total)

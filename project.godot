@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/dynamic-object-kinematic.gd"
 }, {
+"base": "Reference",
+"class": "HighwayConstants",
+"language": "GDScript",
+"path": "res://constants/highway-constants.gd"
+}, {
 "base": "Car",
 "class": "Player",
 "language": "GDScript",
@@ -63,6 +68,11 @@ _global_script_classes=[ {
 "class": "SpawnInArea",
 "language": "GDScript",
 "path": "res://scripts/spawn-in-area.gd"
+}, {
+"base": "Reference",
+"class": "TrafficConstants",
+"language": "GDScript",
+"path": "res://constants/traffic-constants.gd"
 } ]
 _global_script_class_icons={
 "BlinkingLight": "",
@@ -73,9 +83,11 @@ _global_script_class_icons={
 "CarSpawner": "",
 "DynamicObject": "",
 "DynamicObjectKinematic": "",
+"HighwayConstants": "",
 "Player": "",
 "PoliceCar": "",
-"SpawnInArea": ""
+"SpawnInArea": "",
+"TrafficConstants": ""
 }
 
 [application]
