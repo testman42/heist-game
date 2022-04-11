@@ -77,9 +77,11 @@ func HandleLane(delta):
             currentLane = HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()] * heading
 
             if currentLane > previousLane:
-                emit_signal('startTurningRight')
+                if heading > 0: emit_signal('startTurningRight')
+                else: emit_signal('startTurningLeft')
             else:
-                emit_signal('startTurningLeft')
+                if heading > 0: emit_signal('startTurningLeft')
+                else: emit_signal('startTurningRight')
 
 
     var total = currentLane - transform.origin.x
