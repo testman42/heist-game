@@ -114,6 +114,7 @@ GameController="*res://autoload/game-controller.gd"
 
 common/swap_ok_cancel=true
 theme/custom="res://ui/theme.tres"
+theme/custom_font="res://fonts/base.tres"
 
 [input]
 

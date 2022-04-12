@@ -93,48 +93,48 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="buttons"]
-margin_top = 166.0
+margin_top = 100.0
 margin_right = 944.0
-margin_bottom = 186.0
+margin_bottom = 137.0
 text = "<Start>"
 flat = true
 script = SubResource( 2 )
 scene = "highway"
 
 [node name="hint" type="Label" parent="buttons"]
-margin_top = 190.0
+margin_top = 141.0
 margin_right = 944.0
-margin_bottom = 204.0
+margin_bottom = 172.0
 text = "Settings (try experimenting):"
 align = 1
 
 [node name="options" type="HBoxContainer" parent="buttons"]
-margin_top = 208.0
+margin_top = 176.0
 margin_right = 944.0
-margin_bottom = 232.0
+margin_bottom = 215.0
 alignment = 1
 
 [node name="night-mode" type="CheckBox" parent="buttons/options"]
-margin_left = 352.0
-margin_right = 455.0
-margin_bottom = 24.0
+margin_left = 216.0
+margin_right = 444.0
+margin_bottom = 39.0
 text = "Night mode"
 flat = true
 align = 1
 script = SubResource( 3 )
 
 [node name="lights" type="CheckBox" parent="buttons/options"]
-margin_left = 459.0
-margin_right = 525.0
-margin_bottom = 24.0
+margin_left = 448.0
+margin_right = 596.0
+margin_bottom = 39.0
 pressed = true
 text = "Lights"
 script = SubResource( 5 )
 
 [node name="trees" type="CheckBox" parent="buttons/options"]
-margin_left = 529.0
-margin_right = 592.0
-margin_bottom = 24.0
+margin_left = 600.0
+margin_right = 728.0
+margin_bottom = 39.0
 pressed = true
 text = "Trees"
 script = SubResource( 6 )
@@ -164,13 +164,13 @@ text = "Police"
 script = SubResource( 10 )
 
 [node name="spacer" type="Control" parent="buttons"]
-margin_top = 236.0
+margin_top = 219.0
 margin_right = 944.0
-margin_bottom = 256.0
+margin_bottom = 239.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="exit" type="Button" parent="buttons"]
-margin_top = 260.0
+margin_top = 243.0
 margin_right = 944.0
 margin_bottom = 280.0
 text = "<Exit>"
