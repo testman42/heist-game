@@ -26,12 +26,12 @@ func _on_nightmode_toggled(button_pressed):
 
 [node name="main-menu" type="Node"]
 
-[node name="backdrop" type="Spatial" parent="."]
+[node name="scene" type="Spatial" parent="."]
 
-[node name="camera" type="Camera" parent="backdrop"]
+[node name="camera" type="Camera" parent="scene"]
 transform = Transform( -0.954019, 0.0345592, 0.297747, 0, 0.993331, -0.115295, -0.299746, -0.109994, -0.947657, 1.7726, 0.568903, -3.64682 )
 
-[node name="sun" type="DirectionalLight" parent="backdrop"]
+[node name="sun" type="DirectionalLight" parent="scene"]
 transform = Transform( 0.865108, -0.426414, 0.26412, 0, 0.52657, 0.850132, -0.501586, -0.735456, 0.45554, 0, 19.2442, 0 )
 light_color = Color( 1, 0.992157, 0.952941, 1 )
 light_energy = 3.349
@@ -39,48 +39,48 @@ shadow_enabled = true
 script = SubResource( 4 )
 nightEnv = ExtResource( 11 )
 
-[node name="road" parent="backdrop" instance=ExtResource( 3 )]
+[node name="road" parent="scene" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.10179, 0, 20.207 )
 
-[node name="van-foreground" type="Spatial" parent="backdrop"]
+[node name="van-foreground" type="Spatial" parent="scene"]
 
-[node name="van" parent="backdrop/van-foreground" instance=ExtResource( 1 )]
+[node name="van" parent="scene/van-foreground" instance=ExtResource( 1 )]
 transform = Transform( 0.991618, -0.121984, 0.0425906, 0.122095, 0.992518, 0, -0.042272, 0.00520008, 0.999093, 0, 0.139171, 0 )
 
-[node name="cone" parent="backdrop/van-foreground" instance=ExtResource( 2 )]
+[node name="cone" parent="scene/van-foreground" instance=ExtResource( 2 )]
 transform = Transform( 0.953333, -0.0679174, 0.294182, 0, 0.97437, 0.224951, -0.301921, -0.214453, 0.928899, 1.28927, 0.259477, -0.382818 )
 mode = 1
 
-[node name="cone2" parent="backdrop/van-foreground" instance=ExtResource( 2 )]
+[node name="cone2" parent="scene/van-foreground" instance=ExtResource( 2 )]
 transform = Transform( 0.981143, 0.142506, 0.130576, -0.191251, 0.618108, 0.762473, 0.027947, -0.773068, 0.633707, 1.67995, 0.577452, 2.21415 )
 mode = 1
 
-[node name="cone3" parent="backdrop/van-foreground" instance=ExtResource( 2 )]
+[node name="cone3" parent="scene/van-foreground" instance=ExtResource( 2 )]
 transform = Transform( 0.944841, 0.307252, 0.113454, 0.144563, -0.702037, 0.697313, 0.293899, -0.642449, -0.707731, 2.9644, 1.40888, 7.74008 )
 mode = 1
 
-[node name="barrel" parent="backdrop/van-foreground" instance=ExtResource( 10 )]
+[node name="barrel" parent="scene/van-foreground" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.108, 0.5, -1.058 )
 mode = 1
 
-[node name="police" type="Spatial" parent="backdrop"]
+[node name="police" type="Spatial" parent="scene"]
 
-[node name="police" parent="backdrop/police" instance=ExtResource( 5 )]
+[node name="police" parent="scene/police" instance=ExtResource( 5 )]
 transform = Transform( 0.987708, 0.106941, 0.114002, -0.106236, 0.994265, -0.0122618, -0.11466, 0, 0.993405, 3.6492, 0.0598755, 10.306 )
 script = null
 
-[node name="police2" parent="backdrop/police" instance=ExtResource( 5 )]
+[node name="police2" parent="scene/police" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.126231, -1.90735e-06, 13.1184 )
 script = null
 
-[node name="cars" type="Spatial" parent="backdrop"]
+[node name="cars" type="Spatial" parent="scene"]
 
-[node name="car" parent="backdrop/cars" instance=ExtResource( 8 )]
+[node name="car" parent="scene/cars" instance=ExtResource( 8 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.61695, 0, 0.137073 )
 script = null
 
-[node name="flying-car" parent="backdrop/cars" instance=ExtResource( 8 )]
+[node name="flying-car" parent="scene/cars" instance=ExtResource( 8 )]
 transform = Transform( 0.477297, 0.650378, -0.590928, 0.22902, 0.557163, 0.798198, 0.848373, -0.516311, 0.116983, 2.13256, 4.27264, 19.3632 )
 script = null
 
-[node name="main-menu-ui" parent="." instance=ExtResource( 4 )]
+[node name="ui" parent="." instance=ExtResource( 4 )]
