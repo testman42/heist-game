@@ -1,0 +1,185 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://ui/small-font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/theme.tres" type="Theme" id=2]
+[ext_resource path="res://ui/big-font.tres" type="DynamicFont" id=3]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends GrabFocus
+
+export var scene = ''
+func _on_start_pressed():
+    assert(scene != '', 'Missing switch to scene')
+    GameController.switchToScene(scene)
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends CheckBox
+
+func _ready():
+    connect('toggled', GameController, '_onNightModeToggled')
+"
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends CheckBox
+
+func _ready():
+    connect('toggled', GameController, '_onLightsToggled')
+"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends CheckBox
+
+func _ready():
+    connect('toggled', GameController, '_onTreesToggled')
+"
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends HBoxContainer
+
+func _ready():
+    if OS.is_debug_build():
+        visible = true
+"
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends CheckBox
+
+func _ready():
+    connect('toggled', GameController, '_onTrafficToggled')
+"
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends CheckBox
+
+func _ready():
+    connect('toggled', GameController, '_onPoliceToggled')
+"
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Button
+
+
+
+func _on_exit_pressed():
+    get_tree().quit()
+"
+
+[node name="main-menu-ui" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.2
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 3 )
+text = "The Heist"
+align = 1
+valign = 1
+
+[node name="buttons" type="VBoxContainer" parent="."]
+anchor_top = 0.4
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = 40.0
+margin_right = -40.0
+margin_bottom = -40.0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="start" type="Button" parent="buttons"]
+margin_top = 81.0
+margin_right = 944.0
+margin_bottom = 127.0
+text = "<Start>"
+flat = true
+script = SubResource( 2 )
+scene = "highway"
+
+[node name="hint" type="Label" parent="buttons"]
+margin_top = 131.0
+margin_right = 944.0
+margin_bottom = 154.0
+custom_fonts/font = ExtResource( 1 )
+text = "Settings (try experimenting):"
+align = 1
+
+[node name="options" type="HBoxContainer" parent="buttons"]
+margin_top = 158.0
+margin_right = 944.0
+margin_bottom = 206.0
+alignment = 1
+
+[node name="night-mode" type="CheckBox" parent="buttons/options"]
+margin_left = 222.0
+margin_right = 439.0
+margin_bottom = 48.0
+text = "Night mode"
+flat = true
+align = 1
+script = SubResource( 3 )
+
+[node name="lights" type="CheckBox" parent="buttons/options"]
+margin_left = 443.0
+margin_right = 580.0
+margin_bottom = 48.0
+pressed = true
+text = "Lights"
+script = SubResource( 5 )
+
+[node name="trees" type="CheckBox" parent="buttons/options"]
+margin_left = 584.0
+margin_right = 722.0
+margin_bottom = 48.0
+pressed = true
+text = "Trees"
+script = SubResource( 6 )
+
+[node name="debug-options" type="HBoxContainer" parent="buttons"]
+visible = false
+margin_top = 158.0
+margin_right = 944.0
+margin_bottom = 206.0
+alignment = 1
+script = SubResource( 8 )
+
+[node name="traffic" type="CheckBox" parent="buttons/debug-options"]
+margin_left = 323.0
+margin_right = 482.0
+margin_bottom = 48.0
+pressed = true
+text = "Traffic"
+script = SubResource( 9 )
+
+[node name="police" type="CheckBox" parent="buttons/debug-options"]
+margin_left = 486.0
+margin_right = 620.0
+margin_bottom = 48.0
+pressed = true
+text = "Police"
+script = SubResource( 10 )
+
+[node name="spacer" type="Control" parent="buttons"]
+margin_top = 210.0
+margin_right = 944.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="exit" type="Button" parent="buttons"]
+margin_top = 234.0
+margin_right = 944.0
+margin_bottom = 280.0
+text = "<Exit>"
+flat = true
+script = SubResource( 1 )
+
+[connection signal="pressed" from="buttons/start" to="buttons/start" method="_on_start_pressed"]
+[connection signal="pressed" from="buttons/exit" to="buttons/exit" method="_on_exit_pressed"]

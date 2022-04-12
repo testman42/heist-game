@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/dynamic-object-kinematic.gd"
 }, {
+"base": "Control",
+"class": "GrabFocus",
+"language": "GDScript",
+"path": "res://ui/grab-focus.gd"
+}, {
 "base": "Reference",
 "class": "HighwayConstants",
 "language": "GDScript",
@@ -84,6 +89,7 @@ _global_script_class_icons={
 "CarSpawner": "",
 "DynamicObject": "",
 "DynamicObjectKinematic": "",
+"GrabFocus": "",
 "HighwayConstants": "",
 "Player": "",
 "PoliceCar": "",
