@@ -110,6 +110,11 @@ config/icon="res://sprites/icon.png"
 LevelProgress="*res://autoload/level-progress.gd"
 GameController="*res://autoload/game-controller.gd"
 
+[gui]
+
+common/swap_ok_cancel=true
+theme/custom="res://ui/theme.tres"
+
 [input]
 
 move_left={
