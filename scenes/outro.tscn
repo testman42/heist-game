@@ -1,8 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/theme.tres" type="Theme" id=1]
-[ext_resource path="res://ui/big-font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://ui/small-font.tres" type="DynamicFont" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label
@@ -44,7 +42,6 @@ anchor_right = 1.0
 margin_top = 20.0
 margin_bottom = 80.0
 custom_colors/font_color = Color( 0.635294, 0.92549, 0.635294, 1 )
-custom_fonts/font = ExtResource( 2 )
 text = "Success!"
 align = 1
 valign = 1
@@ -65,44 +62,43 @@ __meta__ = {
 }
 
 [node name="money" type="Label" parent="ui/container"]
-margin_top = 108.0
+margin_top = 161.0
 margin_right = 984.0
-margin_bottom = 148.0
+margin_bottom = 175.0
 text = "You made it!"
 autowrap = true
 script = SubResource( 1 )
 
 [node name="space" type="Control" parent="ui/container"]
-margin_top = 152.0
+margin_top = 179.0
 margin_right = 984.0
-margin_bottom = 172.0
+margin_bottom = 199.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="credits" type="Label" parent="ui/container"]
-margin_top = 176.0
+margin_top = 203.0
 margin_right = 984.0
-margin_bottom = 277.0
-custom_fonts/font = ExtResource( 3 )
+margin_bottom = 251.0
 text = "Thanks for playing my game. This is a submission for Ludum Dare #50, and I did not have any time left for a proper outro... or sound effects... or much polishing... or performance, well, you get the idea.
 Here's what you can do next:"
 autowrap = true
 
 [node name="space2" type="Control" parent="ui/container"]
-margin_top = 281.0
+margin_top = 255.0
 margin_right = 984.0
-margin_bottom = 321.0
+margin_bottom = 295.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="buttons" type="HBoxContainer" parent="ui/container"]
-margin_top = 325.0
+margin_top = 299.0
 margin_right = 984.0
-margin_bottom = 371.0
+margin_bottom = 319.0
 alignment = 1
 
 [node name="start" type="Button" parent="ui/container/buttons"]
 margin_left = 290.0
 margin_right = 490.0
-margin_bottom = 46.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 200, 0 )
 text = "<Restart>"
 flat = true
@@ -112,7 +108,7 @@ scene = "main-menu"
 [node name="exit" type="Button" parent="ui/container/buttons"]
 margin_left = 494.0
 margin_right = 694.0
-margin_bottom = 46.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 200, 0 )
 text = "<Exit>"
 flat = true

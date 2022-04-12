@@ -1,8 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://ui/small-font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/theme.tres" type="Theme" id=2]
-[ext_resource path="res://ui/big-font.tres" type="DynamicFont" id=3]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends GrabFocus
@@ -77,10 +75,12 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 0.2
 margin_bottom = 40.0
-custom_fonts/font = ExtResource( 3 )
 text = "The Heist"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="buttons" type="VBoxContainer" parent="."]
 anchor_top = 0.4
@@ -96,49 +96,48 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="buttons"]
-margin_top = 81.0
+margin_top = 166.0
 margin_right = 944.0
-margin_bottom = 127.0
+margin_bottom = 186.0
 text = "<Start>"
 flat = true
 script = SubResource( 2 )
 scene = "highway"
 
 [node name="hint" type="Label" parent="buttons"]
-margin_top = 131.0
+margin_top = 190.0
 margin_right = 944.0
-margin_bottom = 154.0
-custom_fonts/font = ExtResource( 1 )
+margin_bottom = 204.0
 text = "Settings (try experimenting):"
 align = 1
 
 [node name="options" type="HBoxContainer" parent="buttons"]
-margin_top = 158.0
+margin_top = 208.0
 margin_right = 944.0
-margin_bottom = 206.0
+margin_bottom = 232.0
 alignment = 1
 
 [node name="night-mode" type="CheckBox" parent="buttons/options"]
-margin_left = 222.0
-margin_right = 439.0
-margin_bottom = 48.0
+margin_left = 352.0
+margin_right = 455.0
+margin_bottom = 24.0
 text = "Night mode"
 flat = true
 align = 1
 script = SubResource( 3 )
 
 [node name="lights" type="CheckBox" parent="buttons/options"]
-margin_left = 443.0
-margin_right = 580.0
-margin_bottom = 48.0
+margin_left = 459.0
+margin_right = 525.0
+margin_bottom = 24.0
 pressed = true
 text = "Lights"
 script = SubResource( 5 )
 
 [node name="trees" type="CheckBox" parent="buttons/options"]
-margin_left = 584.0
-margin_right = 722.0
-margin_bottom = 48.0
+margin_left = 529.0
+margin_right = 592.0
+margin_bottom = 24.0
 pressed = true
 text = "Trees"
 script = SubResource( 6 )
@@ -168,13 +167,13 @@ text = "Police"
 script = SubResource( 10 )
 
 [node name="spacer" type="Control" parent="buttons"]
-margin_top = 210.0
+margin_top = 236.0
 margin_right = 944.0
-margin_bottom = 230.0
+margin_bottom = 256.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="exit" type="Button" parent="buttons"]
-margin_top = 234.0
+margin_top = 260.0
 margin_right = 944.0
 margin_bottom = 280.0
 text = "<Exit>"
