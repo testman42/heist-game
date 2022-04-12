@@ -3,7 +3,8 @@
 [ext_resource path="res://fonts/RubikMonoOne-Regular.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 24
-outline_size = 2
+size = 56
+outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 8
 font_data = ExtResource( 1 )

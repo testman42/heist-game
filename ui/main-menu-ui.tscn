@@ -1,4 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://fonts/title.tres" type="DynamicFont" id=1]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends GrabFocus
@@ -72,6 +74,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 0.2
 margin_bottom = 40.0
+custom_fonts/font = ExtResource( 1 )
 text = "The Heist"
 align = 1
 valign = 1
