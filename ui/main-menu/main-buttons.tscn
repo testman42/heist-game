@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/main-menu/main-buttons.gd" type="Script" id=1]
+
+[node name="main-buttons" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="quickplay" type="Button" parent="."]
+margin_right = 1024.0
+margin_bottom = 37.0
+text = "quick play"
+
+[node name="settings" type="Button" parent="."]
+margin_top = 53.0
+margin_right = 1024.0
+margin_bottom = 90.0
+text = "settings"
+
+[node name="exit" type="Button" parent="."]
+margin_top = 106.0
+margin_right = 1024.0
+margin_bottom = 143.0
+text = "exit"
+
+[connection signal="pressed" from="quickplay" to="." method="_on_quickplay_pressed"]
+[connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]

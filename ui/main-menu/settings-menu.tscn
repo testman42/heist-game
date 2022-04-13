@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/main-menu/settings-menu.gd" type="Script" id=1]
+
+[node name="settings-menu" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 56
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="columns" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 196.0
+
+[node name="quality" type="VBoxContainer" parent="columns"]
+margin_right = 208.0
+margin_bottom = 196.0
+
+[node name="label" type="Label" parent="columns/quality"]
+margin_right = 208.0
+margin_bottom = 31.0
+text = "quality"
+
+[node name="lights" type="CheckBox" parent="columns/quality"]
+margin_top = 47.0
+margin_right = 208.0
+margin_bottom = 86.0
+text = "lights"
+
+[node name="trees" type="CheckBox" parent="columns/quality"]
+margin_top = 102.0
+margin_right = 208.0
+margin_bottom = 141.0
+text = "trees"
+
+[node name="particles" type="CheckBox" parent="columns/quality"]
+margin_top = 157.0
+margin_right = 208.0
+margin_bottom = 196.0
+text = "particles"
+
+[node name="done" type="Button" parent="."]
+margin_top = 252.0
+margin_right = 1024.0
+margin_bottom = 289.0
+text = "done"
+
+[connection signal="pressed" from="done" to="." method="_on_done_pressed"]
