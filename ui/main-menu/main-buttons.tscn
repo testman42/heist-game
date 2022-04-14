@@ -21,12 +21,19 @@ margin_right = 1024.0
 margin_bottom = 90.0
 text = "settings"
 
-[node name="exit" type="Button" parent="."]
+[node name="controls" type="Button" parent="."]
 margin_top = 106.0
 margin_right = 1024.0
 margin_bottom = 143.0
+text = "controls"
+
+[node name="exit" type="Button" parent="."]
+margin_top = 159.0
+margin_right = 1024.0
+margin_bottom = 196.0
 text = "exit"
 
 [connection signal="pressed" from="quickplay" to="." method="_on_quickplay_pressed"]
 [connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]

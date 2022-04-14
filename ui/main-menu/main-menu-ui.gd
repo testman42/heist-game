@@ -6,6 +6,7 @@ export(NodePath) var sceneRoot
 
 export(PackedScene) var mainScene
 export(PackedScene) var settingsScene
+export(PackedScene) var controlsScene
 
 
 func _ready():
@@ -23,6 +24,7 @@ func switchTo(scene: PackedScene):
         c.queue_free()
 
     # add new scene
+    assert(scene, 'Missing scene to switch to')
     var instance = scene.instance()
     root.add_child(instance)
 
@@ -34,5 +36,6 @@ func _on_switchScene(name: String):
     match(name):
         'main': switchTo(mainScene)
         'settings': switchTo(settingsScene)
+        'controls': switchTo(controlsScene)
 
         _: printerr('Unrecognized main menu scene name: ', name)
