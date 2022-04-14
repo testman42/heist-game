@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "LineEdit",
+"class": "BaseInput",
+"language": "GDScript",
+"path": "res://addons/GGS/src/base_classes/base_input.gd"
+}, {
 "base": "CSGBox",
 "class": "BlinkingLight",
 "language": "GDScript",
@@ -54,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/dynamic-object-kinematic.gd"
 }, {
+"base": "Node",
+"class": "GGSUtils",
+"language": "GDScript",
+"path": "res://addons/GGS/src/utils.gd"
+}, {
 "base": "Control",
 "class": "GrabFocus",
 "language": "GDScript",
@@ -63,6 +73,11 @@ _global_script_classes=[ {
 "class": "HighwayConstants",
 "language": "GDScript",
 "path": "res://constants/highway-constants.gd"
+}, {
+"base": "Reference",
+"class": "JSONBeautifier",
+"language": "GDScript",
+"path": "res://addons/GGS/_depedencies/json_beautifier/json_beautifier.gd"
 }, {
 "base": "Car",
 "class": "Player",
@@ -80,6 +95,7 @@ _global_script_classes=[ {
 "path": "res://scripts/spawn-in-area.gd"
 } ]
 _global_script_class_icons={
+"BaseInput": "",
 "BlinkingLight": "",
 "Block": "",
 "BlockSpawner": "",
@@ -89,8 +105,10 @@ _global_script_class_icons={
 "CarSpawner": "",
 "DynamicObject": "",
 "DynamicObjectKinematic": "",
+"GGSUtils": "",
 "GrabFocus": "",
 "HighwayConstants": "",
+"JSONBeautifier": "",
 "Player": "",
 "PoliceCar": "",
 "SpawnInArea": ""
@@ -109,6 +127,11 @@ config/icon="res://sprites/icon.png"
 
 LevelProgress="*res://autoload/level-progress.gd"
 GameController="*res://autoload/game-controller.gd"
+ggsManager="*res://addons/GGS/src/ggs_manager.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/GGS/plugin.cfg" )
 
 [gui]
 
