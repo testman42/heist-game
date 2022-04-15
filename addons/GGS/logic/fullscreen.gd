@@ -8,14 +8,16 @@ extends Node
 
 
 func main(value: Dictionary) -> void:
-	OS.window_fullscreen = value["value"]
-	
-	## Execute the window size logic again, in case the player changed the
-	# window size while the window was at fullscreen.
-	if value["value"] == false:
-		var script_resource: Script = load(value["window_script_path"])
-		var script_instance: Object = script_resource.new()
-		var current = ggsManager.settings_data[str(value["window_setting_index"])]["current"]
-		script_instance.main(current)
-	
-	OS.center_window()
+    OS.window_fullscreen = value["value"]
+
+    ## Execute the window size logic again, in case the player changed the
+    # window size while the window was at fullscreen.
+    # NOTE: This is disable because changing the window_size on Mac CRASHES the game!
+
+    #if value["value"] == false:
+        #var script_resource: Script = load(value["window_script_path"])
+        #var script_instance: Object = script_resource.new()
+        #var current = ggsManager.settings_data[str(value["window_setting_index"])]["current"]
+        #script_instance.main(current)
+
+    #OS.center_window()

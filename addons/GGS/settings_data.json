@@ -1,1 +1,60 @@
-{}
+{
+	"0": {
+		"name": "fullscreen",
+		"default": {
+			"value": false,
+			"window_script_path": "res://addons/GGS/logic/window_resolution.gd",
+			"window_setting_index": 1
+		},
+		"current": {
+			"value": false,
+			"window_script_path": "res://addons/GGS/logic/window_resolution.gd",
+			"window_setting_index": 1
+		},
+		"logic": "res://addons/GGS/logic/fullscreen.gd"
+	},
+	"1": {
+		"name": "soundVolume",
+		"default": {
+			"value": 1,
+			"bus_name": "Sound"
+		},
+		"current": {
+			"value": 1,
+			"bus_name": "Sound"
+		},
+		"logic": "res://addons/GGS/logic/audio_slider.gd"
+	},
+	"2": {
+		"name": "musicVolume",
+		"default": {
+			"value": 1,
+			"bus_name": "Music"
+		},
+		"current": {
+			"value": 1,
+			"bus_name": "Music"
+		},
+		"logic": "res://addons/GGS/logic/audio_slider.gd"
+	},
+	"3": {
+		"name": "quality",
+		"default": {
+			"value": 0
+		},
+		"current": {
+			"value": 0
+		},
+		"logic": "res://settings/quality.gd"
+	},
+	"4": {
+		"name": "particles",
+		"default": {
+			"value": true
+		},
+		"current": {
+			"value": true
+		},
+		"logic": "res://settings/particles.gd"
+	}
+}
