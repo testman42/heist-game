@@ -141,7 +141,10 @@ func handleCollision(collider: Object, normal: Vector3):
         diff *= collider.mass / avgMass
         diffSteering *= collider.mass / avgMass
 
-        steering += diffSteering * CarConstants.collisionSteeringMultiplier
+
+        if abs(normal.x) > abs(normal.z) or abs(previousSpeed - collider.previousSpeed) > 4:
+            steering += diffSteering * CarConstants.collisionSteeringMultiplier
+
         if abs(normal.z) > abs(normal.x) or abs(previousSpeed) < abs(collider.previousSpeed):
             speed += heading * diff * CarConstants.collisionSpeedMultiplier
 
