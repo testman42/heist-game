@@ -44,7 +44,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="scene" type="CenterContainer" parent="margins/container"]
+[node name="scene" type="Control" parent="margins/container"]
 margin_top = 87.0
 margin_right = 924.0
 margin_bottom = 500.0
