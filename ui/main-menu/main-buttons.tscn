@@ -20,15 +20,16 @@ margin_bottom = 412.0
 [node name="garage" type="Button" parent="layout"]
 margin_right = 182.0
 margin_bottom = 32.0
+hint_tooltip = "Coming soon!"
 disabled = true
 text = "garage"
-script = ExtResource( 2 )
 
 [node name="quickplay" type="Button" parent="layout"]
 margin_top = 48.0
 margin_right = 182.0
 margin_bottom = 80.0
 text = "quick play"
+script = ExtResource( 2 )
 
 [node name="settings" type="Button" parent="layout"]
 margin_top = 96.0
