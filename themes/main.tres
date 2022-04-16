@@ -1,5 +1,6 @@
 [gd_resource type="Theme" format=2]
 
 [resource]
-HBoxContainer/constants/separation = 16
-VBoxContainer/constants/separation = 16
+Button/constants/hseparation = 10
+HBoxContainer/constants/separation = 40
+VBoxContainer/constants/separation = 40
