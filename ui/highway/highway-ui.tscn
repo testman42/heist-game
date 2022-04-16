@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://ui/progress.gd" type="Script" id=1]
+[ext_resource path="res://ui/highway/progress.gd" type="Script" id=1]
 [ext_resource path="res://sprites/van.png" type="Texture" id=2]
 [ext_resource path="res://sprites/money.png" type="Texture" id=3]
-[ext_resource path="res://ui/money.gd" type="Script" id=4]
+[ext_resource path="res://ui/highway/money.gd" type="Script" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.34902, 0.729412, 0.211765, 1 )
