@@ -1,6 +1,6 @@
 extends Camera
 
-var speed = 5
+var flySpeed = 12
 var mouse_sens = .4
 var camera_anglev = 80
 
@@ -13,7 +13,7 @@ func _process(delta):
     var input = Input.get_vector('move_left', 'move_right', 'accelerate', 'break')
     var mouse = Input.get_mouse_mode()
 
-    translate(speed * delta * Vector3(input.x, 0, input.y))
+    translate(flySpeed * delta * Vector3(input.x, 0, input.y))
 
 func _input(event):
     if event is InputEventMouseMotion:

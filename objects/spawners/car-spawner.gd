@@ -82,7 +82,7 @@ func spawnCar():
 
     # check whether the car collides with anything, if true, just move it back
     while car.move_and_collide(Vector3(0, 0, -.1), true, true, true):
-        car.transform.origin.z -= 1
+        car.transform.origin.z += sign(car.transform.origin.z)
 
 func spawnPoliceCar():
     # limit max police force

@@ -6,7 +6,7 @@ export var money = 1000
 export var distance = 0
 export var targetDistance = 100
 
-var player: Player
+var player
 export var playerDead = false
 
 func _ready():
@@ -19,8 +19,11 @@ func setup():
     playerDead = false
 
     player = get_tree().get_nodes_in_group('player')[0]
-    player.connect('player_moved', self, '_onPlayerMoved')
-    player.connect('player_collision', self, '_onPlayerCollided')
+
+    if player.has_signal('player_moved'):
+        player.connect('player_moved', self, '_onPlayerMoved')
+    if player.has_signal('player_collision'):
+        player.connect('player_collision', self, '_onPlayerCollided')
 
     money = rand_range(800, 8000)
     distance = 0
