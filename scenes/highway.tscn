@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://blocks/start.tscn" type="PackedScene" id=2]
@@ -7,19 +7,6 @@
 [ext_resource path="res://ui/highway/highway-ui.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=6]
 [ext_resource path="res://objects/vehicles/police-car.tscn" type="PackedScene" id=18]
-[ext_resource path="res://environments/default_night_env.tres" type="Environment" id=20]
-
-[sub_resource type="GDScript" id=4]
-script/source = "extends DirectionalLight
-
-export(Environment) var nightEnv
-
-# I know, this is super dirty... But not much time left!
-func _ready():
-    if GameController.nightMode:
-        get_node('../camera-base/camera').environment = nightEnv
-        visible = false
-"
 
 [node name="highway" type="Node"]
 
@@ -30,8 +17,6 @@ transform = Transform( 0.865108, -0.426414, 0.26412, 0, 0.52657, 0.850132, -0.50
 light_color = Color( 1, 0.992157, 0.952941, 1 )
 light_energy = 3.349
 shadow_enabled = true
-script = SubResource( 4 )
-nightEnv = ExtResource( 20 )
 
 [node name="camera-base" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.1981, 0 )

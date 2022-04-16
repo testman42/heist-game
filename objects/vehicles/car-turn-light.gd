@@ -8,7 +8,7 @@ var timer = 0
 func _ready():
     assert(activeMaterial, 'Missing car turn light active material')
 
-    if not GameController.lights:
+    if GameSettings.quality <= 0:
         call_deferred('set_script', null)
 
         if bulb:

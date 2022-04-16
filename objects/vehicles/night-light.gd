@@ -3,19 +3,14 @@ extends Spatial
 var inMenu = false
 
 # Turns on only at night.
+# TODO: turn on only in night levels
 func _ready():
-    inMenu = get_node_or_null('/root/main-menu')
-    process()
-
-    if not GameController.nightMode and not inMenu:
-        queue_free()
+    queue_free()
 
 func _process(_delta):
     process()
 
 func process():
-    visible = GameController.nightMode
-
     if 'material' in get_parent():
         if visible:
             get_parent().material.emission_energy = 4

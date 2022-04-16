@@ -9,7 +9,7 @@ export var spawnMax = 10
 export(PackedScene) var instanceToSpawn
 
 func _ready():
-    if not GameController.trees:
+    if GameSettings.quality <= 0:
         return
 
     var box := shape as BoxShape

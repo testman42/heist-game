@@ -51,9 +51,9 @@ func _process(_delta):
         probability = lerp(0, probability, player.speed / player.maxSpeed)
         policeProbability = lerp(0, policeProbability, player.speed / player.maxSpeed)
 
-    if GameController.traffic and !disableCars and randf() < probability:
+    if !disableCars and randf() < probability:
         spawnCar()
-    if GameController.police and !disablePolice and randf() < policeProbability:
+    if !disablePolice and randf() < policeProbability:
         spawnPoliceCar()
 
 func spawnCar():

@@ -6,7 +6,7 @@ onready var bulb = get_node_or_null('bulb')
 func _ready():
     assert(activeMaterial, 'Missing player breaking light active material')
 
-    if not GameController.lights:
+    if GameSettings.quality <= 0:
         call_deferred('set_script', null)
 
         if bulb:
