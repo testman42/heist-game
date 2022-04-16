@@ -123,6 +123,10 @@ boot_splash/image="res://sprites/cover.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://sprites/icon.png"
 
+[audio]
+
+default_bus_layout="res://audio/bus-layout.tres"
+
 [autoload]
 
 ggsManager="*res://addons/GGS/src/ggs_manager.gd"
