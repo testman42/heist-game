@@ -7,7 +7,6 @@ ground_horizon_color = Color( 0.818605, 0.925781, 0.903174, 1 )
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
-fog_enabled = true
 ssao_enabled = true
 ssao_quality = 0
 glow_blend_mode = 1
