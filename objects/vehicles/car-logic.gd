@@ -43,11 +43,18 @@ func SpeedAdjust(delta):
             if not other:
                 continue
 
+            var breakStrength
+
             if "speed" in other:
-                distance += other.speed - speed
+                var speedDiff = speed - other.speed
+                breakStrength = lerp(0, breakingForce, clamp(speedDiff / 8, 0, 1))
+
+                if distance < 3:
+                    breakStrength = breakingForce
+            else:
+                breakStrength = lerp(breakingForce, 0, clamp(distance / 8, 0, 1))
 
             # slow down
-            var breakStrength = lerp(breakingForce, 0, clamp(distance / 8, 0, 1))
             speed = move_toward(speed, 0, delta * breakStrength)
 
             setBreaking(breakStrength > .2)
