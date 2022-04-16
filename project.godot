@@ -148,7 +148,7 @@ enabled=PoolStringArray( "res://addons/GGS/plugin.cfg" )
 
 common/swap_ok_cancel=true
 theme/custom="res://themes/main.tres"
-theme/custom_font="res://fonts/base.tres"
+theme/custom_font="res://fonts/text.tres"
 
 [input]
 
