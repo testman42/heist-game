@@ -7,7 +7,7 @@
 			"window_setting_index": 1
 		},
 		"current": {
-			"value": false,
+			"value": 0,
 			"window_script_path": "res://addons/GGS/logic/window_resolution.gd",
 			"window_setting_index": 1
 		},
@@ -43,7 +43,7 @@
 			"value": 2
 		},
 		"current": {
-			"value": 2
+			"value": 0
 		},
 		"logic": "res://settings/quality.gd"
 	},

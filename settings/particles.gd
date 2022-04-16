@@ -2,5 +2,4 @@ extends Node
 
 
 func main(value: Dictionary) -> void:
-    # TODO
-    pass
+    GameSettings.particles = value['value']
