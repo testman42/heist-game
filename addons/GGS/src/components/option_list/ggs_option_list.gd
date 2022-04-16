@@ -1,4 +1,5 @@
 extends OptionButton
+class_name ggsOptionList
 
 export(int, 0, 99) var setting_index: int
 var script_instance: Object

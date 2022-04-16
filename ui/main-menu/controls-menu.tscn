@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/main-menu/controls-menu.gd" type="Script" id=1]
+[ext_resource path="res://ui/grab-focus.gd" type="Script" id=2]
 
 [node name="settings-menu" type="VBoxContainer"]
 anchor_right = 1.0
@@ -13,7 +14,8 @@ __meta__ = {
 
 [node name="done" type="Button" parent="."]
 margin_right = 1024.0
-margin_bottom = 47.0
+margin_bottom = 32.0
 text = "done"
+script = ExtResource( 2 )
 
 [connection signal="pressed" from="done" to="." method="_on_done_pressed"]

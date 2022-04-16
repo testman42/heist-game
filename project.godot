@@ -93,6 +93,11 @@ _global_script_classes=[ {
 "class": "SpawnInArea",
 "language": "GDScript",
 "path": "res://scripts/spawn-in-area.gd"
+}, {
+"base": "OptionButton",
+"class": "ggsOptionList",
+"language": "GDScript",
+"path": "res://addons/GGS/src/components/option_list/ggs_option_list.gd"
 } ]
 _global_script_class_icons={
 "BaseInput": "",
@@ -111,7 +116,8 @@ _global_script_class_icons={
 "JSONBeautifier": "",
 "Player": "",
 "PoliceCar": "",
-"SpawnInArea": ""
+"SpawnInArea": "",
+"ggsOptionList": ""
 }
 
 [application]

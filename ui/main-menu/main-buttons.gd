@@ -3,10 +3,6 @@ extends Control
 signal switchScene(name)
 
 
-func _ready():
-    $quickplay.grab_focus()
-
-
 func _on_quickplay_pressed():
     emit_signal('switchScene', 'quickplay')
 

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/main-menu/settings-menu.gd" type="Script" id=1]
+[ext_resource path="res://ui/grab-focus.gd" type="Script" id=2]
 [ext_resource path="res://addons/GGS/src/components/boolean/ggsBool.tscn" type="PackedScene" id=3]
+[ext_resource path="res://settings/quality-options.gd" type="Script" id=4]
 [ext_resource path="res://addons/GGS/src/components/slider/ggsSlider.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/GGS/src/components/option_list/ggsOptionList.tscn" type="PackedScene" id=9]
 
@@ -55,7 +57,7 @@ margin_bottom = 124.0
 margin_right = 97.0
 margin_bottom = 32.0
 text = "High"
-setting_index = 3
+script = ExtResource( 4 )
 
 [node name="label" type="Label" parent="columns/graphics/layout/quality"]
 margin_left = 113.0
@@ -129,5 +131,6 @@ margin_top = 568.0
 margin_right = 1024.0
 margin_bottom = 600.0
 text = "done"
+script = ExtResource( 2 )
 
 [connection signal="pressed" from="done" to="." method="_on_done_pressed"]

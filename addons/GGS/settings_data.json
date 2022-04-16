@@ -40,10 +40,10 @@
 	"3": {
 		"name": "quality",
 		"default": {
-			"value": 0
+			"value": 2
 		},
 		"current": {
-			"value": 0
+			"value": 2
 		},
 		"logic": "res://settings/quality.gd"
 	},
