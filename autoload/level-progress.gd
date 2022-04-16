@@ -26,11 +26,6 @@ func setup():
     distance = 0
     targetDistance = money * rand_range(.4, .9)
 
-    # TODO: this is for testing and should never end in the final build!
-    #if OS.is_debug_build():
-        #money = 20
-        #targetDistance = 10000
-
 
 func _process(_delta):
     if distance >= targetDistance:
