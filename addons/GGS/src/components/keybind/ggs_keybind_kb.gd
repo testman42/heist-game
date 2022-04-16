@@ -64,7 +64,10 @@ func _on_ConfirmPopup_confirmed(event: InputEventWithModifiers) -> void:
         current["value"] = event.scancode
     else:
         current["value"] = event.button_index
-    ggsManager.save_settings_data()
+
+    # do not save when running the game in the editor
+    if not OS.has_feature('editor'):
+       ggsManager.save_settings_data()
 
     # Update display value
     if icon != null:

@@ -27,8 +27,11 @@ func reset_to_default() -> void:
 func _on_toggled(button_pressed: bool) -> void:
     var current: Dictionary = ggsManager.settings_data[str(setting_index)]["current"]
     current["value"] = button_pressed
-    ggsManager.save_settings_data()
     script_instance.main(current)
+
+    # do not save when running the game in the editor
+    if not OS.has_feature('editor'):
+       ggsManager.save_settings_data()
 
 
 # Handle mouse focus

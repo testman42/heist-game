@@ -111,7 +111,9 @@ func _on_ConfirmPopup_confirmed(event: InputEvent) -> void:
         if current.has("axis"):
             current.erase("axis")
 
-    ggsManager.save_settings_data()
+    # do not save when running the game in the editor
+    if not OS.has_feature('editor'):
+       ggsManager.save_settings_data()
 
     # Update display value
     if event is InputEventJoypadMotion:
