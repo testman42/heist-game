@@ -11,30 +11,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="quickplay" type="Button" parent="."]
+[node name="garage" type="Button" parent="."]
 margin_right = 1024.0
 margin_bottom = 32.0
-text = "quick play"
+disabled = true
+text = "garage"
 script = ExtResource( 2 )
 
-[node name="settings" type="Button" parent="."]
+[node name="quickplay" type="Button" parent="."]
 margin_top = 48.0
 margin_right = 1024.0
 margin_bottom = 80.0
-text = "settings"
+text = "quick play"
 
-[node name="controls" type="Button" parent="."]
+[node name="settings" type="Button" parent="."]
 margin_top = 96.0
 margin_right = 1024.0
 margin_bottom = 128.0
-text = "controls"
+text = "settings"
 
-[node name="exit" type="Button" parent="."]
+[node name="controls" type="Button" parent="."]
 margin_top = 144.0
 margin_right = 1024.0
 margin_bottom = 176.0
+text = "controls"
+
+[node name="exit" type="Button" parent="."]
+margin_top = 192.0
+margin_right = 1024.0
+margin_bottom = 224.0
 text = "exit"
 
+[connection signal="pressed" from="garage" to="." method="_on_quickplay_pressed"]
 [connection signal="pressed" from="quickplay" to="." method="_on_quickplay_pressed"]
 [connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="controls" to="." method="_on_controls_pressed"]
