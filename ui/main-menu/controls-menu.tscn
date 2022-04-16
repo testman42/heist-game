@@ -13,7 +13,7 @@ __meta__ = {
 
 [node name="done" type="Button" parent="."]
 margin_right = 1024.0
-margin_bottom = 37.0
+margin_bottom = 47.0
 text = "done"
 
 [connection signal="pressed" from="done" to="." method="_on_done_pressed"]
