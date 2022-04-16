@@ -2,14 +2,10 @@
 	"0": {
 		"name": "fullscreen",
 		"default": {
-			"value": false,
-			"window_script_path": "res://addons/GGS/logic/window_resolution.gd",
-			"window_setting_index": 1
+			"value": false
 		},
 		"current": {
-			"value": 0,
-			"window_script_path": "res://addons/GGS/logic/window_resolution.gd",
-			"window_setting_index": 1
+			"value": false
 		},
 		"logic": "res://addons/GGS/logic/fullscreen.gd"
 	},
