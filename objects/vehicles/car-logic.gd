@@ -81,7 +81,10 @@ func HandleLane(delta):
 
         # randomly choose to change the lane
         elif randf() < CarConstants.chanceToChangeLane:
-            currentLane = HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()] * heading
+
+            # choose any lane except the current one
+            while is_equal_approx(currentLane, previousLane):
+                currentLane = HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()] * heading
 
             if currentLane > previousLane:
                 if heading > 0: emit_signal('startTurningRight')
