@@ -13,9 +13,9 @@ __meta__ = {
 
 [node name="layout" type="VBoxContainer" parent="."]
 margin_left = 421.0
-margin_top = 188.0
+margin_top = 212.0
 margin_right = 603.0
-margin_bottom = 412.0
+margin_bottom = 388.0
 
 [node name="garage" type="Button" parent="layout"]
 margin_right = 182.0
@@ -37,20 +37,13 @@ margin_right = 182.0
 margin_bottom = 128.0
 text = "settings"
 
-[node name="controls" type="Button" parent="layout"]
+[node name="exit" type="Button" parent="layout"]
 margin_top = 144.0
 margin_right = 182.0
 margin_bottom = 176.0
-text = "controls"
-
-[node name="exit" type="Button" parent="layout"]
-margin_top = 192.0
-margin_right = 182.0
-margin_bottom = 224.0
 text = "exit"
 
 [connection signal="pressed" from="layout/garage" to="." method="_on_quickplay_pressed"]
 [connection signal="pressed" from="layout/quickplay" to="." method="_on_quickplay_pressed"]
 [connection signal="pressed" from="layout/settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="layout/controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="layout/exit" to="." method="_on_exit_pressed"]

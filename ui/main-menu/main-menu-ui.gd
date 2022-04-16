@@ -6,7 +6,6 @@ export(NodePath) var sceneRoot
 
 export(PackedScene) var mainScene
 export(PackedScene) var settingsScene
-export(PackedScene) var controlsScene
 
 
 func _ready():
@@ -36,6 +35,5 @@ func _on_switchScene(name: String):
     match(name):
         'main': switchTo(mainScene)
         'settings': switchTo(settingsScene)
-        'controls': switchTo(controlsScene)
 
         _: printerr('Unrecognized main menu scene name: ', name)
