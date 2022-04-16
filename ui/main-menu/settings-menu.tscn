@@ -16,99 +16,116 @@ __meta__ = {
 
 [node name="columns" type="HBoxContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 497.0
+margin_bottom = 512.0
 size_flags_vertical = 3
 alignment = 1
 
-[node name="graphics" type="VBoxContainer" parent="columns"]
-margin_left = 238.0
-margin_right = 503.0
-margin_bottom = 497.0
+[node name="graphics" type="PanelContainer" parent="columns"]
+margin_left = 248.0
+margin_right = 494.0
+margin_bottom = 512.0
 
-[node name="label" type="Label" parent="columns/graphics"]
-margin_right = 265.0
-margin_bottom = 31.0
+[node name="layout" type="VBoxContainer" parent="columns/graphics"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 239.0
+margin_bottom = 505.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="columns/graphics/layout"]
+margin_right = 232.0
+margin_bottom = 26.0
 text = "graphics"
 align = 1
 
-[node name="fullscreen" parent="columns/graphics" instance=ExtResource( 3 )]
-margin_top = 47.0
-margin_right = 265.0
-margin_bottom = 86.0
+[node name="fullscreen" parent="columns/graphics/layout" instance=ExtResource( 3 )]
+margin_top = 42.0
+margin_right = 232.0
+margin_bottom = 76.0
 text = "fullscreen"
 
-[node name="quality" type="HBoxContainer" parent="columns/graphics"]
-margin_top = 102.0
-margin_right = 265.0
-margin_bottom = 139.0
+[node name="quality" type="HBoxContainer" parent="columns/graphics/layout"]
+margin_top = 92.0
+margin_right = 232.0
+margin_bottom = 124.0
 
-[node name="options" parent="columns/graphics/quality" instance=ExtResource( 9 )]
-margin_right = 109.0
-margin_bottom = 37.0
+[node name="options" parent="columns/graphics/layout/quality" instance=ExtResource( 9 )]
+margin_right = 97.0
+margin_bottom = 32.0
 text = "High"
 setting_index = 3
 
-[node name="label" type="Label" parent="columns/graphics/quality"]
-margin_left = 125.0
+[node name="label" type="Label" parent="columns/graphics/layout/quality"]
+margin_left = 113.0
 margin_top = 3.0
-margin_right = 265.0
-margin_bottom = 34.0
+margin_right = 232.0
+margin_bottom = 29.0
 text = "quality"
 
-[node name="particles" parent="columns/graphics" instance=ExtResource( 3 )]
-margin_top = 155.0
-margin_right = 265.0
-margin_bottom = 194.0
+[node name="particles" parent="columns/graphics/layout" instance=ExtResource( 3 )]
+margin_top = 140.0
+margin_right = 232.0
+margin_bottom = 174.0
 text = "particles"
 setting_index = 4
 
-[node name="audio" type="VBoxContainer" parent="columns"]
-margin_left = 519.0
-margin_right = 785.0
-margin_bottom = 497.0
+[node name="audio" type="PanelContainer" parent="columns"]
+margin_left = 510.0
+margin_right = 775.0
+margin_bottom = 512.0
 
-[node name="label" type="Label" parent="columns/audio"]
-margin_right = 266.0
-margin_bottom = 31.0
+[node name="layout" type="VBoxContainer" parent="columns/audio"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 258.0
+margin_bottom = 505.0
+
+[node name="label" type="Label" parent="columns/audio/layout"]
+margin_right = 251.0
+margin_bottom = 26.0
 text = "audio"
 align = 1
 
-[node name="sound" type="HBoxContainer" parent="columns/audio"]
-margin_top = 47.0
-margin_right = 266.0
-margin_bottom = 78.0
+[node name="sound" type="HBoxContainer" parent="columns/audio/layout"]
+margin_top = 42.0
+margin_right = 251.0
+margin_bottom = 72.0
 
-[node name="label" type="Label" parent="columns/audio/sound"]
-margin_right = 100.0
-margin_bottom = 31.0
+[node name="label" type="Label" parent="columns/audio/layout/sound"]
+margin_top = 2.0
+margin_right = 85.0
+margin_bottom = 28.0
 text = "sound"
 
-[node name="slider" parent="columns/audio/sound" instance=ExtResource( 7 )]
-margin_left = 116.0
-margin_right = 266.0
+[node name="slider" parent="columns/audio/layout/sound" instance=ExtResource( 7 )]
+margin_left = 101.0
+margin_right = 251.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 150, 30 )
 setting_index = 1
 
-[node name="music" type="HBoxContainer" parent="columns/audio"]
-margin_top = 94.0
-margin_right = 266.0
-margin_bottom = 125.0
+[node name="music" type="HBoxContainer" parent="columns/audio/layout"]
+margin_top = 88.0
+margin_right = 251.0
+margin_bottom = 118.0
 
-[node name="label" type="Label" parent="columns/audio/music"]
-margin_right = 100.0
-margin_bottom = 31.0
+[node name="label" type="Label" parent="columns/audio/layout/music"]
+margin_top = 2.0
+margin_right = 85.0
+margin_bottom = 28.0
 text = "music"
 
-[node name="slider" parent="columns/audio/music" instance=ExtResource( 7 )]
-margin_left = 116.0
-margin_right = 266.0
+[node name="slider" parent="columns/audio/layout/music" instance=ExtResource( 7 )]
+margin_left = 101.0
+margin_right = 251.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 150, 30 )
 setting_index = 2
 
 [node name="done" type="Button" parent="."]
-margin_top = 553.0
+margin_top = 568.0
 margin_right = 1024.0
 margin_bottom = 600.0
 text = "done"

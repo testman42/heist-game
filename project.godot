@@ -125,9 +125,9 @@ config/icon="res://sprites/icon.png"
 
 [autoload]
 
-LevelProgress="*res://autoload/level-progress.gd"
-GameController="*res://autoload/game-controller.gd"
 ggsManager="*res://addons/GGS/src/ggs_manager.gd"
+GameController="*res://autoload/game-controller.gd"
+LevelProgress="*res://autoload/level-progress.gd"
 
 [editor_plugins]
 
