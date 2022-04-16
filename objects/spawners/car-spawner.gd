@@ -38,7 +38,7 @@ func _ready():
 
 func _process(_delta):
     # TODO: this chance should increase in harder levels
-    var probability = .04
+    var probability = .01
     var policeProbability = .003
 
     var nodes = get_tree().get_nodes_in_group('player')
