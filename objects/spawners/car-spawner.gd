@@ -45,7 +45,7 @@ func _process(_delta):
     if nodes.size() > 0:
         player = nodes[0]
     else:
-        player = null
+        return
 
     if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
         probability = lerp(0, probability, player.speed / player.maxSpeed)
