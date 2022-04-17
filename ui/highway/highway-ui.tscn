@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://ui/highway/progress.gd" type="Script" id=1]
 [ext_resource path="res://sprites/van.png" type="Texture" id=2]
@@ -31,15 +31,6 @@ func _process(_delta):
 
         margin_top = -100
         visible = true
-"
-
-[sub_resource type="GDScript" id=5]
-script/source = "extends Button
-
-export var scene = ''
-func _on_start_pressed():
-    assert(scene != '', 'Missing switch to scene')
-    GameController.switchToScene(scene)
 "
 
 [node name="highway-ui" type="Control"]
@@ -160,19 +151,15 @@ __meta__ = {
 }
 
 [node name="text" type="Label" parent="restart/container"]
-margin_left = 431.0
-margin_top = 43.0
-margin_right = 538.0
-margin_bottom = 57.0
+margin_left = 364.0
+margin_top = 27.0
+margin_right = 545.0
+margin_bottom = 72.0
 text = "They caught you!"
 
 [node name="exit" type="Button" parent="restart/container"]
-margin_left = 542.0
-margin_right = 593.0
+margin_left = 585.0
+margin_right = 659.0
 margin_bottom = 100.0
 text = "<Exit>"
 flat = true
-script = SubResource( 5 )
-scene = "main-menu"
-
-[connection signal="pressed" from="restart/container/exit" to="restart/container/exit" method="_on_start_pressed"]

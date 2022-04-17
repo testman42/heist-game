@@ -13,7 +13,7 @@ script/source = "extends Button
 export var scene = ''
 func _on_start_pressed():
     assert(scene != '', 'Missing switch to scene')
-    GameController.switchToScene(scene)
+    SceneSwitcher.switchToScene(scene)
 "
 
 [sub_resource type="GDScript" id=3]
@@ -59,43 +59,42 @@ __meta__ = {
 }
 
 [node name="money" type="Label" parent="ui/container"]
-margin_top = 161.0
 margin_right = 984.0
-margin_bottom = 175.0
+margin_bottom = 45.0
 text = "You made it!"
 autowrap = true
 script = SubResource( 1 )
 
 [node name="space" type="Control" parent="ui/container"]
-margin_top = 179.0
+margin_top = 85.0
 margin_right = 984.0
-margin_bottom = 199.0
+margin_bottom = 105.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="credits" type="Label" parent="ui/container"]
-margin_top = 203.0
+margin_top = 145.0
 margin_right = 984.0
-margin_bottom = 251.0
+margin_bottom = 334.0
 text = "Thanks for playing my game. This is a submission for Ludum Dare #50, and I did not have any time left for a proper outro... or sound effects... or much polishing... or performance, well, you get the idea.
 Here's what you can do next:"
 autowrap = true
 
 [node name="space2" type="Control" parent="ui/container"]
-margin_top = 255.0
+margin_top = 374.0
 margin_right = 984.0
-margin_bottom = 295.0
+margin_bottom = 414.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="buttons" type="HBoxContainer" parent="ui/container"]
-margin_top = 299.0
+margin_top = 454.0
 margin_right = 984.0
-margin_bottom = 319.0
+margin_bottom = 505.0
 alignment = 1
 
 [node name="start" type="Button" parent="ui/container/buttons"]
-margin_left = 290.0
-margin_right = 490.0
-margin_bottom = 20.0
+margin_left = 272.0
+margin_right = 472.0
+margin_bottom = 51.0
 rect_min_size = Vector2( 200, 0 )
 text = "<Restart>"
 flat = true
@@ -103,9 +102,9 @@ script = SubResource( 2 )
 scene = "main-menu"
 
 [node name="exit" type="Button" parent="ui/container/buttons"]
-margin_left = 494.0
-margin_right = 694.0
-margin_bottom = 20.0
+margin_left = 512.0
+margin_right = 712.0
+margin_bottom = 51.0
 rect_min_size = Vector2( 200, 0 )
 text = "<Exit>"
 flat = true

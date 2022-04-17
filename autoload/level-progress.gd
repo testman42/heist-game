@@ -17,6 +17,7 @@ func setup():
         return
 
     playerDead = false
+    distance = 0
 
     player = get_tree().get_nodes_in_group('player')[0]
 
@@ -33,11 +34,8 @@ func setup():
 func _process(_delta):
     if distance >= targetDistance:
         # level complete
-        # TODO
-        GameController.levelComplete()
-
-        # Reset distance so this does not get triggered endlessly!!!
-        distance = 0
+        SceneSwitcher.switchToScene('outro')
+        setup()
 
     if player and is_instance_valid(player) and money <= 0:
         if player.has_method('destroyCar'):
@@ -62,5 +60,3 @@ func _onCarSpinned(car):
 func _onCarDestroyed(car):
     if car.is_in_group('police'):
         money += rand_range(50, 120)
-
-
