@@ -2,5 +2,5 @@
 
 [resource]
 Button/constants/hseparation = 10
-HBoxContainer/constants/separation = 40
-VBoxContainer/constants/separation = 40
+HBoxContainer/constants/separation = 20
+VBoxContainer/constants/separation = 20
