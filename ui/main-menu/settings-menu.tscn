@@ -18,128 +18,128 @@ __meta__ = {
 
 [node name="columns" type="HBoxContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 509.0
+margin_bottom = 532.0
 size_flags_vertical = 3
 alignment = 1
 
 [node name="graphics" type="PanelContainer" parent="columns"]
-margin_right = 492.0
-margin_bottom = 509.0
+margin_right = 502.0
+margin_bottom = 532.0
 size_flags_horizontal = 3
 
 [node name="layout" type="VBoxContainer" parent="columns/graphics"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 485.0
-margin_bottom = 502.0
+margin_right = 495.0
+margin_bottom = 525.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="label" type="Label" parent="columns/graphics/layout"]
-margin_right = 478.0
-margin_bottom = 49.0
+margin_right = 488.0
+margin_bottom = 44.0
 custom_fonts/font = ExtResource( 5 )
 text = "Graphics"
 align = 1
 
 [node name="fullscreen" parent="columns/graphics/layout" instance=ExtResource( 3 )]
-margin_top = 89.0
-margin_right = 478.0
-margin_bottom = 142.0
+margin_top = 64.0
+margin_right = 488.0
+margin_bottom = 114.0
 text = "Fullscreen"
 
 [node name="quality" type="HBoxContainer" parent="columns/graphics/layout"]
-margin_top = 182.0
-margin_right = 478.0
-margin_bottom = 233.0
+margin_top = 134.0
+margin_right = 488.0
+margin_bottom = 182.0
 
 [node name="options" parent="columns/graphics/layout/quality" instance=ExtResource( 9 )]
-margin_right = 79.0
-margin_bottom = 51.0
+margin_right = 76.0
+margin_bottom = 48.0
 text = "High"
 script = ExtResource( 4 )
 setting_index = 3
 
 [node name="label" type="Label" parent="columns/graphics/layout/quality"]
-margin_left = 119.0
+margin_left = 96.0
 margin_top = 3.0
-margin_right = 193.0
-margin_bottom = 48.0
+margin_right = 172.0
+margin_bottom = 45.0
 text = "quality"
 
 [node name="particles" parent="columns/graphics/layout" instance=ExtResource( 3 )]
-margin_top = 273.0
-margin_right = 478.0
-margin_bottom = 326.0
+margin_top = 202.0
+margin_right = 488.0
+margin_bottom = 252.0
 text = "Particles"
 setting_index = 4
 
 [node name="audio" type="PanelContainer" parent="columns"]
-margin_left = 532.0
+margin_left = 522.0
 margin_right = 1024.0
-margin_bottom = 509.0
+margin_bottom = 532.0
 size_flags_horizontal = 3
 
 [node name="layout" type="VBoxContainer" parent="columns/audio"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 485.0
-margin_bottom = 502.0
+margin_right = 495.0
+margin_bottom = 525.0
 
 [node name="label" type="Label" parent="columns/audio/layout"]
-margin_right = 478.0
-margin_bottom = 49.0
+margin_right = 488.0
+margin_bottom = 44.0
 custom_fonts/font = ExtResource( 5 )
 text = "Audio"
 align = 1
 
 [node name="sound" type="HBoxContainer" parent="columns/audio/layout"]
-margin_top = 89.0
-margin_right = 478.0
-margin_bottom = 134.0
+margin_top = 64.0
+margin_right = 488.0
+margin_bottom = 106.0
 
 [node name="label" type="Label" parent="columns/audio/layout/sound"]
-margin_right = 66.0
-margin_bottom = 45.0
+margin_right = 64.0
+margin_bottom = 42.0
 text = "Sound"
 
 [node name="slider" parent="columns/audio/layout/sound" instance=ExtResource( 7 )]
-margin_left = 106.0
-margin_right = 478.0
+margin_left = 84.0
+margin_right = 488.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 150, 30 )
 size_flags_horizontal = 3
 setting_index = 1
 
 [node name="music" type="HBoxContainer" parent="columns/audio/layout"]
-margin_top = 174.0
-margin_right = 478.0
-margin_bottom = 219.0
+margin_top = 126.0
+margin_right = 488.0
+margin_bottom = 168.0
 
 [node name="label" type="Label" parent="columns/audio/layout/music"]
-margin_right = 63.0
-margin_bottom = 45.0
+margin_right = 61.0
+margin_bottom = 42.0
 text = "Music"
 
 [node name="slider" parent="columns/audio/layout/music" instance=ExtResource( 7 )]
-margin_left = 103.0
-margin_right = 478.0
+margin_left = 81.0
+margin_right = 488.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 150, 30 )
 size_flags_horizontal = 3
 setting_index = 2
 
 [node name="center" type="CenterContainer" parent="."]
-margin_top = 549.0
+margin_top = 552.0
 margin_right = 1024.0
 margin_bottom = 600.0
 
 [node name="done" type="Button" parent="center"]
-margin_left = 476.0
-margin_right = 548.0
-margin_bottom = 51.0
-text = "DONE"
+margin_left = 480.0
+margin_right = 544.0
+margin_bottom = 48.0
+text = "Done"
 script = ExtResource( 2 )
 
 [connection signal="pressed" from="center/done" to="." method="_on_done_pressed"]

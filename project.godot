@@ -200,4 +200,4 @@ common/enable_pause_aware_picking=true
 
 environment/default_clear_color=Color( 0.121569, 0.133333, 0.176471, 1 )
 quality/filters/msaa=2
-environment/default_environment="res://environments/default_env.tres"
+environment/default_environment="res://environments/day.tres"

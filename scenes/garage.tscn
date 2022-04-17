@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://materials/garage/fence.tres" type="Material" id=1]
+[ext_resource path="res://materials/garage/floor.tres" type="Material" id=2]
+[ext_resource path="res://materials/road.tres" type="Material" id=3]
+[ext_resource path="res://materials/garage/wall.tres" type="Material" id=4]
+[ext_resource path="res://materials/garage/brick.tres" type="Material" id=5]
+[ext_resource path="res://environments/night.tres" type="Environment" id=6]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 50, 5 )
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 50, 5 )
+
+[node name="garage" type="Node"]
+
+[node name="camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40332, 8.67013 )
+environment = ExtResource( 6 )
+
+[node name="garage" type="Spatial" parent="."]
+
+[node name="building" type="CSGCombiner" parent="garage"]
+
+[node name="bricks" type="CSGBox" parent="garage/building"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0 )
+width = 5.4
+height = 4.4
+depth = 5.4
+material = ExtResource( 5 )
+
+[node name="interior-subtract" type="CSGBox" parent="garage/building"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+operation = 2
+width = 5.0
+height = 4.0
+depth = 5.0
+material = ExtResource( 4 )
+
+[node name="door" type="CSGBox" parent="garage/building"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3 )
+operation = 2
+width = 3.0
+height = 3.0
+depth = 1.0
+material = ExtResource( 5 )
+
+[node name="floor" type="CSGBox" parent="garage"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0 )
+width = 5.0
+height = 0.02
+depth = 5.0
+material = ExtResource( 2 )
+
+[node name="ceiling-light" type="OmniLight" parent="garage"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.86188, 0 )
+light_color = Color( 0.952941, 0.898039, 0.682353, 1 )
+light_energy = 3.022
+shadow_enabled = true
+omni_range = 6.44753
+
+[node name="side-building" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.872, 1.4, -0.503869 )
+width = 16.5183
+height = 2.8
+depth = 3.74501
+material = ExtResource( 5 )
+
+[node name="fence" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.804, 1, -0.504 )
+width = 16.5183
+depth = 0.1
+material = ExtResource( 1 )
+
+[node name="ground" type="Node" parent="."]
+
+[node name="sidewalk" type="CSGMesh" parent="ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+mesh = SubResource( 1 )
+material = ExtResource( 2 )
+
+[node name="road" type="CSGMesh" parent="ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7 )
+mesh = SubResource( 2 )
+material = ExtResource( 3 )

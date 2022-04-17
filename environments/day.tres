@@ -10,6 +10,3 @@ background_sky = SubResource( 1 )
 ssao_enabled = true
 ssao_quality = 0
 glow_blend_mode = 1
-adjustment_enabled = true
-adjustment_brightness = 0.95
-adjustment_contrast = 1.2

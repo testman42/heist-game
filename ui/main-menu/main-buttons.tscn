@@ -13,9 +13,9 @@ __meta__ = {
 
 [node name="layout" type="VBoxContainer" parent="."]
 margin_left = 447.0
-margin_top = 144.0
+margin_top = 174.0
 margin_right = 576.0
-margin_bottom = 456.0
+margin_bottom = 426.0
 
 [node name="garage" type="Button" parent="layout"]
 margin_right = 129.0
@@ -24,24 +24,24 @@ text = "Garage"
 script = ExtResource( 2 )
 
 [node name="quickplay" type="Button" parent="layout"]
-margin_top = 88.0
+margin_top = 68.0
 margin_right = 129.0
-margin_bottom = 136.0
+margin_bottom = 116.0
 text = "Quick Play"
 
 [node name="settings" type="Button" parent="layout"]
-margin_top = 176.0
+margin_top = 136.0
 margin_right = 129.0
-margin_bottom = 224.0
+margin_bottom = 184.0
 text = "Settings"
 
 [node name="exit" type="Button" parent="layout"]
-margin_top = 264.0
+margin_top = 204.0
 margin_right = 129.0
-margin_bottom = 312.0
+margin_bottom = 252.0
 text = "Exit"
 
-[connection signal="pressed" from="layout/garage" to="." method="_on_quickplay_pressed"]
+[connection signal="pressed" from="layout/garage" to="." method="_on_garage_pressed"]
 [connection signal="pressed" from="layout/quickplay" to="." method="_on_quickplay_pressed"]
 [connection signal="pressed" from="layout/settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="layout/exit" to="." method="_on_exit_pressed"]
