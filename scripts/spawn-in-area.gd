@@ -9,9 +9,6 @@ export var spawnMax = 10
 export(PackedScene) var instanceToSpawn
 
 func _ready():
-    if GameSettings.quality <= 0:
-        return
-
     var box := shape as BoxShape
     assert(box, 'Spawner only works with boxes')
     var bounds := box.extents

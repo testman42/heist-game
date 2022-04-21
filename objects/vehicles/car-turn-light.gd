@@ -8,12 +8,6 @@ var timer = 0
 func _ready():
     assert(activeMaterial, 'Missing car turn light active material')
 
-    if GameSettings.quality <= 0:
-        call_deferred('set_script', null)
-
-        if bulb:
-            bulb.queue_free()
-
 
 func _process(_delta):
     if not active:
