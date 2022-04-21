@@ -112,8 +112,6 @@ default_bus_layout="res://audio/bus-layout.tres"
 [autoload]
 
 System="*res://autoload/system.gd"
-ggsManager="*res://addons/GGS/src/ggs_manager.gd"
-GameSettings="*res://autoload/game-settings.gd"
 SceneSwitcher="*res://autoload/scene-switcher.gd"
 LevelProgress="*res://autoload/level-progress.gd"
 
