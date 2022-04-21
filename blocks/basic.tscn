@@ -46,6 +46,7 @@ material = ExtResource( 2 )
 [node name="lanes" type="Spatial" parent="ground/road"]
 
 [node name="middle" type="Spatial" parent="ground/road/lanes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0 )
 
 [node name="left" parent="ground/road/lanes/middle" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.051, 0 )
