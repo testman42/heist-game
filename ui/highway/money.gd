@@ -10,14 +10,14 @@ func _process(delta):
     var diff = currentValue - shownValue
 
     # reset the shown value when the counter is more than a few seconds
-    if counter > 2 or abs(diff) > 1000:
+    if counter > 1 or abs(diff) > 1000:
         counter = 0
         # shownValue = currentValue
         $tween.interpolate_property(self, 'shownValue', shownValue, currentValue, .5)
         $tween.start()
 
     if is_equal_approx(diff, 0):
-        $diff.visible = false
+        $text/diff.visible = false
     else:
 
         # move the counter if the diff stays on the same number
@@ -26,14 +26,14 @@ func _process(delta):
         else:
             counter = 0
 
-        $diff.visible = true
-        $diff.text = str(diff)
+        $text/diff.visible = true
+        $text/diff.text = str(diff)
 
         if diff > 0:
-            $diff.text = '+' + $diff.text
-            $diff.add_color_override('font_color', Color.green)
+            $text/diff.text = '+' + $text/diff.text
+            $text/diff.add_color_override('font_color', Color.green)
         else:
-            $diff.add_color_override('font_color', Color.red)
+            $text/diff.add_color_override('font_color', Color.red)
 
 
 

@@ -26,9 +26,9 @@ func setup():
     if player.has_signal('player_collision'):
         player.connect('player_collision', self, '_onPlayerCollided')
 
-    money = rand_range(800, 8000)
+    money = rand_range(8, 80)
     distance = 0
-    targetDistance = money * rand_range(.4, .9)
+    targetDistance = 1000* money * rand_range(.4, .9)
 
 
 func _process(_delta):

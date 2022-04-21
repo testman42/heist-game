@@ -117,7 +117,7 @@ LevelProgress="*res://autoload/level-progress.gd"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/GGS/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [gui]
 
