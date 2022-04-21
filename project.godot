@@ -124,7 +124,7 @@ _global_script_class_icons={
 
 config/name="The Heist"
 config/description="Ludum Dare #50 submission."
-run/main_scene="res://scenes/main-menu.tscn"
+run/main_scene="res://scenes/highway.tscn"
 boot_splash/image="res://sprites/cover.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://sprites/icon.png"
