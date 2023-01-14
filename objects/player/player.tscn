@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://1n0jpqcqsg56" path="res://objects/vehicles/car.tscn" id="1_amawl"]
 [ext_resource type="Script" path="res://objects/player/player.gd" id="2_kpmug"]
 
-[node name="player" instance=ExtResource("1_amawl")]
+[node name="player" groups=["player"] instance=ExtResource("1_amawl")]
 script = ExtResource("2_kpmug")
 maxSpeedFrom = 16.0
 maxSpeedTo = 16.0

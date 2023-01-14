@@ -104,7 +104,7 @@ func _process(delta: float):
         $model.rotation.y = heading * -steering * CarConstants.steeringRotation
 
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 
     # move the vehicle body
     var collisionInfo := move_and_collide(delta * Vector3(steering * abs(speed) * CarConstants.steeringSpeedAdjust, 0, speed * -heading))
@@ -124,25 +124,26 @@ func _physics_process(delta):
         # TODO: what about the remainder?
 
 
-func handleCollision(collider: Object, normal: Vector3):
+func handleCollision(collider: CollisionObject3D, normal: Vector3):
 
     # *Note to self*: both cars will call this on collision, so only handle this car here!
     # *Another note*: I had to add previousSpeed to make this work, because without it the cars would always
     # just swap speeds (given that both would process this code and the second one would work with the speeds
     # set by the first one)!
+    # This code took a lot of tinkering to get right...
 
     # check if the other collider is a car
     if 'heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider:
 
-        var otherSpeed = collider.previousSpeed * collider.heading
-        var ourSpeed = previousSpeed * heading
-        var otherSteering = collider.previousSteering
-        var ourSteering = previousSteering
+        var otherSpeed: float = collider.previousSpeed * collider.heading
+        var ourSpeed := previousSpeed * heading
+        var otherSteering: float = collider.previousSteering
+        var ourSteering := previousSteering
 
-        var diff = otherSpeed - ourSpeed
-        var diffSteering = otherSteering - ourSteering
+        var diff := otherSpeed - ourSpeed
+        var diffSteering := otherSteering - ourSteering
 
-        var avgMass = (mass + collider.mass) / 2
+        var avgMass: float = (mass + collider.mass) / 2
         diff *= collider.mass / avgMass
         diffSteering *= collider.mass / avgMass
 
@@ -151,19 +152,21 @@ func handleCollision(collider: Object, normal: Vector3):
         # collision has lower steering and the other one has higher steering to move away - it is possible that next
         # frame the car with lower steering will be processed first and bump into the car it collided with last frame
         # again. In this case, we need to ignore the collision because the other car will move away faster anyway.
-        if absf(normal.x) > 0 and sign(diffSteering) != sign(normal.x):
+        if absf(normal.x) > 0 and signf(diffSteering) != signf(normal.x):
+            return
+        if absf(normal.z) > 0 and signf(diff) != signf(normal.z):
             return
 
 
-        if abs(normal.x) > abs(normal.z) or abs(previousSpeed - collider.previousSpeed) > 4:
+        if absf(normal.x) > absf(normal.z) or absf(previousSpeed - collider.previousSpeed) > 4:
             steering += diffSteering * CarConstants.collisionSteeringMultiplier
 
-        if abs(normal.z) > abs(normal.x) or abs(previousSpeed) < abs(collider.previousSpeed):
+        if absf(normal.z) > absf(normal.x) or absf(previousSpeed) < absf(collider.previousSpeed):
             speed += heading * diff * CarConstants.collisionSpeedMultiplier
 
 
     # bounce from the rails
-    elif collider.get_collision_layer_bit(1):
+    elif collider.get_collision_layer_value(1):
         steering *= -CarConstants.collisionSteeringMultiplier
         speed = move_toward(speed, 0, railHitSlowing)
 
@@ -178,15 +181,15 @@ func handleCollision(collider: Object, normal: Vector3):
 func decreaseHealth(collider: Object, normal: Vector3):
 
     if 'heading' in collider and 'previousSpeed' in collider and 'previousSpeed' in collider:
-        var otherSpeed = collider.previousSpeed * collider.heading
-        var ourSpeed = previousSpeed * heading
+        var otherSpeed: float = collider.previousSpeed * collider.heading
+        var ourSpeed := previousSpeed * heading
 
-        var diff = CarConstants.collisionHealthSpeedMultipler * abs(otherSpeed - ourSpeed)
-        var diffSteering = CarConstants.collisionHealthSteeringMultipler * abs(collider.previousSteering - previousSteering)
+        var diff := CarConstants.collisionHealthSpeedMultipler * absf(otherSpeed - ourSpeed)
+        var diffSteering := CarConstants.collisionHealthSteeringMultipler * absf(collider.previousSteering - previousSteering)
 
-        var total
+        var total: float
 
-        if abs(normal.z) > abs(normal.x):
+        if absf(normal.z) > absf(normal.x):
             total = diff
         else:
             total = diffSteering
@@ -196,7 +199,7 @@ func decreaseHealth(collider: Object, normal: Vector3):
 
         if canSpin and (total > CarConstants.collisionSpinningThreshold or health/maxHealth < CarConstants.healthSpinningThreshold):
             isSpinning = true
-            spinningDirection = sign(collider.transform.origin.x - transform.origin.x)
+            spinningDirection = signf(collider.transform.origin.x - transform.origin.x)
             emit_signal('spinned')
 
 func destroyCar():
@@ -208,11 +211,11 @@ func destroyCar():
         newNode.add_to_group(group)
 
     newNode.collision_layer = 0
-    newNode.set_collision_layer_bit(6, true)
+    newNode.set_collision_layer_value(6, true)
 
     newNode.collision_mask = 0
-    for i in range(8):
-        newNode.set_collision_mask_bit(i, true)
+    for i in range(1, 8):
+        newNode.set_collision_mask_value(i, true)
 
     # rotate the whole object according to the previous rotation of the model
     newNode.rotation = $model.rotation
