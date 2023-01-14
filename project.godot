@@ -14,6 +14,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://objects/vehicles/car.gd"
 }, {
+"base": "CSGBox3D",
+"class": &"CarBreakLight",
+"language": &"GDScript",
+"path": "res://objects/vehicles/car-break-light.gd"
+}, {
 "base": "RefCounted",
 "class": &"CarConstants",
 "language": &"GDScript",
@@ -46,6 +51,7 @@ _global_script_classes=[{
 }]
 _global_script_class_icons={
 "Car": "",
+"CarBreakLight": "",
 "CarConstants": "",
 "CarLogic": "",
 "CarTurnSignal": "",

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://1n0jpqcqsg56"]
+[gd_scene load_steps=13 format=3 uid="uid://1n0jpqcqsg56"]
 
 [ext_resource type="Script" path="res://utilities/random-hue.gd" id="1_1x7j1"]
 [ext_resource type="Script" path="res://objects/vehicles/car-logic.gd" id="2"]
@@ -7,8 +7,10 @@
 [ext_resource type="Material" path="res://materials/red-light.tres" id="5"]
 [ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://gkqh8o385og2" path="res://objects/vehicles/car-turn-signal.tscn" id="6_5bppl"]
+[ext_resource type="Script" path="res://objects/vehicles/car-break-light.gd" id="7"]
 [ext_resource type="Material" uid="uid://b23h3v8ayru1k" path="res://materials/window.tres" id="8"]
 [ext_resource type="Material" path="res://materials/wreck.tres" id="10"]
+[ext_resource type="Material" path="res://materials/red-light-active.tres" id="11"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(1.46307, 1.4, 2.24682)
@@ -88,6 +90,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.321, 1.081)
 cast_shadow = 0
 size = Vector3(0.25, 0.184, 0.075)
 material = ExtResource("5")
+script = ExtResource("7")
+inactiveMaterial = ExtResource("5")
+activeMaterial = ExtResource("11")
 
 [node name="turn" parent="model/lights/rl" instance=ExtResource("6_5bppl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.173415, 0, 0)
@@ -97,6 +102,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.321, 1.081)
 cast_shadow = 0
 size = Vector3(0.25, 0.184, 0.075)
 material = ExtResource("5")
+script = ExtResource("7")
+inactiveMaterial = ExtResource("5")
+activeMaterial = ExtResource("11")
 
 [node name="turn" parent="model/lights/rr" instance=ExtResource("6_5bppl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 0, 0)
@@ -136,6 +144,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.326, 2.08165e-12, 2.08165e-
 target_position = Vector3(2.08165e-12, 2.08165e-12, -8)
 collision_mask = 8
 
+[connection signal="startBreaking" from="." to="model/lights/rl" method="start"]
+[connection signal="startBreaking" from="." to="model/lights/rr" method="start"]
 [connection signal="startTurningLeft" from="." to="model/lights/fr/turn" method="stop"]
 [connection signal="startTurningLeft" from="." to="model/lights/fl/turn" method="start"]
 [connection signal="startTurningLeft" from="." to="model/lights/rl/turn" method="start"]
@@ -144,6 +154,8 @@ collision_mask = 8
 [connection signal="startTurningRight" from="." to="model/lights/fl/turn" method="stop"]
 [connection signal="startTurningRight" from="." to="model/lights/rl/turn" method="stop"]
 [connection signal="startTurningRight" from="." to="model/lights/rr/turn" method="start"]
+[connection signal="stopBreaking" from="." to="model/lights/rl" method="stop"]
+[connection signal="stopBreaking" from="." to="model/lights/rr" method="stop"]
 [connection signal="stopTurning" from="." to="model/lights/fr/turn" method="stop"]
 [connection signal="stopTurning" from="." to="model/lights/fl/turn" method="stop"]
 [connection signal="stopTurning" from="." to="model/lights/rl/turn" method="stop"]
