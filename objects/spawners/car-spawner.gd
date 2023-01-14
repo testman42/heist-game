@@ -1,16 +1,16 @@
 extends Node
 class_name CarSpawner
 
-# Spawns cars in front of the player. Always spawns in front,
-# never in the back because we assume that the player is moving
-# forward all the time, even though they can stop.
+# Spawns cars in front of the player. If the player is moving, only spawns
+# cars in the front. Otherwise cars going forward are spawned in the back
+# to catch up.
 
 # Possible cars. Each one must be a Car type.
-export(Array, PackedScene) var possibleCars
-export(Array, PackedScene) var possiblePoliceCars
+@export var possibleCars: Array[PackedScene]
+@export var possiblePoliceCars: Array[PackedScene]
 
-export var disableCars = false
-export var disablePolice = false
+@export var disableCars = false
+@export var disablePolice = false
 
 var possibleCarInstances = []
 var totalProbability = 0
@@ -18,12 +18,12 @@ var totalProbability = 0
 var possiblePoliceCarInstances = []
 var totalPoliceProbability = 0
 
-var player
+var player: Player
 
 
 func _ready():
     assert(possibleCars.size() > 0, "Missing possible cars for a spawner")
-    assert(possiblePoliceCars.size() > 0, "Missing possible police cars for a spawner")
+    #assert(possiblePoliceCars.size() > 0, "Missing possible police cars for a spawner")
 
     # preload all cars so we can work with their probabilities
     for b in possibleCars:
@@ -38,8 +38,8 @@ func _ready():
 
 func _process(_delta):
     # TODO: this chance should increase in harder levels
-    var probability = .01
-    var policeProbability = .003
+    var probability := .01
+    var policeProbability := .003
 
     var nodes = get_tree().get_nodes_in_group('player')
     if nodes.size() > 0:
@@ -48,8 +48,8 @@ func _process(_delta):
         return
 
     if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
-        probability = lerp(0, probability, player.speed / player.maxSpeed)
-        policeProbability = lerp(0, policeProbability, player.speed / player.maxSpeed)
+        probability = lerpf(0, probability, player.speed / player.maxSpeed)
+        policeProbability = lerpf(0, policeProbability, player.speed / player.maxSpeed)
 
     if !disableCars and randf() < probability:
         spawnCar()
@@ -77,8 +77,6 @@ func spawnCar():
         car.transform.origin.z = player.transform.origin.z + HighwayConstants.blockLength * 1.5
 
     add_child(car)
-    car.connect('spinned', LevelProgress, '_onCarSpinned', [car])
-    car.connect('destroyed', LevelProgress, '_onCarDestroyed', [car])
 
     # check whether the car collides with anything, if true, just move it back
     while car.move_and_collide(Vector3(0, 0, -.1), true, true, true):
@@ -97,7 +95,7 @@ func spawnPoliceCar():
     else:
         car.speed = 6
 
-    car.transform.origin.x = rand_range(-HighwayConstants.grass, HighwayConstants.grass)
+    car.transform.origin.x = randf_range(-HighwayConstants.grass, HighwayConstants.grass)
 
     if randf() < .4:
         car.transform.origin.z = player.transform.origin.z - HighwayConstants.blockLength * 1.5
@@ -105,8 +103,6 @@ func spawnPoliceCar():
         car.transform.origin.z = player.transform.origin.z + HighwayConstants.blockLength * 1.5
 
     add_child(car)
-    car.connect('spinned', LevelProgress, '_onCarSpinned', [car])
-    car.connect('destroyed', LevelProgress, '_onCarDestroyed', [car])
 
     # check whether the car collides with anything, if true, just move it back
     while car.move_and_collide(Vector3(0, 0, .1), true, true, true):

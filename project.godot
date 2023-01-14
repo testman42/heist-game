@@ -39,6 +39,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://objects/vehicles/car-logic.gd"
 }, {
+"base": "Node",
+"class": &"CarSpawner",
+"language": &"GDScript",
+"path": "res://objects/spawners/car-spawner.gd"
+}, {
 "base": "CSGBox3D",
 "class": &"CarTurnSignal",
 "language": &"GDScript",
@@ -71,6 +76,7 @@ _global_script_class_icons={
 "CarBreakLight": "",
 "CarConstants": "",
 "CarLogic": "",
+"CarSpawner": "",
 "CarTurnSignal": "",
 "DynamicObject": "",
 "DynamicObjectKinematic": "",
