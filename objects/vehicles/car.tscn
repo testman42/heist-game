@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://1n0jpqcqsg56"]
+[gd_scene load_steps=11 format=3 uid="uid://1n0jpqcqsg56"]
 
+[ext_resource type="Script" path="res://utilities/random-hue.gd" id="1_1x7j1"]
+[ext_resource type="Script" path="res://objects/vehicles/car-logic.gd" id="2"]
 [ext_resource type="Material" path="res://materials/tires.tres" id="3"]
 [ext_resource type="Material" path="res://materials/yellow-light.tres" id="4"]
 [ext_resource type="Material" path="res://materials/red-light.tres" id="5"]
 [ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="6"]
 [ext_resource type="Material" uid="uid://b23h3v8ayru1k" path="res://materials/window.tres" id="8"]
+[ext_resource type="Material" path="res://materials/wreck.tres" id="10"]
 [ext_resource type="Material" path="res://materials/orange-light.tres" id="13"]
 
 [sub_resource type="BoxShape3D" id="1"]
@@ -13,12 +16,16 @@ size = Vector3(1.46307, 1.4, 2.24682)
 [node name="car" type="CharacterBody3D" groups=["car"]]
 collision_layer = 8
 collision_mask = 30
+script = ExtResource("2")
+wreckMaterial = ExtResource("10")
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 shape = SubResource("1")
 
 [node name="model" type="CSGCombiner3D" parent="."]
+script = ExtResource("1_1x7j1")
+nodesToEdit = [NodePath("body"), NodePath("roof")]
 
 [node name="wheels" type="CSGCombiner3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
@@ -54,28 +61,6 @@ height = 0.245
 sides = 10
 smooth_faces = false
 material = ExtResource("3")
-
-[node name="body" type="CSGBox3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.553114, 0)
-size = Vector3(1.216, 0.641, 2.156)
-material = ExtResource("6")
-
-[node name="roof" type="CSGBox3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.888, -0.000704527, 1.0966, 0.213478)
-size = Vector3(1.073, 0.5, 1.292)
-material = ExtResource("6")
-
-[node name="front-window" type="CSGPolygon3D" parent="model"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.536235, 0.870547, -0.360242)
-polygon = PackedVector2Array(0, 0, 0.000745982, 0.4759, 0.256389, 0.00212693)
-depth = 1.08
-material = ExtResource("8")
-
-[node name="rear-window" type="CSGPolygon3D" parent="model"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.536235, 0.874866, 1.00413)
-polygon = PackedVector2Array(0, 0, 0.217355, 0.470789, 0.218, 0)
-depth = 1.08
-material = ExtResource("8")
 
 [node name="lights" type="CSGCombiner3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
@@ -127,3 +112,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 0, 0)
 cast_shadow = 0
 size = Vector3(0.1, 0.184, 0.075)
 material = ExtResource("13")
+
+[node name="body" type="CSGBox3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.553114, 0)
+size = Vector3(1.216, 0.641, 2.156)
+material = ExtResource("6")
+
+[node name="roof" type="CSGBox3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.888, -0.000704527, 1.0966, 0.213478)
+size = Vector3(1.073, 0.5, 1.292)
+material = ExtResource("6")
+
+[node name="front-window" type="CSGPolygon3D" parent="model"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.536235, 0.870547, -0.360242)
+polygon = PackedVector2Array(0, 0, 0.000745982, 0.4759, 0.256389, 0.00212693)
+depth = 1.08
+material = ExtResource("8")
+
+[node name="rear-window" type="CSGPolygon3D" parent="model"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.536235, 0.874866, 1.00413)
+polygon = PackedVector2Array(0, 0, 0.217355, 0.470789, 0.218, 0)
+depth = 1.08
+material = ExtResource("8")
+
+[node name="front" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.1337)
+
+[node name="raycast1" type="RayCast3D" parent="front"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.325611, 0, 0)
+target_position = Vector3(2.08165e-12, 2.08165e-12, -8)
+collision_mask = 8
+
+[node name="raycast2" type="RayCast3D" parent="front"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.326, 2.08165e-12, 2.08165e-12)
+target_position = Vector3(2.08165e-12, 2.08165e-12, -8)
+collision_mask = 8

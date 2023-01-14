@@ -8,9 +8,59 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "CharacterBody3D",
+"class": &"Car",
+"language": &"GDScript",
+"path": "res://objects/vehicles/car.gd"
+}, {
+"base": "RefCounted",
+"class": &"CarConstants",
+"language": &"GDScript",
+"path": "res://constants/car-constants.gd"
+}, {
+"base": "Car",
+"class": &"CarLogic",
+"language": &"GDScript",
+"path": "res://objects/vehicles/car-logic.gd"
+}, {
+"base": "RigidBody3D",
+"class": &"DynamicObject",
+"language": &"GDScript",
+"path": "res://utilities/dynamic-object.gd"
+}, {
+"base": "CharacterBody3D",
+"class": &"DynamicObjectKinematic",
+"language": &"GDScript",
+"path": "res://utilities/dynamic-object-kinematic.gd"
+}, {
+"base": "RefCounted",
+"class": &"HighwayConstants",
+"language": &"GDScript",
+"path": "res://constants/highway-constants.gd"
+}]
+_global_script_class_icons={
+"Car": "",
+"CarConstants": "",
+"CarLogic": "",
+"DynamicObject": "",
+"DynamicObjectKinematic": "",
+"HighwayConstants": ""
+}
+
 [application]
 
 config/name="highway-game"
 run/main_scene="res://scenes/playground.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
+
+[layer_names]
+
+3d_physics/layer_1="ground"
+3d_physics/layer_2="static"
+3d_physics/layer_3="player"
+3d_physics/layer_4="car"
+3d_physics/layer_5="police"
+3d_physics/layer_6="prop"
+3d_physics/layer_7="wreck"

@@ -4,11 +4,15 @@
 
 [node name="playground" type="Node3D"]
 
+[node name="sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.809696, -0.508227, 0.293424, -1.68199e-08, 0.499998, 0.866027, -0.58685, -0.701218, 0.404846, 5.97244, 0, 3.74954)
+shadow_enabled = true
+
 [node name="car" parent="." instance=ExtResource("1_krqrv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.200676, 0, 0.41395)
 
 [node name="camera" type="Camera3D" parent="car"]
-transform = Transform3D(0.827591, -0.319134, 0.461785, 0, 0.822661, 0.568532, -0.561331, -0.470512, 0.680827, 7.32855, 9.26968, 10.6867)
+transform = Transform3D(0.827591, -0.319135, 0.461785, 0, 0.822661, 0.568532, -0.561331, -0.470512, 0.680827, 5.7813, 7.36477, 8.40553)
 current = true
 
 [node name="car2" parent="." instance=ExtResource("1_krqrv")]
