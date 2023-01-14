@@ -9,6 +9,16 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Node3D",
+"class": &"Block",
+"language": &"GDScript",
+"path": "res://blocks/block.gd"
+}, {
+"base": "Node",
+"class": &"BlockSpawner",
+"language": &"GDScript",
+"path": "res://objects/spawners/block-spawner.gd"
+}, {
 "base": "CharacterBody3D",
 "class": &"Car",
 "language": &"GDScript",
@@ -55,6 +65,8 @@ _global_script_classes=[{
 "path": "res://objects/player/player.gd"
 }]
 _global_script_class_icons={
+"Block": "",
+"BlockSpawner": "",
 "Car": "",
 "CarBreakLight": "",
 "CarConstants": "",

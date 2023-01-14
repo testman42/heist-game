@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b78vyep1o4s7p"]
+[gd_scene load_steps=5 format=3 uid="uid://b78vyep1o4s7p"]
 
 [ext_resource type="PackedScene" uid="uid://1n0jpqcqsg56" path="res://objects/vehicles/car.tscn" id="1_krqrv"]
 [ext_resource type="PackedScene" uid="uid://cw34wawvpykkx" path="res://objects/player/player.tscn" id="2_7b8s0"]
 [ext_resource type="PackedScene" uid="uid://ukk0y1r600eg" path="res://objects/player/camera.tscn" id="3_0b5e1"]
+[ext_resource type="PackedScene" path="res://objects/spawners/block-spawner.tscn" id="4_latvv"]
 
 [node name="playground" type="Node3D"]
 
@@ -26,3 +27,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66285, 0, -15.9733)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.336761, 0, -3.48143)
 
 [node name="camera-base" parent="." instance=ExtResource("3_0b5e1")]
+
+[node name="block-spawner" parent="." instance=ExtResource("4_latvv")]

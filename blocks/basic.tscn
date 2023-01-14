@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://rfdainqvoprx"]
+
+[ext_resource type="Material" path="res://materials/grass.tres" id="1"]
+[ext_resource type="Material" path="res://materials/road.tres" id="2"]
+[ext_resource type="PackedScene" path="res://objects/road/road-lane.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://objects/road/road-lane-cross.tscn" id="4"]
+[ext_resource type="Script" path="res://blocks/block.gd" id="5"]
+[ext_resource type="PackedScene" uid="uid://m6mwfht0code" path="res://objects/road/fence.tscn" id="6"]
+[ext_resource type="Script" path="res://scripts/spawn-in-area.gd" id="7"]
+
+[sub_resource type="PlaneMesh" id="1"]
+size = Vector2(100, 50)
+
+[sub_resource type="PlaneMesh" id="2"]
+size = Vector2(0.1, 50)
+subdivide_depth = 10
+
+[sub_resource type="PlaneMesh" id="3"]
+size = Vector2(0.1, 50)
+subdivide_depth = 10
+
+[sub_resource type="BoxShape3D" id="4"]
+size = Vector3(100, 2, 50)
+
+[sub_resource type="BoxShape3D" id="5"]
+size = Vector3(14.4256, 0.604938, 47.9654)
+
+[node name="basic" type="Node3D"]
+script = ExtResource("5")
+
+[node name="ground" type="Node3D" parent="."]
+
+[node name="grass" type="CSGMesh3D" parent="ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("1")
+material = ExtResource("1")
+
+[node name="road" type="CSGBox3D" parent="ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+size = Vector3(20, 0.1, 50)
+material = ExtResource("2")
+
+[node name="lanes" type="Node3D" parent="ground/road"]
+
+[node name="middle" type="Node3D" parent="ground/road/lanes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+
+[node name="left" parent="ground/road/lanes/middle" instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.051, 0)
+mesh = SubResource("2")
+
+[node name="right" parent="ground/road/lanes/middle" instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.051, 0)
+mesh = SubResource("3")
+
+[node name="left-1" parent="ground/road/lanes" instance=ExtResource("4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 0.051, 0)
+length = 50
+
+[node name="left-2" parent="ground/road/lanes" instance=ExtResource("4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0.051, 0)
+length = 50
+
+[node name="right-1" parent="ground/road/lanes" instance=ExtResource("4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, 0.051, 0)
+length = 50
+
+[node name="right-2" parent="ground/road/lanes" instance=ExtResource("4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0.051, 0)
+length = 50
+
+[node name="collision" type="StaticBody3D" parent="ground"]
+collision_mask = 0
+
+[node name="shape" type="CollisionShape3D" parent="ground/collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("4")
+
+[node name="fences" type="Node3D" parent="."]
+
+[node name="left" type="Node3D" parent="fences"]
+
+[node name="fence-1" parent="fences/left" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 20)
+
+[node name="fence-2" parent="fences/left" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 10)
+
+[node name="fence-3" parent="fences/left" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 0)
+
+[node name="fence-4" parent="fences/left" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -10)
+
+[node name="fence-5" parent="fences/left" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -20)
+
+[node name="right" type="Node3D" parent="fences"]
+
+[node name="fence-1" parent="fences/right" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 20)
+
+[node name="fence-2" parent="fences/right" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 10)
+
+[node name="fence-3" parent="fences/right" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+
+[node name="fence-4" parent="fences/right" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -10)
+
+[node name="fence-5" parent="fences/right" instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20)
+
+[node name="trees" type="Node3D" parent="."]
+
+[node name="left" type="CollisionShape3D" parent="trees"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8962, 0, 0)
+shape = SubResource("5")
+script = ExtResource("7")
+
+[node name="right" type="CollisionShape3D" parent="trees"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8665, 0, 0)
+shape = SubResource("5")
+script = ExtResource("7")

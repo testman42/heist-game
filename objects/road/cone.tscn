@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqh4ign32xfuy"]
+
+[ext_resource type="Material" path="res://materials/barrel-red.tres" id="2"]
+[ext_resource type="Script" path="res://scripts/dynamic-object.gd" id="3"]
+
+[sub_resource type="CylinderShape3D" id="1"]
+height = 1.0
+radius = 0.3
+
+[node name="cone" type="RigidBody3D"]
+collision_layer = 32
+collision_mask = 127
+script = ExtResource("3")
+
+[node name="shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("1")
+
+[node name="model" type="Node3D" parent="."]
+
+[node name="bottom" type="CSGCylinder3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+radius = 0.3
+height = 1.0
+cone = true
+material = ExtResource("2")

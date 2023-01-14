@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://y4vk7ugu4yqp"]
+
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_color = Color(0.490196, 0.321569, 0.0823529, 1)
+
+[sub_resource type="StandardMaterial3D" id="2"]
+albedo_color = Color(0.4, 0.584314, 0.12549, 1)
+
+[node name="tree" type="Node3D"]
+
+[node name="trunk" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+cast_shadow = 0
+size = Vector3(0.5, 2, 0.5)
+material = SubResource("1")
+
+[node name="leaves" type="CSGBox3D" parent="trunk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7719, 0)
+cast_shadow = 0
+size = Vector3(2, 2, 2)
+material = SubResource("2")
