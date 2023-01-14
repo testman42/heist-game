@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ukk0y1r600eg"]
+
+[ext_resource type="Script" path="res://objects/player/camera.gd" id="1_f5qpm"]
+
+[node name="camera-base" type="Node3D"]
+script = ExtResource("1_f5qpm")
+
+[node name="camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 10.2, 4.2)
+current = true
