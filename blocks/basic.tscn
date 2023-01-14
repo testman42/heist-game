@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://rfdainqvoprx"]
+[gd_scene load_steps=14 format=3 uid="uid://rfdainqvoprx"]
 
 [ext_resource type="Material" path="res://materials/grass.tres" id="1"]
 [ext_resource type="Material" path="res://materials/road.tres" id="2"]
@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" path="res://objects/road/road-lane-cross.tscn" id="4"]
 [ext_resource type="Script" path="res://blocks/block.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://m6mwfht0code" path="res://objects/road/fence.tscn" id="6"]
-[ext_resource type="Script" path="res://scripts/spawn-in-area.gd" id="7"]
+[ext_resource type="Script" path="res://utilities/spawn-in-area.gd" id="7_6wex8"]
+[ext_resource type="PackedScene" uid="uid://y4vk7ugu4yqp" path="res://objects/road/tree.tscn" id="8"]
 
 [sub_resource type="PlaneMesh" id="1"]
 size = Vector2(100, 50)
@@ -117,9 +118,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20)
 [node name="left" type="CollisionShape3D" parent="trees"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8962, 0, 0)
 shape = SubResource("5")
-script = ExtResource("7")
+script = ExtResource("7_6wex8")
+instanceToSpawn = ExtResource("8")
 
 [node name="right" type="CollisionShape3D" parent="trees"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8665, 0, 0)
 shape = SubResource("5")
-script = ExtResource("7")
+script = ExtResource("7_6wex8")
+instanceToSpawn = ExtResource("8")

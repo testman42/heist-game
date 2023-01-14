@@ -1,37 +1,37 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://ckn4xp7yd4g2a"]
 
-[ext_resource path="res://materials/barrel-white.tres" type="Material" id=1]
-[ext_resource path="res://materials/barrel-red.tres" type="Material" id=2]
-[ext_resource path="res://scripts/dynamic-object.gd" type="Script" id=3]
+[ext_resource type="Material" path="res://materials/barrel-white.tres" id="1"]
+[ext_resource type="Script" path="res://utilities/dynamic-object.gd" id="1_u0sde"]
+[ext_resource type="Material" path="res://materials/barrel-red.tres" id="2"]
 
-[sub_resource type="CylinderShape" id=1]
-radius = 0.4
+[sub_resource type="CylinderShape3D" id="1"]
 height = 1.0
+radius = 0.4
 
-[node name="barrel" type="RigidBody"]
+[node name="barrel" type="RigidBody3D"]
 collision_layer = 32
 collision_mask = 127
-script = ExtResource( 3 )
+script = ExtResource("1_u0sde")
 
-[node name="shape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+[node name="shape" type="CollisionShape3D" parent="."]
+shape = SubResource("1")
 
-[node name="model" type="Spatial" parent="."]
+[node name="model" type="Node3D" parent="."]
 
-[node name="top" type="CSGCylinder" parent="model"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
+[node name="top" type="CSGCylinder3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 radius = 0.4
 height = 0.2
-material = ExtResource( 2 )
+material = ExtResource("2")
 
-[node name="middle" type="CSGCylinder" parent="model"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+[node name="middle" type="CSGCylinder3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 radius = 0.4
 height = 0.2
-material = ExtResource( 1 )
+material = ExtResource("1")
 
-[node name="bottom" type="CSGCylinder" parent="model"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0 )
+[node name="bottom" type="CSGCylinder3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 radius = 0.4
 height = 0.6
-material = ExtResource( 2 )
+material = ExtResource("2")

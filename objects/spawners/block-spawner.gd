@@ -5,12 +5,15 @@ class_name BlockSpawner
 # **All blocks must be 50 meters long.**
 # The spawner always assumes that the child nodes - blocks are ordered from back to front. It always
 # checks just the first block for deleting and appends new blocks at the end.
+# All blocks are instantiated and kept in memory for using their probabilities,
+# so they cannot have any logic.
 
 # Possible blocks. Each one must be a Block type.
 @export var possibleBlocks: Array[PackedScene]
 
-var possibleBlocksInstances = []
-var totalProbability = 0
+var possibleBlocksInstances: Array[Block] = []
+var totalProbability := 0.0
+var player: Player
 
 
 func _ready():
@@ -35,12 +38,21 @@ func deleteOldBlocks():
     if get_child_count() == 0:
         return
 
-    var nodes = get_tree().get_nodes_in_group('player')
-    if nodes.size() <= 0:
+    # cached player
+    if player != null and not is_instance_valid(player): player = null
+    if player != null and not player.is_in_group('player'): player = null
+
+    if player == null:
+        # find new player if any
+        var nodes = get_tree().get_nodes_in_group('player')
+        if nodes.size() > 0:
+            player = nodes[0]
+
+    if player == null:
+        # no player in the level, leave blocks be
         return
 
-    var player = nodes[0]
-    var block = get_child(0)
+    var block := get_child(0) as Block
     assert(block != null, "Unexpected child node which is not a Block")
 
     if (block.transform.origin.z - player.transform.origin.z) > HighwayConstants.blockLength * 2:

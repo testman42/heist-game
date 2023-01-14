@@ -199,7 +199,7 @@ func decreaseHealth(collider: Object, normal: Vector3):
 
         if canSpin and (total > CarConstants.collisionSpinningThreshold or health/maxHealth < CarConstants.healthSpinningThreshold):
             isSpinning = true
-            spinningDirection = signf(collider.transform.origin.x - transform.origin.x)
+            spinningDirection = int(signf(collider.transform.origin.x - transform.origin.x))
             emit_signal('spinned')
 
 func destroyCar():

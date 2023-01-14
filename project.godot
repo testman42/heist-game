@@ -68,6 +68,11 @@ _global_script_classes=[{
 "class": &"Player",
 "language": &"GDScript",
 "path": "res://objects/player/player.gd"
+}, {
+"base": "CollisionShape3D",
+"class": &"SpawnInArea",
+"language": &"GDScript",
+"path": "res://utilities/spawn-in-area.gd"
 }]
 _global_script_class_icons={
 "Block": "",
@@ -81,7 +86,8 @@ _global_script_class_icons={
 "DynamicObject": "",
 "DynamicObjectKinematic": "",
 "HighwayConstants": "",
-"Player": ""
+"Player": "",
+"SpawnInArea": ""
 }
 
 [application]

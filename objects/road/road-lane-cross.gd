@@ -1,7 +1,7 @@
 extends Node3D
 
 # the total length of the line to generate
-@export var length = 100
+@export var length := 100
 
 # the object to spawn as a single line mark
 # assume that the lineObject has length of 1
