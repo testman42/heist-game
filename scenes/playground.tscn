@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b78vyep1o4s7p"]
+[gd_scene load_steps=3 format=3 uid="uid://b78vyep1o4s7p"]
 
 [ext_resource type="PackedScene" uid="uid://1n0jpqcqsg56" path="res://objects/vehicles/car.tscn" id="1_krqrv"]
+[ext_resource type="PackedScene" uid="uid://cw34wawvpykkx" path="res://objects/player/player.tscn" id="2_7b8s0"]
 
 [node name="playground" type="Node3D"]
 
@@ -11,10 +12,6 @@ shadow_enabled = true
 [node name="car" parent="." instance=ExtResource("1_krqrv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.200676, 0, 0.41395)
 
-[node name="camera" type="Camera3D" parent="car"]
-transform = Transform3D(0.827591, -0.319135, 0.461785, 0, 0.822661, 0.568532, -0.561331, -0.470512, 0.680827, 5.7813, 7.36477, 8.40553)
-current = true
-
 [node name="car2" parent="." instance=ExtResource("1_krqrv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40668, 0, -2.27462)
 
@@ -23,3 +20,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.447202, 0, -8.43832)
 
 [node name="car4" parent="." instance=ExtResource("1_krqrv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66285, 0, -15.9733)
+
+[node name="player" parent="." instance=ExtResource("2_7b8s0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.336761, 0, -3.48143)
+
+[node name="camera" type="Camera3D" parent="player"]
+transform = Transform3D(0.999997, -0.00178185, 0.00186799, 0, 0.723594, 0.690226, -0.00258155, -0.690224, 0.723592, 0.0205081, 7.57775, 7.94406)
+current = true
