@@ -166,7 +166,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
 
 
     # bounce from the rails
-    elif collider.get_collision_layer_value(1):
+    elif collider.get_collision_layer_value(2):
         steering *= -CarConstants.collisionSteeringMultiplier
         speed = move_toward(speed, 0, railHitSlowing)
 
@@ -211,7 +211,7 @@ func destroyCar():
         newNode.add_to_group(group)
 
     newNode.collision_layer = 0
-    newNode.set_collision_layer_value(6, true)
+    newNode.set_collision_layer_value(7, true)
 
     newNode.collision_mask = 0
     for i in range(1, 8):
