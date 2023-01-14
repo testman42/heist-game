@@ -6,9 +6,9 @@
 [ext_resource type="Material" path="res://materials/yellow-light.tres" id="4"]
 [ext_resource type="Material" path="res://materials/red-light.tres" id="5"]
 [ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="6"]
+[ext_resource type="PackedScene" uid="uid://gkqh8o385og2" path="res://objects/vehicles/car-turn-signal.tscn" id="6_5bppl"]
 [ext_resource type="Material" uid="uid://b23h3v8ayru1k" path="res://materials/window.tres" id="8"]
 [ext_resource type="Material" path="res://materials/wreck.tres" id="10"]
-[ext_resource type="Material" path="res://materials/orange-light.tres" id="13"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(1.46307, 1.4, 2.24682)
@@ -71,11 +71,8 @@ cast_shadow = 0
 size = Vector3(0.28, 0.184, 0.075)
 material = ExtResource("4")
 
-[node name="turn" type="CSGBox3D" parent="model/lights/fr"]
+[node name="turn" parent="model/lights/fr" instance=ExtResource("6_5bppl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 0, 0)
-cast_shadow = 0
-size = Vector3(0.1, 0.184, 0.075)
-material = ExtResource("13")
 
 [node name="fl" type="CSGBox3D" parent="model/lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.303, -1.093)
@@ -83,11 +80,8 @@ cast_shadow = 0
 size = Vector3(0.28, 0.184, 0.075)
 material = ExtResource("4")
 
-[node name="turn" type="CSGBox3D" parent="model/lights/fl"]
+[node name="turn" parent="model/lights/fl" instance=ExtResource("6_5bppl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.173415, 0, 0)
-cast_shadow = 0
-size = Vector3(0.1, 0.184, 0.075)
-material = ExtResource("13")
 
 [node name="rl" type="CSGBox3D" parent="model/lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.321, 1.081)
@@ -95,11 +89,8 @@ cast_shadow = 0
 size = Vector3(0.25, 0.184, 0.075)
 material = ExtResource("5")
 
-[node name="turn" type="CSGBox3D" parent="model/lights/rl"]
+[node name="turn" parent="model/lights/rl" instance=ExtResource("6_5bppl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.173415, 0, 0)
-cast_shadow = 0
-size = Vector3(0.1, 0.184, 0.075)
-material = ExtResource("13")
 
 [node name="rr" type="CSGBox3D" parent="model/lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.321, 1.081)
@@ -107,11 +98,8 @@ cast_shadow = 0
 size = Vector3(0.25, 0.184, 0.075)
 material = ExtResource("5")
 
-[node name="turn" type="CSGBox3D" parent="model/lights/rr"]
+[node name="turn" parent="model/lights/rr" instance=ExtResource("6_5bppl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 0, 0)
-cast_shadow = 0
-size = Vector3(0.1, 0.184, 0.075)
-material = ExtResource("13")
 
 [node name="body" type="CSGBox3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.553114, 0)
@@ -147,3 +135,16 @@ collision_mask = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.326, 2.08165e-12, 2.08165e-12)
 target_position = Vector3(2.08165e-12, 2.08165e-12, -8)
 collision_mask = 8
+
+[connection signal="startTurningLeft" from="." to="model/lights/fr/turn" method="stop"]
+[connection signal="startTurningLeft" from="." to="model/lights/fl/turn" method="start"]
+[connection signal="startTurningLeft" from="." to="model/lights/rl/turn" method="start"]
+[connection signal="startTurningLeft" from="." to="model/lights/rr/turn" method="stop"]
+[connection signal="startTurningRight" from="." to="model/lights/fr/turn" method="start"]
+[connection signal="startTurningRight" from="." to="model/lights/fl/turn" method="stop"]
+[connection signal="startTurningRight" from="." to="model/lights/rl/turn" method="stop"]
+[connection signal="startTurningRight" from="." to="model/lights/rr/turn" method="start"]
+[connection signal="stopTurning" from="." to="model/lights/fr/turn" method="stop"]
+[connection signal="stopTurning" from="." to="model/lights/fl/turn" method="stop"]
+[connection signal="stopTurning" from="." to="model/lights/rl/turn" method="stop"]
+[connection signal="stopTurning" from="." to="model/lights/rr/turn" method="stop"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://gkqh8o385og2"]
+
+[ext_resource type="Material" uid="uid://dc44aniwon3hw" path="res://materials/orange-light.tres" id="1_ib5s5"]
+[ext_resource type="Script" path="res://objects/vehicles/car-turn-signal.gd" id="2_72pqm"]
+[ext_resource type="Material" path="res://materials/orange-light-active.tres" id="3_kdyjk"]
+
+[node name="turn" type="CSGBox3D"]
+cast_shadow = 0
+size = Vector3(0.1, 0.184, 0.075)
+material = ExtResource("1_ib5s5")
+script = ExtResource("2_72pqm")
+inactiveMaterial = ExtResource("1_ib5s5")
+activeMaterial = ExtResource("3_kdyjk")
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.372
+autostart = true
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
