@@ -43,14 +43,14 @@ signal stopBreaking
 
 # Current state of the car, used by its sub-components and the AI.
 
-var heading = 1
-var speed = 0
-var steering = 0
+var heading := 1
+var speed := 0.0
+var steering := 0.0
 
-var isBreaking = false
-var isSpinning = false
+var isBreaking := false
+var isSpinning := false
 
-var spinningDirection = 0
+var spinningDirection := 0
 
 # Maximum limits for this car model.
 
@@ -59,8 +59,8 @@ var spinningDirection = 0
 
 # Previous speeds used primarily for collision handling.
 
-var previousSpeed = 0
-var previousSteering = 0
+var previousSpeed := 0.0
+var previousSteering := 0.0
 
 
 func _ready():
@@ -69,7 +69,7 @@ func _ready():
         rotation.y = PI
 
 
-func _process(delta):
+func _process(delta: float):
 
     if canTakeDamage and health <= 0:
         destroyCar()
@@ -80,7 +80,7 @@ func _process(delta):
     previousSteering = steering
 
     # update speed
-    if abs(speed) > maxSpeed:
+    if absf(speed) > maxSpeed:
         speed = move_toward(speed, 0, delta * aboveLimitSlowing)
 
     if isSpinning:
@@ -96,19 +96,20 @@ func _process(delta):
     else:
         steering = move_toward(steering, 0, delta * idleSteeringDecrease)
 
-
-func _physics_process(delta):
     # Handle the rotation of the model. Note that only the visual model rotates, the collision shape stays the same.
     if isSpinning:
-        $model.rotation.y += delta * clamp(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection
+        $model.rotation.y += delta * clampf(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection
     else:
         # rotate the modal according to the steering
         $model.rotation.y = heading * -steering * CarConstants.steeringRotation
 
+
+func _physics_process(delta):
+
     # move the vehicle body
     var collisionInfo := move_and_collide(delta * Vector3(steering * abs(speed) * CarConstants.steeringSpeedAdjust, 0, speed * -heading))
 
-    if collisionInfo:
+    if collisionInfo != null:
         var collider := collisionInfo.get_collider()
         var normal := collisionInfo.get_normal()
 
@@ -144,6 +145,14 @@ func handleCollision(collider: Object, normal: Vector3):
         var avgMass = (mass + collider.mass) / 2
         diff *= collider.mass / avgMass
         diffSteering *= collider.mass / avgMass
+
+        # Safety check: This handles a specific edge case that happens right after a collision has been resolved.
+        # When a collision has been resolved and the cars have new steering velocities - the one which caused the
+        # collision has lower steering and the other one has higher steering to move away - it is possible that next
+        # frame the car with lower steering will be processed first and bump into the car it collided with last frame
+        # again. In this case, we need to ignore the collision because the other car will move away faster anyway.
+        if absf(normal.x) > 0 and sign(diffSteering) != sign(normal.x):
+            return
 
 
         if abs(normal.x) > abs(normal.z) or abs(previousSpeed - collider.previousSpeed) > 4:

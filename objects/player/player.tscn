@@ -5,7 +5,6 @@
 
 [node name="player" instance=ExtResource("1_amawl")]
 script = ExtResource("2_kpmug")
-mass = 2.0
 maxSpeedFrom = 16.0
 maxSpeedTo = 16.0
 maxSteering = 20.0

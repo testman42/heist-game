@@ -8,6 +8,8 @@ class_name Player
 
 func _process(delta):
 
+    super(delta)
+
     var steerInput = Input.get_axis('move_left', 'move_right')
     var speedInput = Input.get_axis('break', 'accelerate')
 
