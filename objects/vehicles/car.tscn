@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dg8v2y07er6vb"]
+[gd_scene load_steps=20 format=3 uid="uid://dg8v2y07er6vb"]
 
 [ext_resource type="Script" path="res://utilities/random-hue.gd" id="1_1x7j1"]
 [ext_resource type="Script" path="res://objects/vehicles/car-logic.gd" id="2"]
@@ -23,7 +23,10 @@ size = Vector3(1.463, 1.4, 2.247)
 size = Vector3(0.1, 0.1, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m4hrm"]
-size = Vector3(1.304, 0.164, 0.088)
+size = Vector3(1.304, 0.164, 0.31)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rqg23"]
+size = Vector3(1.304, 0.164, 0.34)
 
 [node name="car" type="CharacterBody3D" groups=["car"]]
 collision_layer = 8
@@ -168,20 +171,20 @@ material = ExtResource("12_6aym7")
 shape = SubResource("BoxShape3D_oi0wi")
 
 [node name="front-bumper" type="Node3D" parent="model" groups=["breakable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, -1.10369)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, -1.01853)
 script = ExtResource("15_u47ee")
 
 [node name="model" type="CSGBox3D" parent="model/front-bumper"]
-size = Vector3(1.304, 0.164, 0.072)
+size = Vector3(1.304, 0.164, 0.254)
 material = ExtResource("6")
 
 [node name="right" type="CSGBox3D" parent="model/front-bumper/model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.609703, 0, 0.0766662)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.609703, 0, 0.120289)
 size = Vector3(0.1, 0.164, 0.188167)
 material = ExtResource("6")
 
 [node name="left" type="CSGBox3D" parent="model/front-bumper/model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61, 2.08165e-12, 0.077)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61, 0, 0.120623)
 size = Vector3(0.1, 0.164, 0.188167)
 material = ExtResource("6")
 
@@ -189,25 +192,26 @@ material = ExtResource("6")
 shape = SubResource("BoxShape3D_m4hrm")
 
 [node name="back-bumper" type="Node3D" parent="model" groups=["breakable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, 1.08795)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, 1.00616)
 script = ExtResource("15_u47ee")
 
 [node name="model" type="CSGBox3D" parent="model/back-bumper"]
-size = Vector3(1.304, 0.164, 0.072)
+size = Vector3(1.304, 0.164, 0.214)
 material = ExtResource("6")
 
 [node name="right" type="CSGBox3D" parent="model/back-bumper/model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.609703, 0, -0.0740522)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.609703, 0, -0.12026)
 size = Vector3(0.1, 0.164, 0.188167)
 material = ExtResource("6")
 
 [node name="left" type="CSGBox3D" parent="model/back-bumper/model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61, 0, -0.0737184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61, 0, -0.119926)
 size = Vector3(0.1, 0.164, 0.188167)
 material = ExtResource("6")
 
 [node name="collision" type="CollisionShape3D" parent="model/back-bumper"]
-shape = SubResource("BoxShape3D_m4hrm")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0472165)
+shape = SubResource("BoxShape3D_rqg23")
 
 [node name="front" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.1337)

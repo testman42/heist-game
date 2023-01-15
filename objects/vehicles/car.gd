@@ -234,7 +234,7 @@ func breakParts(pos: Vector3, collider: CollisionObject3D, normal: Vector3):
         return
 
     # find the breakable part closest to the collision point, if any
-    var part := findClosestBreakableNode(self, pos, 1)
+    var part := findClosestBreakableNode(self, pos, 2)
     if part == null: return
 
     part.remove_from_group('breakable')
