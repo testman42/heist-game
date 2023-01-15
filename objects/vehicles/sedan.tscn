@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://2ayuwu2sj67v"]
+
+[ext_resource type="PackedScene" uid="uid://1n0jpqcqsg56" path="res://objects/vehicles/car.tscn" id="1_foq8s"]
+
+[node name="sedan" instance=ExtResource("1_foq8s")]
+health = 220.0
+breakingForce = 7.0
+
+[node name="roof" parent="model" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.888, -0.000704527, 1.0966, 0.15528)
+size = Vector3(1.073, 0.5, 1.02299)
+
+[node name="front-window" parent="model" index="4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.536235, 0.870547, -0.293732)
+
+[node name="rear-window" parent="model" index="5"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.536235, 0.874866, 0.823515)
