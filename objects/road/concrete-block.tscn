@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7etwno61di6o"]
 
-[ext_resource type="Script" path="res://utilities/dynamic-object.gd" id="1_fhcq8"]
+[ext_resource type="Script" path="res://objects/road/prop.gd" id="1_ctfdq"]
 [ext_resource type="Material" uid="uid://b58ld08v8c52i" path="res://materials/concrete.tres" id="2_m5d3d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_abs50"]
@@ -10,7 +10,9 @@ size = Vector3(0.480487, 0.88322, 1.51122)
 collision_layer = 32
 collision_mask = 127
 mass = 400.0
-script = ExtResource("1_fhcq8")
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("1_ctfdq")
 
 [node name="shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.442459, 0)
@@ -22,3 +24,5 @@ material_override = ExtResource("2_m5d3d")
 polygon = PackedVector2Array(0, 0, 0.129, 0.87, 0.288, 0.873, 0.48, 2.08165e-12)
 depth = 1.5
 material = ExtResource("2_m5d3d")
+
+[connection signal="body_entered" from="." to="." method="_on_collision"]

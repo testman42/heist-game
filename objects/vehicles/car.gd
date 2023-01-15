@@ -29,8 +29,6 @@ signal stopBreaking
 @export var idleSlowing = 0.0
 @export var aboveLimitSlowing = 2.4
 @export var spinningSlowing = 8.0
-@export var railHitSlowing = 4.0
-@export var propHitSlowing = 2.0
 
 @export var idleSteeringDecrease = 0.0
 @export var aboveLimitSteeringDecrease = 22.0
@@ -172,22 +170,27 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
             speed += heading * diff * CarConstants.collisionSpeedMultiplier
 
 
-    # bounce from the rails
-    elif collider.get_collision_layer_value(2):
-        steering *= -CarConstants.collisionSteeringMultiplier
-        speed = move_toward(speed, 0, railHitSlowing)
+    # static colliders
+    elif collider is StaticBody3D:
+        if absf(normal.x) > 0:
+            # bounce from the highway rails
+            steering *= -CarConstants.collisionSteeringMultiplier
+        if absf(normal.z) > 0:
+            # uh oh
+            health = 0
+            speed = 0
 
 
-    else:
-        # hit something solid
-        speed = move_toward(speed, 0, propHitSlowing)
+    # other colliders like props won't be matched here, otherwise
+    # the car would just stop immediately due to move_and_collide
+
 
     emit_signal('collided')
 
 
 func decreaseHealth(collider: Object, normal: Vector3):
 
-    if 'heading' in collider and 'previousSpeed' in collider and 'previousSpeed' in collider:
+    if 'heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider:
         var otherSpeed: float = collider.previousSpeed * collider.heading
         var ourSpeed := previousSpeed * heading
 
