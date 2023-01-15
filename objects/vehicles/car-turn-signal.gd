@@ -14,10 +14,12 @@ var isBlinking := false
 func start() -> void:
     isBlinking = true
     material = activeMaterial
+    $bulb.visible = true
 
 func stop() -> void:
     isBlinking = false
     material = inactiveMaterial
+    $bulb.visible = false
 
 
 func _on_timer_timeout() -> void:
@@ -25,5 +27,7 @@ func _on_timer_timeout() -> void:
 
     if material == inactiveMaterial:
         material = activeMaterial
+        $bulb.visible = true
     else:
         material = inactiveMaterial
+        $bulb.visible = false

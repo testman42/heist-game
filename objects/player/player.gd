@@ -33,3 +33,9 @@ func _process(delta):
                 force *= 1.4
 
             steering += steerInput * delta * force
+
+func _input(event: InputEvent) -> void:
+    if event.is_action_pressed('break'):
+        emit_signal('startBreaking')
+    if event.is_action_released('break'):
+        emit_signal('stopBreaking')

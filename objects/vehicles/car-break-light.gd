@@ -14,7 +14,9 @@ var isShining := false
 func start() -> void:
     isShining = true
     material = activeMaterial
+    $bulb.visible = true
 
 func stop() -> void:
     isShining = false
     material = inactiveMaterial
+    $bulb.visible = false
