@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsc37vwei6nmq"]
+
+[ext_resource type="Script" path="res://objects/road/cross-line.gd" id="1_1gdqd"]
+[ext_resource type="Texture2D" uid="uid://dxpw7vcrohmym" path="res://textures/road-mark.png" id="1_rgoef"]
+
+[node name="cross-line" type="Node3D"]
+script = ExtResource("1_1gdqd")
+
+[node name="line" type="Decal" parent="."]
+extents = Vector3(0.1, 1, 0.5)
+texture_albedo = ExtResource("1_rgoef")
+upper_fade = 1e-05
+lower_fade = 1e-05
+cull_mask = 2

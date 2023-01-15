@@ -131,6 +131,7 @@ break={
 
 [layer_names]
 
+3d_render/layer_2="road"
 3d_physics/layer_1="ground"
 3d_physics/layer_2="static"
 3d_physics/layer_3="player"
@@ -138,3 +139,9 @@ break={
 3d_physics/layer_5="police"
 3d_physics/layer_6="prop"
 3d_physics/layer_7="wreck"
+
+[rendering]
+
+textures/decals/filter=0
+textures/light_projectors/filter=0
+textures/canvas_textures/default_texture_filter=0

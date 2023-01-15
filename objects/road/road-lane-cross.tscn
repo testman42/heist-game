@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfppct20a7w3n"]
-
-[ext_resource type="Script" path="res://objects/road/road-lane-cross.gd" id="1"]
-[ext_resource type="PackedScene" path="res://objects/road/road-lane.tscn" id="2"]
-
-[node name="lane" type="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.051, 0)
-script = ExtResource("1")
-lineObject = ExtResource("2")
