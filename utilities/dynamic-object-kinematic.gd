@@ -6,14 +6,15 @@ class_name DynamicObjectKinematic
 # the block gets deleted, rather when they get too far behind the player.
 
 func _ready():
-    var targetTransform = global_transform
+    #var targetTransform = global_transform
 
     # move the node to the root
     get_parent().call_deferred('remove_child', self)
     get_node('/root').call_deferred('add_child', self)
 
     # reposition
-    call_deferred('set_transform', targetTransform)
+    # TODO: this is disabled for cars because it breaks their spawn position...
+    #call_deferred('set_transform', targetTransform)
 
 
 func _process(_delta):
