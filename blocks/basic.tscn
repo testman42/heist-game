@@ -12,8 +12,10 @@ size = Vector3(100, 1, 50)
 size = Vector2(100, 50)
 orientation = 1
 
-[node name="basic" type="Node3D"]
+[node name="basic" type="Node3D" groups=["block"]]
 script = ExtResource("5")
+positiveLanes = [NodePath("road/right/lane1"), NodePath("road/right/lane2"), NodePath("road/right/lane3")]
+negativeLanes = [NodePath("road/left/lane1"), NodePath("road/left/lane2"), NodePath("road/left/lane3")]
 
 [node name="collision" type="StaticBody3D" parent="."]
 collision_mask = 0
@@ -28,9 +30,35 @@ shape = SubResource("BoxShape3D_0telu")
 mesh = SubResource("QuadMesh_oay7l")
 material = ExtResource("1")
 
-[node name="road" type="CSGBox3D" parent="."]
-size = Vector3(20, 0.1, 50)
+[node name="road" type="Node3D" parent="."]
+
+[node name="right" type="CSGBox3D" parent="road"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.08165e-12, 2.08165e-12)
+size = Vector3(10, 0.1, 50)
 material = ExtResource("2")
+
+[node name="lane1" type="Marker3D" parent="road/right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33, 1, 25)
+
+[node name="lane2" type="Marker3D" parent="road/right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 25)
+
+[node name="lane3" type="Marker3D" parent="road/right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.33, 1, 25)
+
+[node name="left" type="CSGBox3D" parent="road"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.08165e-12, 2.08165e-12)
+size = Vector3(10, 0.1, 50)
+material = ExtResource("2")
+
+[node name="lane1" type="Marker3D" parent="road/left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33, 1, 25)
+
+[node name="lane2" type="Marker3D" parent="road/left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 25)
+
+[node name="lane3" type="Marker3D" parent="road/left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.33, 1, 25)
 
 [node name="fences" type="Node3D" parent="."]
 

@@ -9,18 +9,20 @@ signal startTurningLeft
 signal startTurningRight
 signal stopTurning
 
-@onready var currentLane = transform.origin.x
-@onready var previousLane = transform.origin.x
+# What lane the car is in. Lane closest to the center is 0, the next is 1, etc.
+# previousLane is used for turn signals and knowing when switching lanes is done.
+@export var currentLane := 0
+@export var previousLane := 0
 
 
-func _process(delta):
+func _process(delta: float):
     super(delta)
 
     SpeedAdjust(delta)
     HandleLane(delta)
 
 
-func SpeedAdjust(delta):
+func SpeedAdjust(delta: float):
 
     if isSpinning:
         setBreaking(false)
@@ -71,23 +73,47 @@ func SpeedAdjust(delta):
         speed += delta * acceleration
 
 
-func HandleLane(delta):
+func HandleLane(delta: float):
 
     if isSpinning:
         return
 
-    if abs(transform.origin.x - currentLane) < CarConstants.laneMatchThreshold:
+    # get lanes from the current block
+    var block := getCurrentBlock()
+    var lanes: Array[NodePath]
+
+    if heading > 0:
+        lanes = block.positiveLanes
+    else:
+        lanes = block.negativeLanes
+
+
+    if currentLane >= lanes.size():
+        # our current lane no longer exists in this block, move to the center
+        previousLane = currentLane
+        currentLane = lanes.size() - 1
+
+        if heading > 0: emit_signal('startTurningLeft')
+        else: emit_signal('startTurningRight')
+
+    # get the global X position of our current lane
+    var lane := block.get_node(lanes[currentLane]) as Node3D
+    assert(lane != null, 'Missing lane position')
+    var currentLaneX = lane.global_position.x
+
+
+    if absf(global_position.x - currentLaneX) < CarConstants.laneMatchThreshold:
         if not is_equal_approx(currentLane, previousLane):
-                # done changing lanes
-                previousLane = currentLane
-                emit_signal('stopTurning')
+            # done changing lanes
+            previousLane = currentLane
+            emit_signal('stopTurning')
 
         # randomly choose to change the lane
         elif randf() < CarConstants.chanceToChangeLane:
 
             # choose any lane except the current one
             while is_equal_approx(currentLane, previousLane):
-                currentLane = HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()] * heading
+                currentLane = randi() % lanes.size()
 
             if currentLane > previousLane:
                 if heading > 0: emit_signal('startTurningRight')
@@ -97,8 +123,8 @@ func HandleLane(delta):
                 else: emit_signal('startTurningRight')
 
 
-    var total = currentLane - transform.origin.x
-    var absTotal = abs(total)
+    var total := currentLaneX - global_position.x
+    var absTotal := absf(total)
 
     # try steering towards the lane
     if (total > 0 and steering > total) or (total < 0 and steering < total):
@@ -106,3 +132,23 @@ func HandleLane(delta):
 
     elif absTotal > CarConstants.laneMatchThreshold and abs(steering) < maxSteering:
         steering += steeringForce * delta * sign(total)
+
+
+# Finds the block the car is currently in.
+func getCurrentBlock() -> Block:
+    var blocks = get_tree().get_nodes_in_group('block')
+    assert(blocks.size() > 0, 'No blocks in the scene')
+
+    if global_position.z > blocks[0].global_position.z + HighwayConstants.blockLength / 2.0:
+        # car is way back, use the first block
+        return blocks[0]
+
+    for block in blocks:
+        if global_position.z <= block.global_position.z + HighwayConstants.blockLength / 2.0 and global_position.z >= block.global_position.z - HighwayConstants.blockLength / 2.0:
+            return block
+
+    # car is way in front, use the last block
+    return blocks[-1]
+
+
+

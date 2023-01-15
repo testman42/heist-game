@@ -45,19 +45,46 @@ func spawnCar(player: Player):
         return
 
     # choose a new model randomly
-    var car = chooseCar()
+    var car := chooseCar()
     car.speed = car.maxSpeedFrom
 
-    if randf() < CarConstants.carChanceGoingUp:
-        car.transform.origin.x = HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()]
-    else:
-        car.transform.origin.x = -HighwayConstants.lanes[randi() % HighwayConstants.lanes.size()]
+    var goingUp: bool = randf() < CarConstants.carChanceGoingUp
+    var spawningUp: bool = car.heading < 0 or ('speed' in player and player.speed > 4)
+
+    if not goingUp:
         car.heading = -1
 
-    if car.heading < 0 or ('speed' in player and player.speed > 4):
-        car.transform.origin.z = player.transform.origin.z - HighwayConstants.blockLength * 1.5
+    # Take the spawn x from the blocks' lanes, choose a random one. If spawning up, take
+    # the last block, if spawning down, take the first block.
+    var blocks := get_tree().get_nodes_in_group('block')
+    assert(blocks.size() > 0, 'No blocks in the scene')
+
+    var block: Block
+    if spawningUp:
+        block = blocks[-1]
     else:
-        car.transform.origin.z = player.transform.origin.z + HighwayConstants.blockLength * 1.5
+        block = blocks[0]
+
+    # If going up, take the positive lanes. If going down, take the negative lanes.
+    var lanes: Array[NodePath]
+    if goingUp:
+        lanes = block.positiveLanes
+    else:
+        lanes = block.negativeLanes
+
+    # choose a random one, get the node and get its X position
+    var lanePath := lanes.pick_random()
+    var lane := block.get_node(lanePath) as Node3D
+
+    car.position.x = lane.global_position.x
+    car.currentLane = lanes.find(lanePath)
+    car.previousLane = car.currentLane
+
+
+    if spawningUp:
+        car.position.z = player.global_position.z - HighwayConstants.blockLength * 1.5
+    else:
+        car.position.z = player.global_position.z + HighwayConstants.blockLength * 1.5
 
     add_child(car)
 
@@ -66,7 +93,7 @@ func spawnCar(player: Player):
         car.transform.origin.z += sign(car.transform.origin.z)
 
 
-func chooseCar() -> Car:
+func chooseCar() -> CarLogic:
     assert(totalProbability > 0, 'Total probability is 0 which makes this code crash!')
 
     var i = 0
