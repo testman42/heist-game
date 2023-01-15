@@ -7,7 +7,7 @@ size = Vector3(1.46307, 1.4, 2.41479)
 
 [node name="car" instance=ExtResource("1_v10he")]
 health = 240.0
-mass = 1.1
+mass = 2600.0
 maxSpeedTo = 13.0
 breakingForce = 5.5
 

@@ -16,7 +16,7 @@ signal stopBreaking
 
 @export var spawnProbability = 1.0
 @export var health = 200.0
-@export var mass = 1.0
+@export var mass = 1000.0
 
 @export var maxSpeedFrom = 10.0
 @export var maxSpeedTo = 14.0
@@ -278,6 +278,8 @@ func destroyCar():
 
     for group in get_groups():
         newNode.add_to_group(group)
+
+    newNode.mass = mass
 
     newNode.collision_layer = 0
     newNode.set_collision_layer_value(7, true)
