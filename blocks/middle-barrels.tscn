@@ -1,0 +1,101 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnqxlq3efs7p0"]
+
+[ext_resource type="PackedScene" uid="uid://rfdainqvoprx" path="res://blocks/basic.tscn" id="1_oi3ap"]
+[ext_resource type="Material" uid="uid://1evi2m3pxhl2" path="res://materials/road.tres" id="2_bj5ew"]
+[ext_resource type="PackedScene" uid="uid://ckn4xp7yd4g2a" path="res://objects/road/barrel.tscn" id="3_p0w6b"]
+[ext_resource type="PackedScene" uid="uid://b7etwno61di6o" path="res://objects/road/concrete-block.tscn" id="4_hdsow"]
+
+[node name="middle-barrels" instance=ExtResource("1_oi3ap")]
+spawnProbability = 0.4
+
+[node name="middle" type="CSGBox3D" parent="road" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+layers = 3
+size = Vector3(2, 0.1, 48)
+material = ExtResource("2_bj5ew")
+
+[node name="props" type="Node3D" parent="." index="4"]
+
+[node name="barrels" type="Node3D" parent="props" index="0"]
+
+[node name="barrel" parent="props/barrels" index="0" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, 22.1019)
+
+[node name="barrel2" parent="props/barrels" index="1" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, 20.711)
+
+[node name="barrel3" parent="props/barrels" index="2" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, 19.1865)
+
+[node name="barrel4" parent="props/barrels" index="3" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, 17.7849)
+
+[node name="barrel5" parent="props/barrels" index="4" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, 16.4161)
+
+[node name="barrel6" parent="props/barrels" index="5" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, 14.9953)
+
+[node name="barrel7" parent="props/barrels" index="6" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, 13.6975)
+
+[node name="barrels2" type="Node3D" parent="props" index="1"]
+
+[node name="barrel" parent="props/barrels2" index="0" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, -14.1088)
+
+[node name="barrel2" parent="props/barrels2" index="1" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, -15.4997)
+
+[node name="barrel3" parent="props/barrels2" index="2" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, -17.0242)
+
+[node name="barrel4" parent="props/barrels2" index="3" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, -18.4258)
+
+[node name="barrel5" parent="props/barrels2" index="4" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, -19.7946)
+
+[node name="barrel6" parent="props/barrels2" index="5" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, -21.2154)
+
+[node name="barrel7" parent="props/barrels2" index="6" instance=ExtResource("3_p0w6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0777004, 0.565814, -22.5132)
+
+[node name="blocks" type="Node3D" parent="props" index="2"]
+
+[node name="concrete-block" parent="props/blocks" index="0" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, 11.2177)
+
+[node name="concrete-block2" parent="props/blocks" index="1" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, 9.40599)
+
+[node name="concrete-block3" parent="props/blocks" index="2" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, 7.16753)
+
+[node name="concrete-block4" parent="props/blocks" index="3" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, 5.19126)
+
+[node name="concrete-block5" parent="props/blocks" index="4" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, 3.05197)
+
+[node name="concrete-block6" parent="props/blocks" index="5" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, 1.25488)
+
+[node name="concrete-block7" parent="props/blocks" index="6" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, -0.776182)
+
+[node name="concrete-block8" parent="props/blocks" index="7" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, -2.98767)
+
+[node name="concrete-block9" parent="props/blocks" index="8" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, -5.05554)
+
+[node name="concrete-block10" parent="props/blocks" index="9" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, -7.09111)
+
+[node name="concrete-block11" parent="props/blocks" index="10" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, -9.08674)
+
+[node name="concrete-block12" parent="props/blocks" index="11" instance=ExtResource("4_hdsow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, -11.0053)
