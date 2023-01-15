@@ -29,7 +29,6 @@ signal stopBreaking
 @export var idleSlowing = 0.0
 @export var aboveLimitSlowing = 2.4
 @export var spinningSlowing = 8.0
-@export var onGrassSlowing = 7.0
 @export var railHitSlowing = 4.0
 @export var propHitSlowing = 2.0
 
@@ -88,10 +87,6 @@ func _process(delta: float):
 
     if isSpinning:
         speed = move_toward(speed, 0, delta * spinningSlowing)
-
-    # slow down if on the grass
-    if abs(transform.origin.x) > HighwayConstants.grass:
-        speed = move_toward(speed, 0, onGrassSlowing * delta)
 
     # update steering
     if abs(steering) > maxSteering:
