@@ -17,3 +17,8 @@ const collisionHealthSteeringMultipler = .6
 
 const collisionSpinningThreshold = 16.
 const healthSpinningThreshold = .2
+
+# Traffic spawning constants.
+
+const carSpawnChance = .01
+const carChanceGoingUp = .4

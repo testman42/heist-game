@@ -12,6 +12,9 @@ func _process(delta):
     var steerInput = Input.get_axis('move_left', 'move_right')
     var speedInput = Input.get_axis('break', 'accelerate')
 
+    # update break lights
+    setBreaking(speedInput < -0.1)
+
     # update speed
     if speed < maxSpeed:
         speed += speedInput * acceleration * delta
@@ -33,9 +36,3 @@ func _process(delta):
                 force *= 1.4
 
             steering += steerInput * delta * force
-
-func _input(event: InputEvent) -> void:
-    if event.is_action_pressed('break'):
-        emit_signal('startBreaking')
-    if event.is_action_released('break'):
-        emit_signal('stopBreaking')

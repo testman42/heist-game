@@ -16,7 +16,7 @@ var totalProbability := 0.0
 
 
 func _ready():
-    assert(possibleBlocks.size() > 0, "Missing possible blocks for a spawner")
+    assert(possibleBlocks.size() > 0, 'Missing possible blocks for a spawner')
 
     # preload all blocks so we can work with their probabilities
     for b in possibleBlocks:
@@ -56,7 +56,7 @@ func spawnNewBlocks():
         return
 
     # choose a new block randomly
-    var block = chooseBlock()
+    var block := chooseBlock()
 
     # TODO: spawn required blocks before and after
 
@@ -64,7 +64,7 @@ func spawnNewBlocks():
     var offset = 0
 
     if get_child_count() > 0:
-        offset = get_child(get_child_count() - 1).transform.origin.z - HighwayConstants.blockLength
+        offset = get_child(-1).transform.origin.z - HighwayConstants.blockLength
 
     block.transform.origin.z = offset
     add_child(block)

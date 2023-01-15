@@ -29,7 +29,7 @@ shape = SubResource("1")
 script = ExtResource("1_1x7j1")
 nodesToEdit = [NodePath("body"), NodePath("roof")]
 
-[node name="wheels" type="CSGCombiner3D" parent="model"]
+[node name="wheels" type="Node3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
 
 [node name="fr" type="CSGCylinder3D" parent="model/wheels"]
@@ -143,16 +143,16 @@ polygon = PackedVector2Array(0, 0, 0.217355, 0.470789, 0.218, 0)
 depth = 1.08
 material = ExtResource("8")
 
-[node name="front" type="Node3D" parent="."]
+[node name="front" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.1337)
 
 [node name="raycast1" type="RayCast3D" parent="front"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.325611, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.469161, 0, 0)
 target_position = Vector3(2.08165e-12, 2.08165e-12, -8)
 collision_mask = 8
 
 [node name="raycast2" type="RayCast3D" parent="front"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.326, 2.08165e-12, 2.08165e-12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.469, 2.08165e-12, 2.08165e-12)
 target_position = Vector3(2.08165e-12, 2.08165e-12, -8)
 collision_mask = 8
 

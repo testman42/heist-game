@@ -160,11 +160,11 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
         if absf(normal.z) > 0 and signf(diff) != -signf(normal.z): # note the -1! because positive heading means -Z axis
             return
 
+        # handle side collisions
+        steering += diffSteering * CarConstants.collisionSteeringMultiplier
 
-        if absf(normal.x) > absf(normal.z) or absf(previousSpeed - collider.previousSpeed) > 4:
-            steering += diffSteering * CarConstants.collisionSteeringMultiplier
-
-        if absf(normal.z) > absf(normal.x) or absf(previousSpeed) < absf(collider.previousSpeed):
+        # handle front/back collisions, only if the collision normal is on the Z axis
+        if absf(normal.z) > 0:
             speed += heading * diff * CarConstants.collisionSpeedMultiplier
 
 
@@ -205,6 +205,7 @@ func decreaseHealth(collider: Object, normal: Vector3):
             spinningDirection = int(signf(collider.transform.origin.x - transform.origin.x))
             emit_signal('spinned')
 
+
 func destroyCar():
     emit_signal('destroyed')
 
@@ -232,7 +233,7 @@ func destroyCar():
     $model.translate(Vector3.DOWN * offset)
 
     # add force according to the current movement, and a random rotation
-    newNode.apply_impulse(Vector3.ZERO, Vector3(steering, 0, speed * -heading))
+    newNode.apply_impulse(Vector3(steering, 0, speed * -heading))
 
     newNode.apply_torque_impulse(Vector3(
         0,

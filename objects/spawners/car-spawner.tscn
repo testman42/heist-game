@@ -6,5 +6,3 @@
 [node name="car-spawner" type="Node"]
 script = ExtResource("1")
 possibleCars = [ExtResource("4")]
-possiblePoliceCars = []
-disablePolice = true
