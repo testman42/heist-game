@@ -156,6 +156,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.469, 2.08165e-12, 2.08165e-
 target_position = Vector3(2.08165e-12, 2.08165e-12, -8)
 collision_mask = 8
 
+[connection signal="collided" from="." to="model/lights/fr/turn" method="stop"]
+[connection signal="collided" from="." to="model/lights/fl/turn" method="stop"]
+[connection signal="collided" from="." to="model/lights/rl/turn" method="stop"]
+[connection signal="collided" from="." to="model/lights/rr/turn" method="stop"]
+[connection signal="spinned" from="." to="model/lights/fr/turn" method="stop"]
+[connection signal="spinned" from="." to="model/lights/fl/turn" method="stop"]
+[connection signal="spinned" from="." to="model/lights/rl" method="stop"]
+[connection signal="spinned" from="." to="model/lights/rr/turn" method="stop"]
 [connection signal="startBreaking" from="." to="model/lights/rl" method="start"]
 [connection signal="startBreaking" from="." to="model/lights/rr" method="start"]
 [connection signal="startTurningLeft" from="." to="model/lights/fr/turn" method="stop"]

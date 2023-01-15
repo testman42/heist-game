@@ -160,8 +160,10 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
         if absf(normal.z) > 0 and signf(diff) != -signf(normal.z): # note the -1! because positive heading means -Z axis
             return
 
-        # handle side collisions
-        steering += diffSteering * CarConstants.collisionSteeringMultiplier
+        # handle side collisions, only if the collision is large enough and
+        # we are not just touching bumpers
+        if absf(normal.x) > 0 or absf(diff) > 4:
+            steering += diffSteering * CarConstants.collisionSteeringMultiplier
 
         # handle front/back collisions, only if the collision normal is on the Z axis
         if absf(normal.z) > 0:
@@ -178,7 +180,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
         # hit something solid
         speed = move_toward(speed, 0, propHitSlowing)
 
-    emit_signal('collided', collider, normal)
+    emit_signal('collided')
 
 
 func decreaseHealth(collider: Object, normal: Vector3):
