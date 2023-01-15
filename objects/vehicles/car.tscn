@@ -1,19 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://1n0jpqcqsg56"]
+[gd_scene load_steps=16 format=3 uid="uid://dg8v2y07er6vb"]
 
 [ext_resource type="Script" path="res://utilities/random-hue.gd" id="1_1x7j1"]
 [ext_resource type="Script" path="res://objects/vehicles/car-logic.gd" id="2"]
 [ext_resource type="Material" path="res://materials/tires.tres" id="3"]
-[ext_resource type="Material" path="res://materials/yellow-light.tres" id="4"]
-[ext_resource type="Material" path="res://materials/red-light.tres" id="5"]
+[ext_resource type="Material" uid="uid://d044xic6uhagx" path="res://materials/red-light.tres" id="5"]
+[ext_resource type="Material" path="res://materials/yellow-light-active.tres" id="5_jtkrg"]
 [ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://gkqh8o385og2" path="res://objects/vehicles/car-turn-signal.tscn" id="6_5bppl"]
+[ext_resource type="Script" path="res://objects/vehicles/car-headlight.gd" id="6_hedsm"]
 [ext_resource type="Script" path="res://objects/vehicles/car-break-light.gd" id="7"]
+[ext_resource type="Material" path="res://materials/red-light-half-active.tres" id="7_ujvdx"]
 [ext_resource type="Material" uid="uid://b23h3v8ayru1k" path="res://materials/window.tres" id="8"]
 [ext_resource type="Material" path="res://materials/wreck.tres" id="10"]
 [ext_resource type="Material" path="res://materials/red-light-active.tres" id="11"]
+[ext_resource type="Material" path="res://materials/exhaust.tres" id="12_6aym7"]
 
 [sub_resource type="BoxShape3D" id="1"]
-size = Vector3(1.46307, 1.4, 2.24682)
+size = Vector3(1.463, 1.4, 2.247)
 
 [node name="car" type="CharacterBody3D" groups=["car"]]
 collision_layer = 8
@@ -27,7 +30,7 @@ shape = SubResource("1")
 
 [node name="model" type="CSGCombiner3D" parent="."]
 script = ExtResource("1_1x7j1")
-nodesToEdit = [NodePath("body"), NodePath("roof")]
+nodesToEdit = [NodePath("body"), NodePath("roof"), NodePath("breakables/front-bumper/model"), NodePath("breakables/front-bumper/model/right"), NodePath("breakables/front-bumper/model/left"), NodePath("breakables/back-bumper/model"), NodePath("breakables/back-bumper/model/right"), NodePath("breakables/back-bumper/model/left")]
 
 [node name="wheels" type="Node3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
@@ -67,31 +70,34 @@ material = ExtResource("3")
 [node name="lights" type="CSGCombiner3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 
-[node name="fr" type="CSGBox3D" parent="model/lights"]
+[node name="fr" type="CSGBox3D" parent="model/lights" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.303, -1.092)
 cast_shadow = 0
 size = Vector3(0.28, 0.184, 0.075)
-material = ExtResource("4")
+material = ExtResource("5_jtkrg")
+script = ExtResource("6_hedsm")
 
 [node name="turn" parent="model/lights/fr" instance=ExtResource("6_5bppl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 0, 0)
 
-[node name="fl" type="CSGBox3D" parent="model/lights"]
+[node name="fl" type="CSGBox3D" parent="model/lights" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.303, -1.093)
 cast_shadow = 0
 size = Vector3(0.28, 0.184, 0.075)
-material = ExtResource("4")
+material = ExtResource("5_jtkrg")
+script = ExtResource("6_hedsm")
 
 [node name="turn" parent="model/lights/fl" instance=ExtResource("6_5bppl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.173415, 0, 0)
 
-[node name="rl" type="CSGBox3D" parent="model/lights"]
+[node name="rl" type="CSGBox3D" parent="model/lights" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.321, 1.081)
 cast_shadow = 0
 size = Vector3(0.25, 0.184, 0.075)
-material = ExtResource("5")
+material = ExtResource("7_ujvdx")
 script = ExtResource("7")
 inactiveMaterial = ExtResource("5")
+halfActiveMaterial = ExtResource("7_ujvdx")
 activeMaterial = ExtResource("11")
 
 [node name="turn" parent="model/lights/rl" instance=ExtResource("6_5bppl")]
@@ -103,13 +109,14 @@ light_color = Color(0.901961, 0.0862745, 0.0862745, 1)
 light_energy = 4.0
 omni_range = 2.0
 
-[node name="rr" type="CSGBox3D" parent="model/lights"]
+[node name="rr" type="CSGBox3D" parent="model/lights" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.321, 1.081)
 cast_shadow = 0
 size = Vector3(0.25, 0.184, 0.075)
-material = ExtResource("5")
+material = ExtResource("7_ujvdx")
 script = ExtResource("7")
 inactiveMaterial = ExtResource("5")
+halfActiveMaterial = ExtResource("7_ujvdx")
 activeMaterial = ExtResource("11")
 
 [node name="turn" parent="model/lights/rr" instance=ExtResource("6_5bppl")]
@@ -142,6 +149,50 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5362
 polygon = PackedVector2Array(0, 0, 0.217355, 0.470789, 0.218, 0)
 depth = 1.08
 material = ExtResource("8")
+
+[node name="breakables" type="Node3D" parent="model"]
+
+[node name="exhaust" type="Node3D" parent="model/breakables" groups=["breakable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.383199, 0.242939, 0.992417)
+
+[node name="model" type="CSGBox3D" parent="model/breakables/exhaust"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0299973)
+size = Vector3(0.1, 0.1, 0.4)
+material = ExtResource("12_6aym7")
+
+[node name="front-bumper" type="Node3D" parent="model/breakables" groups=["breakable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, -1.10369)
+
+[node name="model" type="CSGBox3D" parent="model/breakables/front-bumper"]
+size = Vector3(1.304, 0.164, 0.072)
+material = ExtResource("6")
+
+[node name="right" type="CSGBox3D" parent="model/breakables/front-bumper/model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.609703, 0, 0.0766662)
+size = Vector3(0.1, 0.164, 0.188167)
+material = ExtResource("6")
+
+[node name="left" type="CSGBox3D" parent="model/breakables/front-bumper/model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61, 2.08165e-12, 0.077)
+size = Vector3(0.1, 0.164, 0.188167)
+material = ExtResource("6")
+
+[node name="back-bumper" type="Node3D" parent="model/breakables" groups=["breakable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, 1.08795)
+
+[node name="model" type="CSGBox3D" parent="model/breakables/back-bumper"]
+size = Vector3(1.304, 0.164, 0.072)
+material = ExtResource("6")
+
+[node name="right" type="CSGBox3D" parent="model/breakables/back-bumper/model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.609703, 0, -0.0740522)
+size = Vector3(0.1, 0.164, 0.188167)
+material = ExtResource("6")
+
+[node name="left" type="CSGBox3D" parent="model/breakables/back-bumper/model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61, 0, -0.0737184)
+size = Vector3(0.1, 0.164, 0.188167)
+material = ExtResource("6")
 
 [node name="front" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.1337)

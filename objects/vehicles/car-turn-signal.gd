@@ -9,21 +9,33 @@ class_name CarTurnSignal
 @export var activeMaterial: Material
 
 var isBlinking := false
+var isBroken := false
 
 
 func start() -> void:
+    if isBroken: return
+
     isBlinking = true
     material = activeMaterial
     $bulb.visible = true
 
 func stop() -> void:
+    if isBroken: return
+
     isBlinking = false
     material = inactiveMaterial
     $bulb.visible = false
 
+func breakOff() -> void:
+    stop()
+    isBroken = true
+
+    # TODO: particles of light shattering
+
 
 func _on_timer_timeout() -> void:
     if not isBlinking: return
+    if isBroken: return
 
     if material == inactiveMaterial:
         material = activeMaterial

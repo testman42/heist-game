@@ -110,14 +110,18 @@ func _physics_process(delta: float):
     if collisionInfo != null:
         var collider := collisionInfo.get_collider()
         var normal := collisionInfo.get_normal()
+        var pos := collisionInfo.get_position()
 
         handleCollision(collider, normal)
         decreaseHealth(collider, normal)
+        breakParts(pos)
 
         if collider.has_method('handleCollision'):
             collider.handleCollision(self, -normal)
         if collider.has_method('decreaseHealth'):
             collider.decreaseHealth(self, -normal)
+        if collider.has_method('breakParts'):
+            collider.breakParts(pos)
 
         # TODO: what about the remainder?
 
@@ -201,6 +205,43 @@ func decreaseHealth(collider: Object, normal: Vector3):
             isSpinning = true
             spinningDirection = int(signf(collider.transform.origin.x - transform.origin.x))
             emit_signal('spinned')
+
+
+func breakParts(pos: Vector3):
+
+    # find the breakable part closest to the collision point, if any
+    var part := findClosestBreakableNode(self, pos, 1)
+    if part == null: return
+
+    part.remove_from_group('breakable')
+
+    if part.has_method('breakOff'):
+        part.breakOff()
+
+# Searches node's children (deep) and finds the closest breakable node to the provided
+# position. Only considers nodes that are closer than the maxDistance. NOTE: maxDistance is squared.
+func findClosestBreakableNode(node: Node, pos: Vector3, maxDistance: float) -> Node:
+
+    var bestNode: Node
+    var bestDistance := maxDistance
+
+    for child in node.get_children():
+        if child.is_in_group('breakable'):
+            var dist = child.global_position.distance_squared_to(pos)
+            if dist < bestDistance:
+                bestNode = child
+                bestDistance = dist
+
+        if child.get_child_count() > 0:
+            var nested = findClosestBreakableNode(child, pos, bestDistance)
+            if nested != null:
+                var dist = nested.global_position.distance_squared_to(pos)
+                if dist < bestDistance:
+                    bestNode = nested
+                    bestDistance = dist
+
+    return bestNode
+
 
 
 func destroyCar():
