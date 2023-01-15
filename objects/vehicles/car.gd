@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends DynamicObjectKinematic
 class_name Car
 
 # This is the base class for all cars in the game. It handles collision and
@@ -43,7 +43,7 @@ signal stopBreaking
 
 # Current state of the car, used by its sub-components and the AI.
 
-var heading := 1
+var heading := 1 # 1 means up (-Z), -1 means down (+Z)
 var speed := 0.0
 var steering := 0.0
 
@@ -64,12 +64,15 @@ var previousSteering := 0.0
 
 
 func _ready():
+    super()
+
     # rotate according to the heading
     if heading < 0:
         rotation.y = PI
 
 
 func _process(delta: float):
+    super(delta)
 
     if canTakeDamage and health <= 0:
         destroyCar()
@@ -154,7 +157,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
         # again. In this case, we need to ignore the collision because the other car will move away faster anyway.
         if absf(normal.x) > 0 and signf(diffSteering) != signf(normal.x):
             return
-        if absf(normal.z) > 0 and signf(diff) != signf(normal.z):
+        if absf(normal.z) > 0 and signf(diff) != -signf(normal.z): # note the -1! because positive heading means -Z axis
             return
 
 

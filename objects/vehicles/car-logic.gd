@@ -14,7 +14,6 @@ signal stopTurning
 
 
 func _process(delta):
-
     super(delta)
 
     SpeedAdjust(delta)

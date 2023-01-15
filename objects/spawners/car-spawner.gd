@@ -18,8 +18,6 @@ var totalProbability = 0
 var possiblePoliceCarInstances = []
 var totalPoliceProbability = 0
 
-var player: Player
-
 
 func _ready():
     assert(possibleCars.size() > 0, "Missing possible cars for a spawner")
@@ -41,22 +39,22 @@ func _process(_delta):
     var probability := .01
     var policeProbability := .003
 
-    var nodes = get_tree().get_nodes_in_group('player')
-    if nodes.size() > 0:
-        player = nodes[0]
-    else:
+    var players = get_tree().get_nodes_in_group('player')
+    if players.size() <= 0:
         return
+
+    var player := players[0] as Player
 
     if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
         probability = lerpf(0, probability, player.speed / player.maxSpeed)
         policeProbability = lerpf(0, policeProbability, player.speed / player.maxSpeed)
 
     if !disableCars and randf() < probability:
-        spawnCar()
+        spawnCar(player)
     if !disablePolice and randf() < policeProbability:
-        spawnPoliceCar()
+        spawnPoliceCar(player)
 
-func spawnCar():
+func spawnCar(player: Player):
     # limit max cars
     if get_tree().get_nodes_in_group('car').size() > HighwayConstants.maxTraffic:
         return
@@ -82,7 +80,7 @@ func spawnCar():
     while car.move_and_collide(Vector3(0, 0, -.1), true, true, true):
         car.transform.origin.z += sign(car.transform.origin.z)
 
-func spawnPoliceCar():
+func spawnPoliceCar(player: Player):
     # limit max police force
     if get_tree().get_nodes_in_group('police').size() > HighwayConstants.maxPolice:
         return

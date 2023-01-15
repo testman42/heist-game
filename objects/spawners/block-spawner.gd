@@ -13,7 +13,6 @@ class_name BlockSpawner
 
 var possibleBlocksInstances: Array[Block] = []
 var totalProbability := 0.0
-var player: Player
 
 
 func _ready():
@@ -38,24 +37,16 @@ func deleteOldBlocks():
     if get_child_count() == 0:
         return
 
-    # cached player
-    if player != null and not is_instance_valid(player): player = null
-    if player != null and not player.is_in_group('player'): player = null
 
-    if player == null:
-        # find new player if any
-        var nodes = get_tree().get_nodes_in_group('player')
-        if nodes.size() > 0:
-            player = nodes[0]
-
-    if player == null:
+    var players = get_tree().get_nodes_in_group('player')
+    if players.size() <= 0:
         # no player in the level, leave blocks be
         return
 
     var block := get_child(0) as Block
     assert(block != null, "Unexpected child node which is not a Block")
 
-    if (block.transform.origin.z - player.transform.origin.z) > HighwayConstants.blockLength * 2:
+    if (block.transform.origin.z - players[0].global_transform.origin.z) > HighwayConstants.blockLength * 2:
         block.queue_free()
 
 
