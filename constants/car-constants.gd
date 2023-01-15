@@ -14,6 +14,9 @@ const collisionSpeedMultiplier = .9
 const collisionSteeringMultiplier = .9
 const collisionHealthSpeedMultipler = .8
 const collisionHealthSteeringMultipler = .6
+const collisionBreakSpeedMultipler = .8
+const collisionBreakSteeringMultipler = .6
+const collisionBreakThreshold = 4.0
 
 const collisionSpinningThreshold = 16.0
 const healthSpinningThreshold = .2

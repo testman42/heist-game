@@ -114,14 +114,14 @@ func _physics_process(delta: float):
 
         handleCollision(collider, normal)
         decreaseHealth(collider, normal)
-        breakParts(pos)
+        breakParts(pos, collider, normal)
 
         if collider.has_method('handleCollision'):
             collider.handleCollision(self, -normal)
         if collider.has_method('decreaseHealth'):
             collider.decreaseHealth(self, -normal)
         if collider.has_method('breakParts'):
-            collider.breakParts(pos)
+            collider.breakParts(pos, self, -normal)
 
         # TODO: what about the remainder?
 
@@ -207,7 +207,31 @@ func decreaseHealth(collider: Object, normal: Vector3):
             emit_signal('spinned')
 
 
-func breakParts(pos: Vector3):
+func breakParts(pos: Vector3, collider: CollisionObject3D, normal: Vector3):
+
+    var total := 0.0
+
+    if 'heading' in collider and 'previousSpeed' in collider and 'previousSpeed' in collider:
+        var otherSpeed: float = collider.previousSpeed * collider.heading
+        var ourSpeed := previousSpeed * heading
+
+        var diff := CarConstants.collisionBreakSpeedMultipler * absf(otherSpeed - ourSpeed)
+        var diffSteering := CarConstants.collisionBreakSteeringMultipler * absf(collider.previousSteering - previousSteering)
+
+        if absf(normal.z) > absf(normal.x):
+            total = diff
+        else:
+            total = diffSteering
+
+    else:
+        if absf(normal.z) > absf(normal.x):
+            total = CarConstants.collisionBreakSpeedMultipler * absf(previousSpeed)
+        else:
+            total = CarConstants.collisionBreakSteeringMultipler * absf(previousSteering)
+
+    if total < CarConstants.collisionBreakThreshold:
+        # too weak collision
+        return
 
     # find the breakable part closest to the collision point, if any
     var part := findClosestBreakableNode(self, pos, 1)
