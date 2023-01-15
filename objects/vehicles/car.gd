@@ -123,7 +123,10 @@ func _physics_process(delta: float):
         if collider.has_method('breakParts'):
             collider.breakParts(pos, self, -normal)
 
-        # TODO: what about the remainder?
+        # move forward/back using the remainder so we don't get
+        # stuck in the other collider
+        var remainderZ := collisionInfo.get_remainder().z
+        move_and_collide(Vector3(0, 0, remainderZ))
 
 
 func handleCollision(collider: CollisionObject3D, normal: Vector3):
