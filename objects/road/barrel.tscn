@@ -16,7 +16,7 @@ script = ExtResource("1_u0sde")
 [node name="shape" type="CollisionShape3D" parent="."]
 shape = SubResource("1")
 
-[node name="model" type="Node3D" parent="."]
+[node name="model" type="CSGCombiner3D" parent="."]
 
 [node name="top" type="CSGCylinder3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)

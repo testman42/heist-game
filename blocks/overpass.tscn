@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://rfdainqvoprx" path="res://blocks/basic.tscn" id="1"]
 [ext_resource type="Material" path="res://materials/road.tres" id="2"]
-[ext_resource type="PackedScene" path="res://objects/road/road-lane-cross.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cfppct20a7w3n" path="res://objects/road/road-lane-cross.tscn" id="4"]
 
 [sub_resource type="StandardMaterial3D" id="2"]
 albedo_color = Color(0.47451, 0.47451, 0.47451, 1)
@@ -16,7 +16,7 @@ spawnProbability = 0.1
 [node name="trees" parent="." index="2"]
 visible = false
 
-[node name="overpass" type="Node3D" parent="." index="3"]
+[node name="overpass" type="CSGCombiner3D" parent="." index="3"]
 
 [node name="road" type="CSGBox3D" parent="overpass" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.40497, 0)

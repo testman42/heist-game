@@ -29,7 +29,7 @@ size = Vector3(14.4256, 0.604938, 47.9654)
 [node name="basic" type="Node3D"]
 script = ExtResource("5")
 
-[node name="ground" type="Node3D" parent="."]
+[node name="ground" type="CSGCombiner3D" parent="."]
 
 [node name="grass" type="CSGMesh3D" parent="ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)

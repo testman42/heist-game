@@ -16,7 +16,7 @@ script = ExtResource("1_jrrde")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("1")
 
-[node name="model" type="Node3D" parent="."]
+[node name="model" type="CSGCombiner3D" parent="."]
 
 [node name="bottom" type="CSGCylinder3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
