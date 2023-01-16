@@ -1,9 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt3or7xh5px4s"]
+[gd_scene load_steps=3 format=3 uid="uid://dt3or7xh5px4s"]
 
 [ext_resource type="Script" path="res://objects/spawners/block-spawner.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://rfdainqvoprx" path="res://blocks/basic.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://dnqxlq3efs7p0" path="res://blocks/middle-barrels.tscn" id="3_guc0h"]
+[ext_resource type="PackedScene" uid="uid://b1b14w4pf5l5k" path="res://blocks/system/spawn-chart.tscn" id="2_blvkb"]
 
 [node name="block-spawner" type="Node"]
 script = ExtResource("1")
-possibleBlocks = [ExtResource("3"), ExtResource("3_guc0h")]
+spawnChart = ExtResource("2_blvkb")

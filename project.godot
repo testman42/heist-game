@@ -12,7 +12,7 @@ _global_script_classes=[{
 "base": "Node3D",
 "class": &"Block",
 "language": &"GDScript",
-"path": "res://blocks/block.gd"
+"path": "res://blocks/system/block.gd"
 }, {
 "base": "Node",
 "class": &"BlockSpawner",
@@ -54,6 +54,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://objects/vehicles/car-turn-signal.gd"
 }, {
+"base": "Resource",
+"class": &"Connection",
+"language": &"GDScript",
+"path": "res://blocks/system/connection.gd"
+}, {
 "base": "RigidBody3D",
 "class": &"DynamicObject",
 "language": &"GDScript",
@@ -79,6 +84,21 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://objects/road/prop.gd"
 }, {
+"base": "SpawnChartNode",
+"class": &"SpawnBlock",
+"language": &"GDScript",
+"path": "res://blocks/system/spawn-block.gd"
+}, {
+"base": "Node",
+"class": &"SpawnChartNode",
+"language": &"GDScript",
+"path": "res://blocks/system/spawn-chart-node.gd"
+}, {
+"base": "SpawnChartNode",
+"class": &"SpawnGroup",
+"language": &"GDScript",
+"path": "res://blocks/system/spawn-group.gd"
+}, {
 "base": "CollisionShape3D",
 "class": &"SpawnInArea",
 "language": &"GDScript",
@@ -94,11 +114,15 @@ _global_script_class_icons={
 "CarLogic": "",
 "CarSpawner": "",
 "CarTurnSignal": "",
+"Connection": "",
 "DynamicObject": "",
 "DynamicObjectKinematic": "",
 "HighwayConstants": "",
 "Player": "",
 "Prop": "",
+"SpawnBlock": "",
+"SpawnChartNode": "",
+"SpawnGroup": "",
 "SpawnInArea": ""
 }
 

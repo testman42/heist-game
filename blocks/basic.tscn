@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://rfdainqvoprx"]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Material" path="res://materials/grass.tres" id="1"]
 [ext_resource type="Material" uid="uid://1evi2m3pxhl2" path="res://materials/road.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://dxpw7vcrohmym" path="res://textures/road-mark.png" id="4_5qr12"]
-[ext_resource type="Script" path="res://blocks/block.gd" id="5"]
+[ext_resource type="Script" path="res://blocks/system/block.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://dsc37vwei6nmq" path="res://objects/road/cross-line.tscn" id="5_hd2mp"]
 [ext_resource type="PackedScene" uid="uid://m6mwfht0code" path="res://objects/road/fence.tscn" id="6"]
 
