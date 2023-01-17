@@ -11,16 +11,16 @@ size = Vector3(1.36861, 2.14026, 2.8547)
 size = Vector3(1.304, 0.349425, 0.31)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q82so"]
-size = Vector3(1.43159, 0.164, 0.34)
+size = Vector3(1.43159, 0.164, 0.264832)
 
 [node name="truck" instance=ExtResource("1_8utvv")]
 spawnProbability = 0.3
 health = 300.0
 mass = 12000.0
-maxSpeedFrom = 6.0
-maxSpeedTo = 8.0
-maxSteering = 10.0
-acceleration = 2.0
+maxSpeedFrom = 8.0
+maxSpeedTo = 10.0
+maxSteering = 11.0
+acceleration = 3.0
 breakingForce = 5.0
 steeringForce = 1.2
 
@@ -60,18 +60,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.464452, 0.303, -1.4237)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.464, 0.303, -1.424)
 
 [node name="rl" parent="model/lights" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.237151, 1.42046)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.062, 1.42)
 
 [node name="rr" parent="model/lights" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.237151, 1.42046)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.0624838, 1.42046)
 
 [node name="body" parent="model" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.470033, 0)
-size = Vector3(1.312, 0.464324, 2.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.230335, 0)
+size = Vector3(1.312, 0.257812, 2.8)
 
 [node name="cabin" type="CSGBox3D" parent="model" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.978415, -0.922393)
-size = Vector3(1.312, 0.604754, 0.959286)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.788276, -0.922393)
+size = Vector3(1.312, 0.977123, 0.959286)
 material = ExtResource("2_ckaey")
 
 [node name="cabin2" type="CSGBox3D" parent="model" index="4"]
@@ -92,7 +92,7 @@ depth = 1.31
 visible = false
 
 [node name="exhaust" parent="model" index="8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.484593, 0.242939, 1.31968)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415062, 0.242939, 1.02289)
 
 [node name="front-bumper" parent="model" index="9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, -1.40584)
@@ -113,10 +113,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0612113)
 shape = SubResource("BoxShape3D_5jpam")
 
 [node name="back-bumper" parent="model" index="10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.295577, 1.36165)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.22829, 1.37808)
 
 [node name="model" parent="model/back-bumper" index="0"]
-size = Vector3(1.41924, 0.164, 0.214)
+size = Vector3(1.41924, 0.164, 0.0868772)
 
 [node name="right" parent="model/back-bumper/model" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.664615, 0, -0.12026)
@@ -125,6 +125,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.664615, 0, -0.12026)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.665, 2.08165e-12, -0.12)
 
 [node name="collision" parent="model/back-bumper" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0803543)
 shape = SubResource("BoxShape3D_q82so")
 
 [node name="front" parent="." index="2"]
