@@ -33,8 +33,6 @@ collision_layer = 8
 collision_mask = 30
 script = ExtResource("2")
 mass = 2000.0
-railHitSlowing = null
-propHitSlowing = null
 wreckMaterial = ExtResource("10")
 
 [node name="collision" type="CollisionShape3D" parent="."]
@@ -236,6 +234,8 @@ collision_mask = 104
 [connection signal="spinned" from="." to="model/lights/fr/turn" method="stop"]
 [connection signal="spinned" from="." to="model/lights/fl/turn" method="stop"]
 [connection signal="spinned" from="." to="model/lights/rl" method="stop"]
+[connection signal="spinned" from="." to="model/lights/rl/turn" method="stop"]
+[connection signal="spinned" from="." to="model/lights/rr" method="stop"]
 [connection signal="spinned" from="." to="model/lights/rr/turn" method="stop"]
 [connection signal="startBreaking" from="." to="model/lights/rl" method="start"]
 [connection signal="startBreaking" from="." to="model/lights/rr" method="start"]

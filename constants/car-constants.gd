@@ -6,7 +6,7 @@ const chanceToChangeLane = .0012
 const laneMatchThreshold = .3
 
 const spinningSpeedClamp = 10.0
-const spinningRotation = .6
+const spinningRotation = 600.0
 const steeringRotation = 1.0/30.0
 const steeringSpeedAdjust = 1.0/20.0
 
@@ -16,9 +16,9 @@ const collisionHealthSpeedMultipler = .8
 const collisionHealthSteeringMultipler = .6
 const collisionBreakSpeedMultipler = .8
 const collisionBreakSteeringMultipler = .6
-const collisionBreakThreshold = 3.0
+const collisionBreakThreshold = 4.0
 
-const collisionSpinningThreshold = 16.0
+const collisionSpinningThreshold = 18.0
 const healthSpinningThreshold = .2
 
 # Traffic spawning constants.

@@ -13,11 +13,10 @@ size = Vector3(1.51139, 0.257775, 0.31)
 size = Vector3(1.50339, 0.257128, 0.258665)
 
 [node name="bus" instance=ExtResource("1_evvyj")]
-spawnProbability = 0.2
 health = 400.0
 mass = 10000.0
-maxSpeedFrom = 6.0
-maxSpeedTo = 9.0
+maxSpeedFrom = 8.0
+maxSpeedTo = 10.0
 maxSteering = 11.0
 acceleration = 3.0
 breakingForce = 5.5

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4dda5r233vuy"]
+[gd_scene load_steps=8 format=3 uid="uid://b4dda5r233vuy"]
 
 [ext_resource type="Script" path="res://objects/spawners/car-spawner.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://2ayuwu2sj67v" path="res://objects/vehicles/sedan.tscn" id="3_fcb8v"]
@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cb43ugijijxf4" path="res://objects/vehicles/combi.tscn" id="4_l76c8"]
 [ext_resource type="PackedScene" uid="uid://ci54jni88q5wr" path="res://objects/vehicles/bus.tscn" id="5_hga30"]
 [ext_resource type="PackedScene" uid="uid://dcsjxneg8wm6a" path="res://objects/vehicles/truck.tscn" id="6_40f5r"]
+[ext_resource type="PackedScene" uid="uid://cbjo5hk181yb8" path="res://objects/vehicles/truck-trailer.tscn" id="7_60hkn"]
 
 [node name="car-spawner" type="Node"]
 script = ExtResource("1")
-possibleCars = [ExtResource("4"), ExtResource("3_fcb8v"), ExtResource("4_l76c8"), ExtResource("5_hga30"), ExtResource("6_40f5r")]
+possibleCars = [ExtResource("4"), ExtResource("3_fcb8v"), ExtResource("4_l76c8"), ExtResource("5_hga30"), ExtResource("6_40f5r"), ExtResource("7_60hkn")]

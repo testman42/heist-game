@@ -14,15 +14,13 @@ size = Vector3(1.304, 0.349425, 0.31)
 size = Vector3(1.43159, 0.164, 0.264832)
 
 [node name="truck" instance=ExtResource("1_8utvv")]
-spawnProbability = 0.3
+spawnProbability = 0.05
 health = 300.0
-mass = 12000.0
-maxSpeedFrom = 8.0
-maxSpeedTo = 10.0
-maxSteering = 11.0
+mass = 7000.0
+maxSpeedFrom = 9.0
+maxSpeedTo = 12.0
+maxSteering = 12.0
 acceleration = 3.0
-breakingForce = 5.0
-steeringForce = 1.2
 
 [node name="collision" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.07, 2.08165e-12)

@@ -41,11 +41,12 @@ signal stopBreaking
 # Current state of the car, used by its sub-components and the AI.
 
 var heading := 1 # 1 means up (-Z), -1 means down (+Z)
-var speed := 0.0
-var steering := 0.0
+var speed := 0.0 # positive means going forward, negative going backwards
+var steering := 0.0 # always matches the X axis
 
 var isBreaking := false
 var isSpinning := false
+var isDestroyed := false
 
 var spinningDirection := 0
 
@@ -60,19 +61,17 @@ var previousSpeed := 0.0
 var previousSteering := 0.0
 
 
-func _ready():
-    super()
-
-    # rotate according to the heading
-    if heading < 0:
-        rotation.y = PI
-
 
 func _process(delta: float):
     super(delta)
 
+    # sometimes for some reason, cars end up being in air :shrug: so just in case, reset the Y position
+    position.y = 0
+
     if canTakeDamage and health <= 0:
-        destroyCar()
+        isDestroyed = true
+        emit_signal('destroyed')
+        destroyCar(true)
         return
 
     # update previous
@@ -92,12 +91,9 @@ func _process(delta: float):
     else:
         steering = move_toward(steering, 0, delta * idleSteeringDecrease)
 
-    # Handle the rotation of the model. Note that only the visual model rotates, the collision shape stays the same.
-    if isSpinning:
-        $model.rotation.y += delta * clampf(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection
-    else:
-        # rotate the modal according to the steering
-        $model.rotation.y = heading * -steering * CarConstants.steeringRotation
+    # Handle the rotation of the car.
+    rotation.y = heading * -steering * CarConstants.steeringRotation
+    if heading < 0: rotation.y += PI
 
 
 func _physics_process(delta: float):
@@ -105,35 +101,33 @@ func _physics_process(delta: float):
     # move the vehicle body
     var collisionInfo := move_and_collide(delta * Vector3(steering * abs(speed) * CarConstants.steeringSpeedAdjust, 0, speed * -heading))
 
-    if collisionInfo != null:
-        var collider := collisionInfo.get_collider()
-        var normal := collisionInfo.get_normal()
-        var pos := collisionInfo.get_position()
+    if collisionInfo == null:
+        # no collision occured, we're done here
+        return
 
-        handleCollision(collider, normal)
-        decreaseHealth(collider, normal)
-        breakParts(pos, collider, normal)
+    var collider := collisionInfo.get_collider()
+    var normal := collisionInfo.get_normal()
+    var pos := collisionInfo.get_position()
 
-        if collider.has_method('handleCollision'):
-            collider.handleCollision(self, -normal)
-        if collider.has_method('decreaseHealth'):
-            collider.decreaseHealth(self, -normal)
-        if collider.has_method('breakParts'):
-            collider.breakParts(pos, self, -normal)
+    handleCollision(collider, normal, pos)
 
-        # move forward/back using the remainder so we don't get
-        # stuck in the other collider
+    if collider.has_method('handleCollision'):
+        collider.handleCollision(self, -normal, pos)
+
+    # move forward/back using the remainder so we don't get
+    # stuck in the other collider and basically "slide" along it
+    if not isSpinning and not isDestroyed:
         var remainderZ := collisionInfo.get_remainder().z
         move_and_collide(Vector3(0, 0, remainderZ))
 
 
-func handleCollision(collider: CollisionObject3D, normal: Vector3):
+func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3):
 
     # *Note to self*: both cars will call this on collision, so only handle this car here!
     # *Another note*: I had to add previousSpeed to make this work, because without it the cars would always
     # just swap speeds (given that both would process this code and the second one would work with the speeds
     # set by the first one)!
-    # This code took a lot of tinkering to get right...
+    # This code took a lot of tinkering to get right... and it still isn't 100% right...
 
     # check if the other collider is a car
     if 'heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider:
@@ -150,24 +144,59 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
         diff *= collider.mass / avgMass
         diffSteering *= collider.mass / avgMass
 
+        # Given that the colliders rotate with the car now, we can no longer count on the fact that
+        # the collision normal will always be either on the Z or the X axis. Now we need to calculate
+        # the dot product of the collision normal and the velocity to see how much the speed and steering
+        # needs to be affected.
+        # NOTE that the collision normal points for the other collider's shape towards this car.
+
+        var speedMultiplier = absf(normal.dot(Vector3.BACK))
+        var steeringMultiplier = absf(normal.dot(Vector3.RIGHT))
+
+        diff *= speedMultiplier
+        diffSteering *= steeringMultiplier
+
         # Safety check: This handles a specific edge case that happens right after a collision has been resolved.
         # When a collision has been resolved and the cars have new steering velocities - the one which caused the
         # collision has lower steering and the other one has higher steering to move away - it is possible that next
         # frame the car with lower steering will be processed first and bump into the car it collided with last frame
         # again. In this case, we need to ignore the collision because the other car will move away faster anyway.
+        # NOTE! DON'T ignore the whole collision because maybe the one (speed or steering) needs to be ignored!
+        # Just ignore that part and handle the other.
         if absf(normal.x) > 0 and signf(diffSteering) != signf(normal.x):
-            return
+            diffSteering = 0
         if absf(normal.z) > 0 and signf(diff) != -signf(normal.z): # note the -1! because positive heading means -Z axis
-            return
+            diff = 0
 
-        # handle side collisions, only if the collision is large enough and
-        # we are not just touching bumpers
-        if absf(normal.x) > 0 or absf(diff) > 4:
-            steering += diffSteering * CarConstants.collisionSteeringMultiplier
+        # update steering and speed after the collision
+        steering += diffSteering * CarConstants.collisionSteeringMultiplier
+        speed += heading * diff * CarConstants.collisionSpeedMultiplier
 
-        # handle front/back collisions, only if the collision normal is on the Z axis
-        if absf(normal.z) > 0:
-            speed += heading * diff * CarConstants.collisionSpeedMultiplier
+        # update health
+        var total := absf(diff) + absf(diffSteering)
+
+        if total > 2 and canTakeDamage:
+            health -= total
+
+        if canSpin and (total > CarConstants.collisionSpinningThreshold or health/maxHealth < CarConstants.healthSpinningThreshold):
+            isSpinning = true
+            spinningDirection = int(signf(collider.transform.origin.x - transform.origin.x))
+
+            # spinning the car turns it into a car prop
+            emit_signal('spinned')
+            destroyCar(false)
+
+        # break parts on the car
+        if total >= CarConstants.collisionBreakThreshold:
+
+            # find the breakable part closest to the collision point, if any
+            var part := findClosestBreakableNode(self, pos, 0.7)
+            if part == null: return
+
+            part.remove_from_group('breakable')
+
+            if part.has_method('breakOff'):
+                part.breakOff()
 
 
     # static colliders
@@ -176,7 +205,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
             # bounce from the highway rails
             steering *= -CarConstants.collisionSteeringMultiplier
         if absf(normal.z) > 0:
-            # uh oh
+            # uh oh, this is a crude solution when a car crashes head-on into a static collider
             health = 0
             speed = 0
 
@@ -184,69 +213,8 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3):
     # other colliders like props won't be matched here, otherwise
     # the car would just stop immediately due to move_and_collide
 
-
     emit_signal('collided')
 
-
-func decreaseHealth(collider: Object, normal: Vector3):
-
-    if 'heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider:
-        var otherSpeed: float = collider.previousSpeed * collider.heading
-        var ourSpeed := previousSpeed * heading
-
-        var diff := CarConstants.collisionHealthSpeedMultipler * absf(otherSpeed - ourSpeed)
-        var diffSteering := CarConstants.collisionHealthSteeringMultipler * absf(collider.previousSteering - previousSteering)
-
-        var total: float
-
-        if absf(normal.z) > absf(normal.x):
-            total = diff
-        else:
-            total = diffSteering
-
-        if total > 2 and canTakeDamage:
-            health -= total
-
-        if canSpin and (total > CarConstants.collisionSpinningThreshold or health/maxHealth < CarConstants.healthSpinningThreshold):
-            isSpinning = true
-            spinningDirection = int(signf(collider.transform.origin.x - transform.origin.x))
-            emit_signal('spinned')
-
-
-func breakParts(pos: Vector3, collider: CollisionObject3D, normal: Vector3):
-
-    var total := 0.0
-
-    if 'heading' in collider and 'previousSpeed' in collider and 'previousSpeed' in collider:
-        var otherSpeed: float = collider.previousSpeed * collider.heading
-        var ourSpeed := previousSpeed * heading
-
-        var diff := CarConstants.collisionBreakSpeedMultipler * absf(otherSpeed - ourSpeed)
-        var diffSteering := CarConstants.collisionBreakSteeringMultipler * absf(collider.previousSteering - previousSteering)
-
-        if absf(normal.z) > absf(normal.x):
-            total = diff
-        else:
-            total = diffSteering
-
-    else:
-        if absf(normal.z) > absf(normal.x):
-            total = CarConstants.collisionBreakSpeedMultipler * absf(previousSpeed)
-        else:
-            total = CarConstants.collisionBreakSteeringMultipler * absf(previousSteering)
-
-    if total < CarConstants.collisionBreakThreshold:
-        # too weak collision
-        return
-
-    # find the breakable part closest to the collision point, if any
-    var part := findClosestBreakableNode(self, pos, 2)
-    if part == null: return
-
-    part.remove_from_group('breakable')
-
-    if part.has_method('breakOff'):
-        part.breakOff()
 
 # Searches node's children (deep) and finds the closest breakable node to the provided
 # position. Only considers nodes that are closer than the maxDistance. NOTE: maxDistance is squared.
@@ -274,15 +242,21 @@ func findClosestBreakableNode(node: Node, pos: Vector3, maxDistance: float) -> N
 
 
 
-func destroyCar():
-    emit_signal('destroyed')
+func destroyCar(turnIntoWreck: bool):
 
-    var newNode := DynamicObject.new()
+    var newNode := Prop.new()
 
     for group in get_groups():
         newNode.add_to_group(group)
 
+
     newNode.mass = mass
+
+    # I have to set inertia manually, don't know WHY it does not calculate
+    # automatically like it is supposed to. It took me a lot of time to figure
+    # this out. If `inertia` is zero, `apply_torque_impulse` doesn't do anything. :shrug:
+    # TODO: these are just some random numbers really
+    newNode.inertia = Vector3(5000, 1000, 8000)
 
     newNode.collision_layer = 0
     newNode.set_collision_layer_value(7, true)
@@ -292,8 +266,8 @@ func destroyCar():
         newNode.set_collision_mask_value(i, true)
 
     # rotate the whole object according to the previous rotation of the model
-    newNode.rotation = $model.rotation
-    $model.rotation = Vector3.ZERO
+    newNode.rotation = rotation
+    #$model.rotation = Vector3.ZERO
 
     # move the collision box to the center to have the correct center of gravity
     var offset = $collision.shape.extents.y
@@ -302,44 +276,41 @@ func destroyCar():
     $collision.translate(Vector3.DOWN * offset)
     $model.translate(Vector3.DOWN * offset)
 
-    # add force according to the current movement, and a random rotation
-    newNode.apply_impulse(Vector3(steering, 0, speed * -heading))
+    # delete parts that should not appear on a wreck
 
+    if turnIntoWreck:
+
+        # TODO: turn wheels into props
+        get_node('model/wheels').queue_free()
+        get_node('model/lights').queue_free()
+
+        var policeLights = get_node_or_null('model/police-lights')
+        if policeLights != null:
+            policeLights.queue_free()
+
+        # assign the wreck material to visible parts
+        var parts = $model.get_children()
+        for part in parts:
+            if 'material' in part:
+                part.material = wreckMaterial
+
+    # move child nodes over
+    for child in get_children():
+        remove_child(child)
+        newNode.add_child(child)
+
+    # add the new node to the tree
+    get_tree().root.add_child(newNode)
+
+    # add force according to the current movement, and a random rotation
+    newNode.apply_impulse(Vector3(steering, randf_range(0, 2), speed * -heading))
+
+    # TODO: this is not working...
     newNode.apply_torque_impulse(Vector3(
         0,
         clamp(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection,
         0
     ))
-
-    # delete parts that should not appear on a wreck
-
-    # TODO: turn wheels into props
-    get_node('model/wheels').queue_free()
-    get_node('model/lights').queue_free()
-
-    var policeLights = get_node_or_null('model/police-lights')
-    if policeLights != null:
-        policeLights.queue_free()
-
-    # assign the wreck material to visible parts
-    var parts = $model.get_children()
-    for part in parts:
-        if 'material' in part:
-            part.material = wreckMaterial
-
-    # move child nodes over
-    var collision = $collision
-    var model = $model
-
-    remove_child(collision)
-    remove_child(model)
-    newNode.add_child(collision)
-    newNode.add_child(model)
-
-    # swap nodes
-    var parent = get_parent()
-    parent.remove_child(self)
-    parent.add_child(newNode)
 
     queue_free()
 
