@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=9 format=3 uid="uid://dsuelblmkorm2"]
 
 [ext_resource type="Material" path="res://materials/grass.tres" id="1"]
 [ext_resource type="Material" uid="uid://1evi2m3pxhl2" path="res://materials/road.tres" id="2"]
@@ -11,7 +11,7 @@
 size = Vector3(100, 1, 50)
 
 [sub_resource type="QuadMesh" id="QuadMesh_oay7l"]
-size = Vector2(100, 50)
+size = Vector2(200, 50)
 orientation = 1
 
 [node name="basic" type="Node3D" groups=["block"]]
