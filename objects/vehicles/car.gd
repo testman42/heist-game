@@ -136,7 +136,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
         var otherSteering: float
 
         if 'linear_velocity' in collider:
-            otherSpeed = collider.linear_velocity.y
+            otherSpeed = -collider.linear_velocity.z
             otherSteering = collider.linear_velocity.x
         else:
             otherSpeed = collider.previousSpeed * collider.heading
@@ -261,12 +261,6 @@ func destroyCar(turnIntoWreck: bool):
 
     newNode.mass = mass
 
-    # I have to set inertia manually, don't know WHY it does not calculate
-    # automatically like it is supposed to. It took me a lot of time to figure
-    # this out. If `inertia` is zero, `apply_torque_impulse` doesn't do anything. :shrug:
-    # TODO: these are just some random numbers really
-    newNode.inertia = Vector3(5000, 1000, 8000)
-
     newNode.collision_layer = 0
     newNode.set_collision_layer_value(7, true)
 
@@ -313,13 +307,6 @@ func destroyCar(turnIntoWreck: bool):
 
     # add force according to the current movement, and a random rotation
     newNode.apply_impulse(Vector3(steering, randf_range(0, 2), speed * -heading))
-
-    # apply random spin
-    newNode.apply_torque_impulse(Vector3(
-        0,
-        clamp(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection,
-        0
-    ))
 
     queue_free()
 
