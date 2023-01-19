@@ -23,7 +23,7 @@ breakingForce = 7.0
 steeringForce = 3.0
 
 [node name="model" parent="." index="1"]
-nodesToEdit = [NodePath("body"), NodePath("roof"), NodePath("front-bumper/model"), NodePath("front-bumper/model/right"), NodePath("front-bumper/model/left"), NodePath("back-bumper/model"), NodePath("back-bumper/model/right"), NodePath("back-bumper/model/left"), NodePath("body-front")]
+nodesToEdit = [NodePath("body"), NodePath("roof"), NodePath("front-bumper/model"), NodePath("front-bumper/model/right"), NodePath("front-bumper/model/left"), NodePath("back-bumper/model"), NodePath("back-bumper/model/right"), NodePath("back-bumper/model/left"), NodePath("body-front"), NodePath("spoiler/model")]
 
 [node name="fr" parent="model/lights" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.170972, -1.092)
