@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvoe2y48hyqjy"]
+
+[ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_n702b"]
+[ext_resource type="Material" uid="uid://covm00jaglxnd" path="res://materials/car-white.tres" id="3_de5x5"]
+[ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="3_jw7a0"]
+[ext_resource type="Script" path="res://utilities/random-hue.gd" id="4_7dbvd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_buifb"]
+size = Vector3(1.33746, 2.03869, 3.2893)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_udodo"]
+size = Vector3(1.27778, 0.349425, 0.31)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q82so"]
+size = Vector3(1.43159, 0.164, 0.264832)
+
+[node name="cargo-truck" instance=ExtResource("1_n702b")]
+spawnProbability = 0.08
+health = 500.0
+mass = 6000.0
+maxSpeedFrom = 9.0
+maxSpeedTo = 11.0
+maxSteering = 12.0
+acceleration = 3.0
+
+[node name="collision" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.02, 0.223)
+shape = SubResource("BoxShape3D_buifb")
+
+[node name="model" parent="." index="1"]
+nodesToEdit = [NodePath("body"), NodePath("roof"), NodePath("front-bumper/model"), NodePath("front-bumper/model/right"), NodePath("front-bumper/model/left"), NodePath("back-bumper/model"), NodePath("back-bumper/model/right"), NodePath("back-bumper/model/left"), NodePath("cabin")]
+
+[node name="fr" parent="model/wheels" index="0"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.515951, 0, -0.927542)
+
+[node name="fl" parent="model/wheels" index="1"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.516, 2.08165e-12, -0.928)
+
+[node name="rl" parent="model/wheels" index="2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.6, 0, 0.805506)
+
+[node name="rr" parent="model/wheels" index="3"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.6, 0, 0.805506)
+
+[node name="fr" parent="model/lights" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.257254, 0.303, -1.4237)
+
+[node name="fl" parent="model/lights" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.257, 0.303, -1.424)
+
+[node name="rl" parent="model/lights" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.226024, 1.88764)
+
+[node name="rr" parent="model/lights" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.22554, 1.8881)
+
+[node name="body" parent="model" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.620513, -0.922393)
+size = Vector3(1.13231, 0.842863, 0.959286)
+
+[node name="cabin" type="CSGBox3D" parent="model" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28813, -0.795093)
+size = Vector3(1.132, 0.511, 0.702)
+material = ExtResource("3_jw7a0")
+
+[node name="roof" parent="model" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.888, 2.08165e-12, 1.6054, -0.929294)
+size = Vector3(1.132, 0.302, 1.057)
+
+[node name="front-window" parent="model" index="5"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.565556, 1.02669, -1.143)
+polygon = PackedVector2Array(0, 0, 2.08165e-12, 0.476, 0.256, 0.476, 0.256, 2.08165e-12)
+depth = 1.13
+
+[node name="rear-window" parent="model" index="6"]
+visible = false
+
+[node name="cargo" type="CSGBox3D" parent="model" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11126, 0.651246)
+size = Vector3(1.30851, 1.82237, 2.41245)
+material = ExtResource("3_de5x5")
+script = ExtResource("4_7dbvd")
+nodesToEdit = [NodePath(".")]
+
+[node name="exhaust" parent="model" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415062, 0.242939, 1.77633)
+
+[node name="front-bumper" parent="model" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.32022, -1.40584)
+
+[node name="model" parent="model/front-bumper" index="0"]
+size = Vector3(1.26846, 0.322423, 0.162282)
+
+[node name="right" parent="model/front-bumper/model" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.586706, 0, 0.120289)
+size = Vector3(0.1, 0.322328, 0.188167)
+
+[node name="left" parent="model/front-bumper/model" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.587, 2.08165e-12, 0.12)
+size = Vector3(0.1, 0.322328, 0.188167)
+
+[node name="collision" parent="model/front-bumper" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0612113)
+shape = SubResource("BoxShape3D_udodo")
+
+[node name="back-bumper" parent="model" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.325974, 1.86581)
+
+[node name="model" parent="model/back-bumper" index="0"]
+size = Vector3(1.41924, 0.164, 0.0868772)
+
+[node name="right" parent="model/back-bumper/model" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.664615, 0, -0.12026)
+
+[node name="left" parent="model/back-bumper/model" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.665, 2.08165e-12, -0.12)
+
+[node name="collision" parent="model/back-bumper" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0803543)
+shape = SubResource("BoxShape3D_q82so")
+
+[node name="front" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.4756)
