@@ -24,7 +24,7 @@ func _process(delta: float):
 
 func SpeedAdjust(delta: float):
 
-    if isSpinning:
+    if isSpinning or isDestroyed:
         setBreaking(false)
         for raycast in [$front/raycast1, $front/raycast2]:
             raycast.enabled = false
@@ -52,9 +52,12 @@ func SpeedAdjust(delta: float):
 
             if "speed" in other:
                 var speedDiff = speed - other.speed
+                if speedDiff < 0:
+                    continue
+
                 breakStrength = lerpf(0, breakingForce, clampf(speedDiff / 8, 0, 1))
 
-                if distance < 3:
+                if distance < 2:
                     breakStrength = breakingForce
             else:
                 breakStrength = lerpf(breakingForce, 0, clampf(distance / 8, 0, 1))

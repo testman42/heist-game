@@ -24,3 +24,4 @@ block = ExtResource("2_7f3yt")
 [node name="middle-barrels" type="Node" parent="basic-highway"]
 script = ExtResource("1_qpu7x")
 block = ExtResource("3_v7ali")
+probability = 0.5
