@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn8yc6tbkycgp"]
+[gd_scene load_steps=7 format=3 uid="uid://bn8yc6tbkycgp"]
 
 [ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_to6vs"]
 [ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="2_v0kwy"]
 [ext_resource type="Material" path="res://materials/exhaust.tres" id="3_uaobm"]
+[ext_resource type="Script" path="res://objects/vehicles/breakable.gd" id="4_8jgl0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oi0wi"]
 size = Vector3(0.1, 0.1, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lll3h"]
+size = Vector3(1.304, 0.0673212, 0.262027)
 
 [node name="sport-car" instance=ExtResource("1_to6vs")]
 spawnProbability = 0.6
@@ -83,3 +87,14 @@ material = ExtResource("3_uaobm")
 
 [node name="collision" type="CollisionShape3D" parent="model/exhaust4" index="1"]
 shape = SubResource("BoxShape3D_oi0wi")
+
+[node name="spoiler" type="Node3D" parent="model" index="13" groups=["breakable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.917842, 1.17755)
+script = ExtResource("4_8jgl0")
+
+[node name="model" type="CSGBox3D" parent="model/spoiler" index="0"]
+size = Vector3(1.304, 0.0605366, 0.244075)
+material = ExtResource("2_v0kwy")
+
+[node name="collision" type="CollisionShape3D" parent="model/spoiler" index="1"]
+shape = SubResource("BoxShape3D_lll3h")

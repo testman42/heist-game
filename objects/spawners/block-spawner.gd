@@ -52,7 +52,7 @@ func deleteOldBlocks():
 func spawnNewBlocks():
 
     # 8 blocks are always kept in the scene
-    if get_child_count() >= 8:
+    if get_child_count() >= 4:
         return
 
     # choose a new block randomly
