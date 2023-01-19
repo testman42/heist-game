@@ -81,8 +81,6 @@ func spawnCar(player: Player):
     car.currentLane = lanes.find(lanePath)
     car.previousLane = car.currentLane
 
-    print('goingUp ', goingUp, ', spawningUp ', spawningUp)
-
     if spawningUp:
         car.position.z = player.global_position.z - HighwayConstants.blockLength * 2.0
     else:
