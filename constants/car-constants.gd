@@ -2,7 +2,7 @@ class_name CarConstants
 
 # Car and traffic related constants accessible everywhere.
 
-const chanceToChangeLane = .0012
+const chanceToChangeLane = .0005
 const laneMatchThreshold = .3
 
 const spinningSpeedClamp = 10.0
@@ -24,4 +24,4 @@ const healthSpinningThreshold = .2
 # Traffic spawning constants.
 
 const carSpawnChance = .017
-const carChanceGoingUp = .4
+const carChanceGoingUp = .3
