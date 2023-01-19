@@ -186,4 +186,5 @@ break={
 
 textures/decals/filter=0
 textures/light_projectors/filter=0
+environment/defaults/default_environment="res://environments/day.tres"
 textures/canvas_textures/default_texture_filter=0
