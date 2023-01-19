@@ -246,9 +246,7 @@ func destroyCar(turnIntoWreck: bool):
 
     var newNode := Prop.new()
 
-    for group in get_groups():
-        newNode.add_to_group(group)
-
+    newNode.add_to_group('wreck')
 
     newNode.mass = mass
 
@@ -267,14 +265,14 @@ func destroyCar(turnIntoWreck: bool):
 
     # rotate the whole object according to the previous rotation of the model
     newNode.rotation = rotation
-    #$model.rotation = Vector3.ZERO
 
     # move the collision box to the center to have the correct center of gravity
     var offset = $collision.shape.extents.y
 
     newNode.transform = transform.translated(Vector3.UP * offset)
-    $collision.translate(Vector3.DOWN * offset)
-    $model.translate(Vector3.DOWN * offset)
+
+    for child in get_children():
+        child.translate(Vector3.DOWN * offset)
 
     # delete parts that should not appear on a wreck
 
@@ -305,7 +303,7 @@ func destroyCar(turnIntoWreck: bool):
     # add force according to the current movement, and a random rotation
     newNode.apply_impulse(Vector3(steering, randf_range(0, 2), speed * -heading))
 
-    # TODO: this is not working...
+    # apply random spin
     newNode.apply_torque_impulse(Vector3(
         0,
         clamp(speed, -CarConstants.spinningSpeedClamp, CarConstants.spinningSpeedClamp) * CarConstants.spinningRotation * spinningDirection,

@@ -5,15 +5,14 @@ class_name DynamicObject
 # from their initial position in a block do not get deleted when
 # the block gets deleted, rather when they get too far behind the player.
 
+@export var autoReparentToRoot := true
+
 func _ready():
-    var targetTransform = global_transform
 
-    # move the node to the root
-    get_parent().call_deferred('remove_child', self)
-    get_node('/root').call_deferred('add_child', self)
-
-    # reposition
-    call_deferred('set_transform', targetTransform)
+    # Move the node to the root. Needs to be deferred because
+    # the parent is still "busy setting up children".
+    if autoReparentToRoot:
+        call_deferred('reparent', get_tree().root)
 
 
 func _process(_delta):

@@ -51,8 +51,10 @@ func spawnCar(player: Player):
     var goingUp: bool = randf() < CarConstants.carChanceGoingUp
     var spawningUp: bool = car.heading < 0 or ('speed' in player and player.speed > 4)
 
+
     if not goingUp:
         car.heading = -1
+        car.rotate_y(PI)
 
     # Take the spawn x from the blocks' lanes, choose a random one. If spawning up, take
     # the last block, if spawning down, take the first block.
@@ -91,6 +93,12 @@ func spawnCar(player: Player):
     # check whether the car collides with anything, if true, just move it back
     while car.move_and_collide(Vector3(0, 0, -.1), true, true, true):
         car.transform.origin.z += sign(car.transform.origin.z)
+
+    # delete any collision shapes there are used just for this spawn check
+    for node in car.get_children():
+        if node.is_in_group('spawn-collision'):
+            car.remove_child(node)
+            node.queue_free()
 
 
 func chooseCar() -> CarLogic:

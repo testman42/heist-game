@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cbjo5hk181yb8"]
+[gd_scene load_steps=16 format=3 uid="uid://cbjo5hk181yb8"]
 
 [ext_resource type="PackedScene" uid="uid://dcsjxneg8wm6a" path="res://objects/vehicles/truck.tscn" id="1_giuse"]
+[ext_resource type="Script" path="res://objects/vehicles/trailer.gd" id="2_75oow"]
 [ext_resource type="Script" path="res://utilities/random-hue.gd" id="2_mta2c"]
 [ext_resource type="Material" path="res://materials/tires.tres" id="3_iory2"]
 [ext_resource type="PackedScene" uid="uid://gkqh8o385og2" path="res://objects/vehicles/car-turn-signal.tscn" id="6_n0hlo"]
@@ -15,25 +16,42 @@
 size = Vector3(1.43159, 0.164, 0.34)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p20wc"]
-size = Vector3(1.36861, 2.24664, 3.53314)
+size = Vector3(1.36861, 2.24664, 2.81243)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ttwo"]
+size = Vector3(1.36861, 1.7517, 2.19345)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5l0f1"]
+size = Vector3(1.36861, 2.27268, 4.87359)
 
 [node name="truck-trailer" instance=ExtResource("1_giuse")]
-spawnProbability = 1.0
+spawnProbability = 0.03
 health = 600.0
-mass = 9000.0
 maxSpeedFrom = 8.0
 maxSpeedTo = 10.0
 acceleration = 2.0
 breakingForce = 4.0
+autoReparentToRoot = false
 
-[node name="trailer" type="CSGCombiner3D" parent="." index="3"]
+[node name="trailer" type="RigidBody3D" parent="." index="5" groups=["car"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.07178)
+collision_layer = 32
+collision_mask = 127
+mass = 8000.0
+script = ExtResource("2_75oow")
+truck = NodePath("..")
+truckPin = NodePath("../pin")
+autoReparentToRoot = false
+
+[node name="model" type="CSGCombiner3D" parent="trailer" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.07178)
 script = ExtResource("2_mta2c")
 nodesToEdit = [NodePath("body"), NodePath("body2"), NodePath("back-bumper/model"), NodePath("back-bumper/model/right"), NodePath("back-bumper/model/left")]
 
-[node name="wheels" type="Node3D" parent="trailer" index="0"]
+[node name="wheels" type="Node3D" parent="trailer/model" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
 
-[node name="rl" type="CSGCylinder3D" parent="trailer/wheels" index="0"]
+[node name="rl" type="CSGCylinder3D" parent="trailer/model/wheels" index="0"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.6, 0, 3.56964)
 radius = 0.24
 height = 0.245
@@ -41,7 +59,7 @@ sides = 10
 smooth_faces = false
 material = ExtResource("3_iory2")
 
-[node name="rr" type="CSGCylinder3D" parent="trailer/wheels" index="1"]
+[node name="rr" type="CSGCylinder3D" parent="trailer/model/wheels" index="1"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.6, 0, 3.56964)
 radius = 0.24
 height = 0.245
@@ -49,7 +67,7 @@ sides = 10
 smooth_faces = false
 material = ExtResource("3_iory2")
 
-[node name="rl2" type="CSGCylinder3D" parent="trailer/wheels" index="2"]
+[node name="rl2" type="CSGCylinder3D" parent="trailer/model/wheels" index="2"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.6, 0, 4.20076)
 radius = 0.24
 height = 0.245
@@ -57,7 +75,7 @@ sides = 10
 smooth_faces = false
 material = ExtResource("3_iory2")
 
-[node name="rr2" type="CSGCylinder3D" parent="trailer/wheels" index="3"]
+[node name="rr2" type="CSGCylinder3D" parent="trailer/model/wheels" index="3"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.6, 0, 4.20076)
 radius = 0.24
 height = 0.245
@@ -65,10 +83,10 @@ sides = 10
 smooth_faces = false
 material = ExtResource("3_iory2")
 
-[node name="lights" type="CSGCombiner3D" parent="trailer" index="1"]
+[node name="lights" type="CSGCombiner3D" parent="trailer/model" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 
-[node name="rl" type="CSGBox3D" parent="trailer/lights" index="0" groups=["breakable"]]
+[node name="rl" type="CSGBox3D" parent="trailer/model/lights" index="0" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.469, 0.218, 4.87)
 cast_shadow = 0
 size = Vector3(0.25, 0.184, 0.075)
@@ -78,16 +96,16 @@ inactiveMaterial = ExtResource("9_gkjc0")
 halfActiveMaterial = ExtResource("7_343sa")
 activeMaterial = ExtResource("10_atyex")
 
-[node name="turn" parent="trailer/lights/rl" index="0" instance=ExtResource("6_n0hlo")]
+[node name="turn" parent="trailer/model/lights/rl" index="0" instance=ExtResource("6_n0hlo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.173415, 0, 0)
 
-[node name="bulb" type="OmniLight3D" parent="trailer/lights/rl" index="1"]
+[node name="bulb" type="OmniLight3D" parent="trailer/model/lights/rl" index="1"]
 visible = false
 light_color = Color(0.901961, 0.0862745, 0.0862745, 1)
 light_energy = 4.0
 omni_range = 2.0
 
-[node name="rr" type="CSGBox3D" parent="trailer/lights" index="1" groups=["breakable"]]
+[node name="rr" type="CSGBox3D" parent="trailer/model/lights" index="1" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.469079, 0.218437, 4.87048)
 cast_shadow = 0
 size = Vector3(0.25, 0.184, 0.075)
@@ -97,62 +115,70 @@ inactiveMaterial = ExtResource("9_gkjc0")
 halfActiveMaterial = ExtResource("7_343sa")
 activeMaterial = ExtResource("10_atyex")
 
-[node name="turn" parent="trailer/lights/rr" index="0" instance=ExtResource("6_n0hlo")]
+[node name="turn" parent="trailer/model/lights/rr" index="0" instance=ExtResource("6_n0hlo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 0, 0)
 
-[node name="bulb" type="OmniLight3D" parent="trailer/lights/rr" index="1"]
+[node name="bulb" type="OmniLight3D" parent="trailer/model/lights/rr" index="1"]
 visible = false
 light_color = Color(0.901961, 0.0862745, 0.0862745, 1)
 light_energy = 4.0
 omni_range = 2.0
 
-[node name="body" type="CSGBox3D" parent="trailer" index="2"]
+[node name="body" type="CSGBox3D" parent="trailer/model" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24644, 3.26327)
 size = Vector3(1.312, 1.98341, 3.18761)
 material = ExtResource("9_ah61y")
 
-[node name="body2" type="CSGBox3D" parent="trailer" index="3"]
+[node name="body2" type="CSGBox3D" parent="trailer/model" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37167, 1.27832)
 size = Vector3(1.312, 1.74768, 2.57832)
 material = ExtResource("9_ah61y")
 
-[node name="back-bumper" type="Node3D" parent="trailer" index="4" groups=["breakable"]]
+[node name="back-bumper" type="Node3D" parent="trailer/model" index="4" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.295577, 4.83261)
 script = ExtResource("12_cxexg")
 
-[node name="model" type="CSGBox3D" parent="trailer/back-bumper" index="0"]
+[node name="model" type="CSGBox3D" parent="trailer/model/back-bumper" index="0"]
 size = Vector3(1.41924, 0.164, 0.214)
 material = ExtResource("9_ah61y")
 
-[node name="right" type="CSGBox3D" parent="trailer/back-bumper/model" index="0"]
+[node name="right" type="CSGBox3D" parent="trailer/model/back-bumper/model" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.664615, 0, -0.12026)
 size = Vector3(0.1, 0.164, 0.188167)
 material = ExtResource("9_ah61y")
 
-[node name="left" type="CSGBox3D" parent="trailer/back-bumper/model" index="1"]
+[node name="left" type="CSGBox3D" parent="trailer/model/back-bumper/model" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.665, 2.08165e-12, -0.12)
 size = Vector3(0.1, 0.164, 0.188167)
 material = ExtResource("9_ah61y")
 
-[node name="collision" type="CollisionShape3D" parent="trailer/back-bumper" index="1"]
+[node name="collision" type="CollisionShape3D" parent="trailer/model/back-bumper" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0472165)
 shape = SubResource("BoxShape3D_q82so")
 
-[node name="trailer-collision" type="CollisionShape3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.124, 3.144)
+[node name="collision" type="CollisionShape3D" parent="trailer" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.124, 0.438852)
 shape = SubResource("BoxShape3D_p20wc")
 
-[connection signal="collided" from="." to="trailer/lights/rl/turn" method="stop"]
-[connection signal="collided" from="." to="trailer/lights/rr/turn" method="stop"]
-[connection signal="spinned" from="." to="trailer/lights/rl/turn" method="stop"]
-[connection signal="spinned" from="." to="trailer/lights/rr/turn" method="stop"]
-[connection signal="startBreaking" from="." to="trailer/lights/rl" method="start"]
-[connection signal="startBreaking" from="." to="trailer/lights/rr" method="start"]
-[connection signal="startTurningLeft" from="." to="trailer/lights/rl/turn" method="start"]
-[connection signal="startTurningLeft" from="." to="trailer/lights/rr/turn" method="stop"]
-[connection signal="startTurningRight" from="." to="trailer/lights/rl/turn" method="stop"]
-[connection signal="startTurningRight" from="." to="trailer/lights/rr/turn" method="start"]
-[connection signal="stopBreaking" from="." to="trailer/lights/rl" method="stop"]
-[connection signal="stopBreaking" from="." to="trailer/lights/rr" method="stop"]
-[connection signal="stopTurning" from="." to="trailer/lights/rl/turn" method="stop"]
-[connection signal="stopTurning" from="." to="trailer/lights/rr/turn" method="stop"]
+[node name="collision2" type="CollisionShape3D" parent="trailer" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.3655, -1.99568)
+shape = SubResource("BoxShape3D_6ttwo")
+
+[node name="trailer-spawn-collision" type="CollisionShape3D" parent="." index="6" groups=["spawn-collision"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17099, 2.53246)
+shape = SubResource("BoxShape3D_5l0f1")
+
+[connection signal="collided" from="." to="trailer/model/lights/rl/turn" method="stop"]
+[connection signal="collided" from="." to="trailer/model/lights/rr/turn" method="stop"]
+[connection signal="spinned" from="." to="trailer/model/lights/rl/turn" method="stop"]
+[connection signal="spinned" from="." to="trailer/model/lights/rr/turn" method="stop"]
+[connection signal="startBreaking" from="." to="trailer/model/lights/rl" method="start"]
+[connection signal="startBreaking" from="." to="trailer/model/lights/rr" method="start"]
+[connection signal="startTurningLeft" from="." to="trailer/model/lights/rl/turn" method="start"]
+[connection signal="startTurningLeft" from="." to="trailer/model/lights/rr/turn" method="stop"]
+[connection signal="startTurningRight" from="." to="trailer/model/lights/rl/turn" method="stop"]
+[connection signal="startTurningRight" from="." to="trailer/model/lights/rr/turn" method="start"]
+[connection signal="stopBreaking" from="." to="trailer/model/lights/rl" method="stop"]
+[connection signal="stopBreaking" from="." to="trailer/model/lights/rr" method="stop"]
+[connection signal="stopTurning" from="." to="trailer/model/lights/rl/turn" method="stop"]
+[connection signal="stopTurning" from="." to="trailer/model/lights/rr/turn" method="stop"]

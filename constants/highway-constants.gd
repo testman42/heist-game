@@ -5,5 +5,5 @@ class_name HighwayConstants
 const blockWidth = 100
 const blockLength = 50
 
-const maxTraffic = 60
+const maxTraffic = 120
 const maxPolice = 10

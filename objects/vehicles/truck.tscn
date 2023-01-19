@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcsjxneg8wm6a"]
+[gd_scene load_steps=8 format=3 uid="uid://dcsjxneg8wm6a"]
 
 [ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_8utvv"]
 [ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="2_ckaey"]
 [ext_resource type="Material" path="res://materials/tires.tres" id="2_v3bn7"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_06b0e"]
-size = Vector3(1.36861, 2.14026, 2.8547)
+[sub_resource type="BoxShape3D" id="BoxShape3D_3kflf"]
+size = Vector3(1.36861, 2.14026, 0.960289)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_61ujy"]
+size = Vector3(1.36861, 0.320223, 1.93894)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5jpam"]
 size = Vector3(1.304, 0.349425, 0.31)
@@ -14,7 +17,7 @@ size = Vector3(1.304, 0.349425, 0.31)
 size = Vector3(1.43159, 0.164, 0.264832)
 
 [node name="truck" instance=ExtResource("1_8utvv")]
-spawnProbability = 0.05
+spawnProbability = 0.01
 health = 300.0
 mass = 7000.0
 maxSpeedFrom = 9.0
@@ -23,10 +26,14 @@ maxSteering = 12.0
 acceleration = 3.0
 
 [node name="collision" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.07, 2.08165e-12)
-shape = SubResource("BoxShape3D_06b0e")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.07, -0.909133)
+shape = SubResource("BoxShape3D_3kflf")
 
-[node name="model" parent="." index="1"]
+[node name="collision2" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.225041, 0.492002)
+shape = SubResource("BoxShape3D_61ujy")
+
+[node name="model" parent="." index="2"]
 nodesToEdit = [NodePath("body"), NodePath("roof"), NodePath("front-bumper/model"), NodePath("front-bumper/model/right"), NodePath("front-bumper/model/left"), NodePath("back-bumper/model"), NodePath("back-bumper/model/right"), NodePath("back-bumper/model/left"), NodePath("cabin"), NodePath("cabin2")]
 
 [node name="fr" parent="model/wheels" index="0"]
@@ -126,5 +133,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.665, 2.08165e-12, -0.12)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0803543)
 shape = SubResource("BoxShape3D_q82so")
 
-[node name="front" parent="." index="2"]
+[node name="front" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.4756)
+
+[node name="pin" type="Marker3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.492002, 0.711263)

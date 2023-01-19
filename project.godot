@@ -103,6 +103,11 @@ _global_script_classes=[{
 "class": &"SpawnInArea",
 "language": &"GDScript",
 "path": "res://utilities/spawn-in-area.gd"
+}, {
+"base": "Prop",
+"class": &"Trailer",
+"language": &"GDScript",
+"path": "res://objects/vehicles/trailer.gd"
 }]
 _global_script_class_icons={
 "Block": "",
@@ -123,7 +128,8 @@ _global_script_class_icons={
 "SpawnBlock": "",
 "SpawnChartNode": "",
 "SpawnGroup": "",
-"SpawnInArea": ""
+"SpawnInArea": "",
+"Trailer": ""
 }
 
 [application]
