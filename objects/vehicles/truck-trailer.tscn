@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cbjo5hk181yb8"]
+[gd_scene load_steps=15 format=3 uid="uid://cbjo5hk181yb8"]
 
 [ext_resource type="PackedScene" uid="uid://dcsjxneg8wm6a" path="res://objects/vehicles/truck.tscn" id="1_giuse"]
 [ext_resource type="Script" path="res://objects/vehicles/trailer.gd" id="2_75oow"]
@@ -20,9 +20,6 @@ size = Vector3(1.36861, 2.24664, 2.81243)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ttwo"]
 size = Vector3(1.36861, 1.7517, 2.19345)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_5l0f1"]
-size = Vector3(1.36861, 2.27268, 4.87359)
 
 [node name="truck-trailer" instance=ExtResource("1_giuse")]
 spawnProbability = 0.1
@@ -163,10 +160,6 @@ shape = SubResource("BoxShape3D_p20wc")
 [node name="collision2" type="CollisionShape3D" parent="trailer" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.3655, -1.99568)
 shape = SubResource("BoxShape3D_6ttwo")
-
-[node name="trailer-spawn-collision" type="CollisionShape3D" parent="." index="6" groups=["spawn-collision"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17099, 2.53246)
-shape = SubResource("BoxShape3D_5l0f1")
 
 [connection signal="collided" from="." to="trailer/model/lights/rl/turn" method="stop"]
 [connection signal="collided" from="." to="trailer/model/lights/rr/turn" method="stop"]

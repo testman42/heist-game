@@ -49,8 +49,7 @@ func spawnCar(player: Player):
     car.speed = car.maxSpeedFrom
 
     var goingUp: bool = randf() < CarConstants.carChanceGoingUp
-    var spawningUp: bool = car.heading < 0 or ('speed' in player and player.speed > 4)
-
+    var spawningUp: bool = not goingUp or ('speed' in player and player.speed > 4)
 
     if not goingUp:
         car.heading = -1
@@ -82,23 +81,15 @@ func spawnCar(player: Player):
     car.currentLane = lanes.find(lanePath)
     car.previousLane = car.currentLane
 
+    print('goingUp ', goingUp, ', spawningUp ', spawningUp)
 
     if spawningUp:
-        car.position.z = player.global_position.z - HighwayConstants.blockLength * 1.5
+        car.position.z = player.global_position.z - HighwayConstants.blockLength * 2.0
     else:
-        car.position.z = player.global_position.z + HighwayConstants.blockLength * 1.5
+        car.position.z = player.global_position.z + HighwayConstants.blockLength * 0.8
 
     add_child(car)
 
-    # check whether the car collides with anything, if true, just move it back
-    while car.move_and_collide(Vector3(0, 0, -.1), true, true, true):
-        car.transform.origin.z += sign(car.transform.origin.z)
-
-    # delete any collision shapes there are used just for this spawn check
-    for node in car.get_children():
-        if node.is_in_group('spawn-collision'):
-            car.remove_child(node)
-            node.queue_free()
 
 
 func chooseCar() -> CarLogic:
