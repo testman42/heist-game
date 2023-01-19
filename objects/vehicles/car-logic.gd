@@ -52,12 +52,9 @@ func SpeedAdjust(delta: float):
 
             if "speed" in other:
                 var speedDiff = speed - other.speed
-                if speedDiff < 0:
-                    continue
-
                 breakStrength = lerpf(0, breakingForce, clampf(speedDiff / 8, 0, 1))
 
-                if distance < 2:
+                if distance < 3:
                     breakStrength = breakingForce
             else:
                 breakStrength = lerpf(breakingForce, 0, clampf(distance / 8, 0, 1))
