@@ -135,12 +135,12 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
         var otherSpeed: float
         var otherSteering: float
 
-        if 'linear_velocity' in collider:
-            otherSpeed = -collider.linear_velocity.z
-            otherSteering = collider.linear_velocity.x
-        else:
+        if 'heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider:
             otherSpeed = collider.previousSpeed * collider.heading
             otherSteering = collider.previousSteering
+        else:
+            otherSpeed = -collider.linear_velocity.z
+            otherSteering = collider.linear_velocity.x
 
         var ourSpeed := previousSpeed * heading
         var ourSteering := previousSteering
