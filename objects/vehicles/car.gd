@@ -129,12 +129,20 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
     # set by the first one)!
     # This code took a lot of tinkering to get right... and it still isn't 100% right...
 
-    # check if the other collider is a car
-    if 'heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider:
+    # check if the other collider is a CAR or a PROP
+    if ('heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider) or ('linear_velocity' in collider):
 
-        var otherSpeed: float = collider.previousSpeed * collider.heading
+        var otherSpeed: float
+        var otherSteering: float
+
+        if 'linear_velocity' in collider:
+            otherSpeed = collider.linear_velocity.y
+            otherSteering = collider.linear_velocity.x
+        else:
+            otherSpeed = collider.previousSpeed * collider.heading
+            otherSteering = collider.previousSteering
+
         var ourSpeed := previousSpeed * heading
-        var otherSteering: float = collider.previousSteering
         var ourSteering := previousSteering
 
         var diff := otherSpeed - ourSpeed
@@ -148,7 +156,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
         # the collision normal will always be either on the Z or the X axis. Now we need to calculate
         # the dot product of the collision normal and the velocity to see how much the speed and steering
         # needs to be affected.
-        # NOTE that the collision normal points for the other collider's shape towards this car.
+        # NOTE that the collision normal points from the other collider's shape towards this car.
 
         var speedMultiplier = absf(normal.dot(Vector3.BACK))
         var steeringMultiplier = absf(normal.dot(Vector3.RIGHT))
@@ -190,7 +198,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
         if total >= CarConstants.collisionBreakThreshold:
 
             # find the breakable part closest to the collision point, if any
-            var part := findClosestBreakableNode(self, pos, 0.7)
+            var part := findClosestBreakableNode(self, pos, 1.6)
             if part == null: return
 
             part.remove_from_group('breakable')
@@ -243,6 +251,9 @@ func findClosestBreakableNode(node: Node, pos: Vector3, maxDistance: float) -> N
 
 
 func destroyCar(turnIntoWreck: bool):
+
+    if isSpinning: return
+    if isDestroyed: return
 
     var newNode := Prop.new()
 
