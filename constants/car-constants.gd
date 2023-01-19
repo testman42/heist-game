@@ -23,5 +23,5 @@ const healthSpinningThreshold = .2
 
 # Traffic spawning constants.
 
-const carSpawnChance = .01
+const carSpawnChance = .017
 const carChanceGoingUp = .4
