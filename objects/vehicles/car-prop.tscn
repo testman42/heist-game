@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://focr6bl2cf7d"]
+
+[ext_resource type="Script" path="res://objects/road/prop.gd" id="1_k5rwg"]
+
+[node name="car-prop" type="RigidBody3D" groups=["wreck"]]
+collision_layer = 64
+collision_mask = 127
+mass = 1000.0
+script = ExtResource("1_k5rwg")

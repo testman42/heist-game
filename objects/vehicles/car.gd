@@ -36,6 +36,7 @@ signal stopBreaking
 @export var canSpin = true
 @export var canTakeDamage = true
 
+@export var wreckNode: PackedScene
 @export var wreckMaterial: Material
 
 # Current state of the car, used by its sub-components and the AI.
@@ -257,9 +258,7 @@ func destroyCar(turnIntoWreck: bool):
     if get_node_or_null('collision') == null:
         return
 
-    var newNode := Prop.new()
-
-    newNode.add_to_group('wreck')
+    var newNode := wreckNode.instantiate()
 
     newNode.mass = mass
 
@@ -268,13 +267,6 @@ func destroyCar(turnIntoWreck: bool):
     # this out. If `inertia` is zero, `apply_torque_impulse` doesn't do anything. :shrug:
     # TODO: these are just some random numbers really
     newNode.inertia = Vector3(5000, 1000, 8000)
-
-    newNode.collision_layer = 0
-    newNode.set_collision_layer_value(7, true)
-
-    newNode.collision_mask = 0
-    for i in range(1, 8):
-        newNode.set_collision_mask_value(i, true)
 
     # rotate the whole object according to the previous rotation of the model
     newNode.rotation = rotation
@@ -286,24 +278,6 @@ func destroyCar(turnIntoWreck: bool):
 
     for child in get_children():
         child.translate(Vector3.DOWN * offset)
-
-    # delete parts that should not appear on a wreck
-
-    if turnIntoWreck:
-
-        # TODO: turn wheels into props
-        get_node('model/wheels').queue_free()
-        get_node('model/lights').queue_free()
-
-        var policeLights = get_node_or_null('model/police-lights')
-        if policeLights != null:
-            policeLights.queue_free()
-
-        # assign the wreck material to visible parts
-        var parts = $model.get_children()
-        for part in parts:
-            if 'material' in part:
-                part.material = wreckMaterial
 
     # move child nodes over
     for child in get_children():

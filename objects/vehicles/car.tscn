@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://dg8v2y07er6vb"]
+[gd_scene load_steps=21 format=3 uid="uid://dg8v2y07er6vb"]
 
 [ext_resource type="Script" path="res://utilities/random-hue.gd" id="1_1x7j1"]
 [ext_resource type="Script" path="res://objects/vehicles/car-logic.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://focr6bl2cf7d" path="res://objects/vehicles/car-prop.tscn" id="2_dcwtn"]
 [ext_resource type="Material" path="res://materials/tires.tres" id="3"]
 [ext_resource type="Material" uid="uid://d044xic6uhagx" path="res://materials/red-light.tres" id="5"]
 [ext_resource type="Material" path="res://materials/yellow-light-active.tres" id="5_jtkrg"]
@@ -33,6 +34,7 @@ collision_layer = 8
 collision_mask = 30
 script = ExtResource("2")
 mass = 2000.0
+wreckNode = ExtResource("2_dcwtn")
 wreckMaterial = ExtResource("10")
 
 [node name="collision" type="CollisionShape3D" parent="."]
