@@ -120,7 +120,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.173415, 0, 0)
 visible = false
 light_color = Color(0.901961, 0.0862745, 0.0862745, 1)
 light_energy = 4.0
-omni_range = 2.0
+shadow_enabled = true
+omni_range = 1.3
 
 [node name="rr" type="CSGBox3D" parent="model/lights" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.321, 1.081)
@@ -139,7 +140,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173, 0, 0)
 visible = false
 light_color = Color(0.901961, 0.0862745, 0.0862745, 1)
 light_energy = 4.0
-omni_range = 2.0
+shadow_enabled = true
+omni_range = 1.3
 
 [node name="body" type="CSGBox3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.553114, 0)
