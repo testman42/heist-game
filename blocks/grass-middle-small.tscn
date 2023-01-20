@@ -40,16 +40,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.117632, 0.565814, -7.61412
 [node name="blocks" type="Node3D" parent="props" index="2"]
 
 [node name="concrete-block" parent="props/blocks" index="0" instance=ExtResource("4_namc3")]
-transform = Transform3D(0.995292, 0, 0.0969228, 0, 1, 0, -0.0969228, 0, 0.995292, 0.0785115, 0.0702478, 4.51749)
+transform = Transform3D(0.999585, 0, 0.0288114, 0, 1, 0, -0.0288114, 0, 0.999585, 0.0785115, 0.0702478, 4.51749)
 
 [node name="concrete-block2" parent="props/blocks" index="1" instance=ExtResource("4_namc3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, 2.59384)
 
 [node name="concrete-block3" parent="props/blocks" index="2" instance=ExtResource("4_namc3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.210689, 0.0702478, 0.279484)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.106603, 0.0702478, 0.279484)
 
 [node name="concrete-block4" parent="props/blocks" index="3" instance=ExtResource("4_namc3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, -1.62089)
 
 [node name="concrete-block5" parent="props/blocks" index="4" instance=ExtResource("4_namc3")]
-transform = Transform3D(0.957903, 0, -0.287093, 0, 1, 0, 0.287093, 0, 0.957903, 0.00877669, 0.0702478, -3.81405)
+transform = Transform3D(0.999602, 0, -0.0282182, 0, 1, 0, 0.0282182, 0, 0.999602, 0.00877669, 0.0702478, -3.81405)
