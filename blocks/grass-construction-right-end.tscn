@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://deeploixa6v0"]
+[gd_scene load_steps=5 format=3 uid="uid://deeploixa6v0"]
 
 [ext_resource type="PackedScene" uid="uid://dsuelblmkorm2" path="res://blocks/grass-basic.tscn" id="1_4h6ra"]
 [ext_resource type="PackedScene" uid="uid://cqh4ign32xfuy" path="res://objects/road/cone.tscn" id="2_g0jpl"]
+[ext_resource type="PackedScene" uid="uid://ckn4xp7yd4g2a" path="res://objects/road/barrel.tscn" id="3_ja0v6"]
+[ext_resource type="PackedScene" uid="uid://ub1u4l6hf3cx" path="res://objects/road/stop-sign.tscn" id="4_vuvgt"]
 
 [node name="grass-construction-right-end" instance=ExtResource("1_4h6ra")]
 positiveLanesDown = [NodePath("road/right/lane1-down"), NodePath("road/right/lane2-down")]
@@ -30,3 +32,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.48059, 0, 7.2917)
 
 [node name="cone11" parent="props/cones" index="5" instance=ExtResource("2_g0jpl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.36647, 0, 3.0812)
+
+[node name="barrel" parent="props" index="1" instance=ExtResource("3_ja0v6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.56984, 0.567129, 5.30345)
+
+[node name="stop-sign" parent="props" index="2" instance=ExtResource("4_vuvgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.89647, 0, 23.9189)

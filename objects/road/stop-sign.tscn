@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://ub1u4l6hf3cx"]
+
+[ext_resource type="Material" path="res://materials/barrel-red.tres" id="1_leqqc"]
+[ext_resource type="Script" path="res://objects/road/prop.gd" id="1_vt10u"]
+[ext_resource type="Material" path="res://materials/barrel-white.tres" id="2_3cb55"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tfgda"]
+size = Vector3(1.4, 1.1, 0.1)
+
+[node name="stop-sign" type="RigidBody3D"]
+collision_layer = 32
+collision_mask = 127
+mass = 2.0
+script = ExtResource("1_vt10u")
+
+[node name="model" type="CSGCombiner3D" parent="."]
+
+[node name="top-red" type="CSGBox3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+size = Vector3(1.4, 0.2, 0.1)
+material = ExtResource("1_leqqc")
+
+[node name="top-white" type="CSGBox3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+size = Vector3(1.4, 0.2, 0.1)
+material = ExtResource("2_3cb55")
+
+[node name="stripes" type="CSGCombiner3D" parent="model/top-white"]
+operation = 1
+
+[node name="stripe1" type="CSGBox3D" parent="model/top-white/stripes"]
+transform = Transform3D(0.44843, -0.893818, 0, 0.893818, 0.44843, 0, 0, 0, 1, -0.461578, 0, 0)
+size = Vector3(0.738088, 0.2, 0.244824)
+material = ExtResource("2_3cb55")
+
+[node name="stripe2" type="CSGBox3D" parent="model/top-white/stripes"]
+transform = Transform3D(0.44843, -0.893818, 0, 0.893818, 0.44843, 0, 0, 0, 1, -0.0461006, 0, 0)
+size = Vector3(0.738088, 0.2, 0.244824)
+material = ExtResource("2_3cb55")
+
+[node name="stripe3" type="CSGBox3D" parent="model/top-white/stripes"]
+transform = Transform3D(0.44843, -0.893818, 0, 0.893818, 0.44843, 0, 0, 0, 1, 0.382125, 0, 0)
+size = Vector3(0.738088, 0.2, 0.244824)
+material = ExtResource("2_3cb55")
+
+[node name="bottom-red" type="CSGBox3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.630265, 2.08165e-12)
+size = Vector3(1.4, 0.2, 0.1)
+material = ExtResource("1_leqqc")
+
+[node name="bottom-white" type="CSGBox3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.630265, 2.08165e-12)
+size = Vector3(1.4, 0.2, 0.1)
+material = ExtResource("2_3cb55")
+
+[node name="stripes" type="CSGCombiner3D" parent="model/bottom-white"]
+operation = 1
+
+[node name="stripe1" type="CSGBox3D" parent="model/bottom-white/stripes"]
+transform = Transform3D(0.44843, -0.893818, 0, 0.893818, 0.44843, 0, 0, 0, 1, -0.461578, 0, 0)
+size = Vector3(0.738088, 0.2, 0.244824)
+material = ExtResource("2_3cb55")
+
+[node name="stripe2" type="CSGBox3D" parent="model/bottom-white/stripes"]
+transform = Transform3D(0.44843, -0.893818, 0, 0.893818, 0.44843, 0, 0, 0, 1, -0.0461006, 0, 0)
+size = Vector3(0.738088, 0.2, 0.244824)
+material = ExtResource("2_3cb55")
+
+[node name="stripe3" type="CSGBox3D" parent="model/bottom-white/stripes"]
+transform = Transform3D(0.44843, -0.893818, 0, 0.893818, 0.44843, 0, 0, 0, 1, 0.382125, 0, 0)
+size = Vector3(0.738088, 0.2, 0.244824)
+material = ExtResource("2_3cb55")
+
+[node name="pole1" type="CSGBox3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.596741, 0.5, 2.08165e-12)
+size = Vector3(0.05, 1, 0.05)
+material = ExtResource("2_3cb55")
+
+[node name="pole2" type="CSGBox3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.597, 0.5, 2.08165e-12)
+size = Vector3(0.05, 1, 0.05)
+material = ExtResource("2_3cb55")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.55, 2.08165e-12)
+shape = SubResource("BoxShape3D_tfgda")
