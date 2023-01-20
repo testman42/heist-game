@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dcsjxneg8wm6a"]
+[gd_scene load_steps=9 format=3 uid="uid://dcsjxneg8wm6a"]
 
 [ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_8utvv"]
 [ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="2_ckaey"]
@@ -15,6 +15,9 @@ size = Vector3(1.304, 0.349425, 0.31)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q82so"]
 size = Vector3(1.43159, 0.164, 0.264832)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i7e4l"]
+size = Vector3(1.57393, 2.2913, 3.04132)
 
 [node name="truck" instance=ExtResource("1_8utvv")]
 spawnProbability = 0.03
@@ -138,3 +141,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.4756)
 
 [node name="pin" type="Marker3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.492002, 0.711263)
+
+[node name="spawn-bounds" type="CollisionShape3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04227, 0)
+shape = SubResource("BoxShape3D_i7e4l")
+disabled = true

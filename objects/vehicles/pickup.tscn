@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dye6u0lkv1jqq"]
+[gd_scene load_steps=12 format=3 uid="uid://dye6u0lkv1jqq"]
 
 [ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_jh8vs"]
 [ext_resource type="Material" uid="uid://dchhg42y263o8" path="res://materials/car.tres" id="2_tr7kc"]
@@ -20,6 +20,9 @@ size = Vector3(1.24559, 0.322496, 0.928136)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m655y"]
 size = Vector3(0.703332, 0.588463, 0.610089)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4bhho"]
+size = Vector3(1.38739, 1.59462, 2.70263)
 
 [node name="pickup" instance=ExtResource("1_jh8vs")]
 spawnProbability = 0.2
@@ -117,6 +120,11 @@ material = ExtResource("4_p6fyc")
 
 [node name="collision" type="CollisionShape3D" parent="box" index="1"]
 shape = SubResource("BoxShape3D_m655y")
+
+[node name="spawn-bounds" type="CollisionShape3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.697465, 0)
+shape = SubResource("BoxShape3D_4bhho")
+disabled = true
 
 [connection signal="collided" from="." to="box" method="eject"]
 [connection signal="destroyed" from="." to="box" method="eject"]

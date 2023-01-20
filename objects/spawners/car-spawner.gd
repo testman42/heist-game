@@ -26,14 +26,13 @@ func _process(_delta):
     # TODO: this chance should increase in harder levels
     var probability := CarConstants.carSpawnChance
 
-    var players = get_tree().get_nodes_in_group('player')
-    if players.size() <= 0:
+    var player = get_tree().get_first_node_in_group('player') as Player
+    if player == null:
         return
 
-    var player := players[0] as Player
-
-    if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
-        probability = lerpf(0, probability, player.speed / player.maxSpeed)
+    # TODO: disabled because the spawner now checks for empty space in lanes
+    # if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
+    #    probability = lerpf(0, probability, player.speed / player.maxSpeed)
 
     if randf() < probability:
         spawnCar(player)
@@ -49,45 +48,103 @@ func spawnCar(player: Player):
     car.speed = car.maxSpeedFrom
 
     var goingUp: bool = randf() < CarConstants.carChanceGoingUp
-    var spawningUp: bool = not goingUp or ('speed' in player and player.speed > 4)
+    # TODO: I will need a better solution to determine when to start spawning cars behind the player
+    var spawningUp: bool = not goingUp or ('speed' in player and player.speed > car.speed)
 
+    # rotate the car corrently
     if not goingUp:
         car.heading = -1
         car.rotate_y(PI)
 
-    # Take the spawn x from the blocks' lanes, choose a random one. If spawning up, take
-    # the last block, if spawning down, take the first block.
-    var blocks := get_tree().get_nodes_in_group('block')
-    assert(blocks.size() > 0, 'No blocks in the scene')
-
-    var block: Block
-    if spawningUp:
-        block = blocks[-1]
-    else:
-        block = blocks[0]
-
-    # If going up, take the positive lanes. If going down, take the negative lanes.
-    # TODO: interpolate between up/down lane nodes based on the Z spawn position
-    var lanes: Array[NodePath]
-    if goingUp:
-        lanes = block.positiveLanesDown
-    else:
-        lanes = block.negativeLanesUp
-
-    # choose a random one, get the node and get its X position
-    var lanePath := lanes.pick_random()
-    var lane := block.get_node(lanePath) as Node3D
-
-    car.position.x = lane.global_position.x
-    car.currentLane = lanes.find(lanePath)
-    car.previousLane = car.currentLane
-
+    # position it on the Z axis
     if spawningUp:
         car.position.z = player.global_position.z - HighwayConstants.blockLength * 1.6
     else:
         car.position.z = player.global_position.z + HighwayConstants.blockLength * 0.8
 
-    add_child(car)
+    # find the block for this Z position
+    var block: Block
+    for checkedBlock in get_tree().get_nodes_in_group('block'):
+        block = checkedBlock
+        if car.position.z >= block.global_position.z - HighwayConstants.blockLength / 2.0:
+            break
+
+    # find the possible lanes for this position
+    var lanesUp: Array[NodePath]
+    var lanesDown: Array[NodePath]
+
+    if goingUp:
+        lanesUp = block.positiveLanesUp
+        lanesDown = block.positiveLanesDown
+    else:
+        lanesUp = block.negativeLanesUp
+        lanesDown = block.negativeLanesDown
+
+    # for every lane, calculate the correct X position
+    var lanePositions: Array[float]
+
+    for i in range(maxi(lanesUp.size(), lanesDown.size())):
+        var laneDown := block.get_node(lanesDown[mini(i, lanesDown.size() - 1)])
+        var laneUp := block.get_node(lanesUp[mini(i, lanesUp.size() - 1)])
+
+        # position for lane `i`
+        var ix = lerpf(
+            laneDown.global_position.x,
+            laneUp.global_position.x,
+            clampf((car.position.z - laneDown.global_position.z) / (laneUp.global_position.z - laneDown.global_position.z), 0.0, 1.0)
+        )
+
+        lanePositions.append(ix)
+
+    # Now choose a lane to spawn in. For these, we are going to randomly try
+    # each line until one of them is free to spawn a car (checking nearby cars for proximity).
+
+    var lanesToTry = range(lanePositions.size())
+    lanesToTry.shuffle()
+
+    for lane in lanesToTry:
+
+        var bounds := car.get_node('collision') as CollisionShape3D
+
+        # car can specify separate spawn bounds
+        if car.has_node('spawn-bounds'):
+            bounds = car.get_node('spawn-bounds') as CollisionShape3D
+
+        var aabb := AABB(car.position + bounds.position, bounds.shape.size)
+        aabb.position.x = lanePositions[lane]
+
+        # check whether any car is in the way
+        var positionFree := true
+        for other in get_tree().get_nodes_in_group('car'):
+
+            # skip if we already know that the position is not free
+            if not positionFree: continue
+
+            var otherBounds := other.get_node('collision') as CollisionShape3D
+
+            # car can specify separate spawn bounds
+            if other.has_node('spawn-bounds'):
+                otherBounds = other.get_node('spawn-bounds') as CollisionShape3D
+
+            var otherAABB := AABB(otherBounds.global_position, otherBounds.shape.size)
+            if otherAABB.intersects(aabb):
+                # oops, would collide with this car
+                positionFree = false
+
+
+        # if this position is not free, continue checking the next lane
+        if not positionFree: continue
+
+
+        # success! spawn the car here
+        car.position.x = lanePositions[lane]
+        car.currentLane = lane
+        car.previousLane = car.currentLane
+
+        add_child(car)
+
+        break
+
 
 
 
