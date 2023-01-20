@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1b14w4pf5l5k"]
+[gd_scene load_steps=8 format=3 uid="uid://b6gfma0nxnfi0"]
 
 [ext_resource type="Script" path="res://blocks/system/spawn-group.gd" id="1_ho44y"]
 [ext_resource type="Script" path="res://blocks/system/spawn-block.gd" id="1_qpu7x"]
-[ext_resource type="PackedScene" path="res://blocks/basic.tscn" id="2_7f3yt"]
 [ext_resource type="Script" path="res://blocks/system/connection.gd" id="2_70o2t"]
-[ext_resource type="PackedScene" uid="uid://dnqxlq3efs7p0" path="res://blocks/middle-barrels.tscn" id="3_v7ali"]
+[ext_resource type="PackedScene" uid="uid://dsuelblmkorm2" path="res://blocks/grass-basic.tscn" id="4_u5a61"]
+[ext_resource type="PackedScene" uid="uid://dnqxlq3efs7p0" path="res://blocks/grass-middle-large.tscn" id="5_6x7g8"]
+[ext_resource type="PackedScene" uid="uid://d1fxnujy2dl0h" path="res://blocks/grass-middle-small.tscn" id="6_qjkb3"]
 
 [sub_resource type="Resource" id="Resource_vuo47"]
 script = ExtResource("2_70o2t")
@@ -13,15 +14,20 @@ node = NodePath(".")
 
 [node name="spawn-chart" type="Node"]
 
-[node name="basic-highway" type="Node" parent="."]
+[node name="grass" type="Node" parent="."]
 script = ExtResource("1_ho44y")
 connections = [SubResource("Resource_vuo47")]
 
-[node name="basic" type="Node" parent="basic-highway"]
+[node name="basic" type="Node" parent="grass"]
 script = ExtResource("1_qpu7x")
-block = ExtResource("2_7f3yt")
+block = ExtResource("4_u5a61")
 
-[node name="middle-barrels" type="Node" parent="basic-highway"]
+[node name="middle-large" type="Node" parent="grass"]
 script = ExtResource("1_qpu7x")
-block = ExtResource("3_v7ali")
-probability = 0.5
+block = ExtResource("5_6x7g8")
+probability = 0.2
+
+[node name="middle-small" type="Node" parent="grass"]
+script = ExtResource("1_qpu7x")
+block = ExtResource("6_qjkb3")
+probability = 0.3

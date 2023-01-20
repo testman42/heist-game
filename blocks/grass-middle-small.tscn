@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1fxnujy2dl0h"]
+
+[ext_resource type="PackedScene" uid="uid://dsuelblmkorm2" path="res://blocks/grass-basic.tscn" id="1_rxnjk"]
+[ext_resource type="Material" uid="uid://1evi2m3pxhl2" path="res://materials/road.tres" id="2_nmmws"]
+[ext_resource type="PackedScene" uid="uid://ckn4xp7yd4g2a" path="res://objects/road/barrel.tscn" id="3_27rcf"]
+[ext_resource type="PackedScene" uid="uid://b7etwno61di6o" path="res://objects/road/concrete-block.tscn" id="4_namc3"]
+
+[node name="middle-barrels" instance=ExtResource("1_rxnjk")]
+
+[node name="middle" type="CSGBox3D" parent="road" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+layers = 3
+size = Vector3(2, 0.1, 17.6069)
+material = ExtResource("2_nmmws")
+
+[node name="props" type="Node3D" parent="." index="4"]
+
+[node name="barrels" type="Node3D" parent="props" index="0"]
+
+[node name="barrel" parent="props/barrels" index="0" instance=ExtResource("3_27rcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0287552, 0.565814, 7.86053)
+
+[node name="barrel2" parent="props/barrels" index="1" instance=ExtResource("3_27rcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584084, 0.565814, 6.51891)
+
+[node name="barrel3" parent="props/barrels" index="2" instance=ExtResource("3_27rcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.543259, 0.565814, 6.21642)
+
+[node name="barrels2" type="Node3D" parent="props" index="1"]
+
+[node name="barrel" parent="props/barrels2" index="0" instance=ExtResource("3_27rcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46628, 0.565814, -5.84931)
+
+[node name="barrel2" parent="props/barrels2" index="1" instance=ExtResource("3_27rcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.488529, 0.565814, -6.45261)
+
+[node name="barrel3" parent="props/barrels2" index="2" instance=ExtResource("3_27rcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.117632, 0.565814, -7.61412)
+
+[node name="blocks" type="Node3D" parent="props" index="2"]
+
+[node name="concrete-block" parent="props/blocks" index="0" instance=ExtResource("4_namc3")]
+transform = Transform3D(0.995292, 0, 0.0969228, 0, 1, 0, -0.0969228, 0, 0.995292, 0.0785115, 0.0702478, 4.51749)
+
+[node name="concrete-block2" parent="props/blocks" index="1" instance=ExtResource("4_namc3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, 2.59384)
+
+[node name="concrete-block3" parent="props/blocks" index="2" instance=ExtResource("4_namc3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.210689, 0.0702478, 0.279484)
+
+[node name="concrete-block4" parent="props/blocks" index="3" instance=ExtResource("4_namc3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0738797, 0.0702478, -1.62089)
+
+[node name="concrete-block5" parent="props/blocks" index="4" instance=ExtResource("4_namc3")]
+transform = Transform3D(0.957903, 0, -0.287093, 0, 1, 0, 0.287093, 0, 0.957903, 0.00877669, 0.0702478, -3.81405)

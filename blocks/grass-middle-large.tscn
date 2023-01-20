@@ -1,12 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://dnqxlq3efs7p0"]
 
-[ext_resource type="PackedScene" uid="uid://rfdainqvoprx" path="res://blocks/basic.tscn" id="1_oi3ap"]
+[ext_resource type="PackedScene" uid="uid://dsuelblmkorm2" path="res://blocks/grass-basic.tscn" id="1_oi3ap"]
 [ext_resource type="Material" uid="uid://1evi2m3pxhl2" path="res://materials/road.tres" id="2_bj5ew"]
 [ext_resource type="PackedScene" uid="uid://ckn4xp7yd4g2a" path="res://objects/road/barrel.tscn" id="3_p0w6b"]
 [ext_resource type="PackedScene" uid="uid://b7etwno61di6o" path="res://objects/road/concrete-block.tscn" id="4_hdsow"]
 
 [node name="middle-barrels" instance=ExtResource("1_oi3ap")]
-spawnProbability = 0.4
 
 [node name="middle" type="CSGBox3D" parent="road" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
