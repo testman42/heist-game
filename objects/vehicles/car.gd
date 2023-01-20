@@ -131,7 +131,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
     # This code took a lot of tinkering to get right... and it still isn't 100% right...
 
     # check if the other collider is a CAR or a PROP
-    if ('heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider) or ('linear_velocity' in collider):
+    if ('heading' in collider and 'previousSpeed' in collider and 'previousSteering' in collider) or ('previousVelocity' in collider):
 
         var otherSpeed: float
         var otherSteering: float
@@ -140,8 +140,8 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
             otherSpeed = collider.previousSpeed * collider.heading
             otherSteering = collider.previousSteering
         else:
-            otherSpeed = -collider.linear_velocity.z
-            otherSteering = collider.linear_velocity.x
+            otherSpeed = -collider.previousVelocity.z
+            otherSteering = collider.previousVelocity.x
 
         var ourSpeed := previousSpeed * heading
         var ourSteering := previousSteering

@@ -6,10 +6,15 @@ class_name Prop
 # them) and slow them down based on the mass.
 
 
+var previousVelocity := Vector3()
+
+
 func _init() -> void:
+
     # enable contact monitoring
     contact_monitor = true
     max_contacts_reported = 3
+
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
@@ -25,3 +30,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
         # Delegate the resolution to the car's collision handler.
         # This body will be handled by the physics system.
         car.handleCollision(self, -state.get_contact_local_normal(i), state.get_contact_collider_position(i))
+
+
+    # update previous
+    previousVelocity = linear_velocity
