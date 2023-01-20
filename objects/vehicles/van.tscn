@@ -12,7 +12,7 @@ size = Vector3(1.51139, 0.257775, 0.31)
 size = Vector3(1.50339, 0.257128, 0.258665)
 
 [node name="van" instance=ExtResource("1_tabwc")]
-spawnProbability = 0.2
+spawnProbability = 0.6
 health = 300.0
 mass = 4000.0
 maxSpeedFrom = 9.0

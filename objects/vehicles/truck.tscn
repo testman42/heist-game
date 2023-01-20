@@ -17,7 +17,7 @@ size = Vector3(1.304, 0.349425, 0.31)
 size = Vector3(1.43159, 0.164, 0.264832)
 
 [node name="truck" instance=ExtResource("1_8utvv")]
-spawnProbability = 0.01
+spawnProbability = 0.03
 health = 300.0
 mass = 7000.0
 maxSpeedFrom = 9.0
