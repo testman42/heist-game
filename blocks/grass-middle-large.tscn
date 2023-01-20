@@ -10,7 +10,7 @@
 [node name="middle" type="CSGBox3D" parent="road" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 layers = 3
-size = Vector3(2, 0.1, 48)
+size = Vector3(3.0637, 0.1, 48)
 material = ExtResource("2_bj5ew")
 
 [node name="props" type="Node3D" parent="." index="4"]
