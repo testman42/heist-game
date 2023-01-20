@@ -249,6 +249,21 @@ func findClosestBreakableNode(node: Node, pos: Vector3, maxDistance: float) -> N
 
     return bestNode
 
+# Searches node's children (deep) and finds ALL breakable nodes. Used when the car is destroyed.
+func findAllBreakableNodes(node: Node) -> Array[Node]:
+
+    var result: Array[Node] = []
+
+    for child in node.get_children():
+        if child.is_in_group('breakable'):
+            result.append(child)
+
+        if child.get_child_count() > 0:
+            var nested = findAllBreakableNodes(child)
+            result.append_array(nested)
+
+    return result
+
 
 
 func destroyCar(turnIntoWreck: bool):
@@ -257,6 +272,13 @@ func destroyCar(turnIntoWreck: bool):
     # probably destroyCar gets called twice in a row
     if get_node_or_null('collision') == null:
         return
+
+    # before destroying the car, break off all breakable parts
+    for node in findAllBreakableNodes(self):
+        node.remove_from_group('breakable')
+
+        if node.has_method('breakOff'):
+            node.breakOff()
 
     var newNode := wreckNode.instantiate()
 
