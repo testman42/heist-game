@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://deeploixa6v0"]
+
+[ext_resource type="PackedScene" uid="uid://dsuelblmkorm2" path="res://blocks/grass-basic.tscn" id="1_4h6ra"]
+[ext_resource type="PackedScene" uid="uid://cqh4ign32xfuy" path="res://objects/road/cone.tscn" id="2_g0jpl"]
+
+[node name="grass-construction-right-end" instance=ExtResource("1_4h6ra")]
+positiveLanesDown = [NodePath("road/right/lane1-down"), NodePath("road/right/lane2-down")]
+
+[node name="lane3-down" parent="road/right" index="7"]
+visible = false
+
+[node name="props" type="Node3D" parent="." index="4"]
+
+[node name="cones" type="Node3D" parent="props" index="0"]
+
+[node name="cone" parent="props/cones" index="0" instance=ExtResource("2_g0jpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.29491, 0, 23.5962)
+
+[node name="cone3" parent="props/cones" index="1" instance=ExtResource("2_g0jpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.30733, 0, 19.6311)
+
+[node name="cone5" parent="props/cones" index="2" instance=ExtResource("2_g0jpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.34645, 0, 15.4378)
+
+[node name="cone7" parent="props/cones" index="3" instance=ExtResource("2_g0jpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.81728, 0, 11.2273)
+
+[node name="cone9" parent="props/cones" index="4" instance=ExtResource("2_g0jpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.48059, 0, 7.2917)
+
+[node name="cone11" parent="props/cones" index="5" instance=ExtResource("2_g0jpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.36647, 0, 3.0812)

@@ -14,7 +14,7 @@ size = Vector3(100, 1, 50)
 size = Vector2(200, 50)
 orientation = 1
 
-[node name="basic" type="Node3D" groups=["block"]]
+[node name="grass-basic" type="Node3D" groups=["block"]]
 script = ExtResource("5")
 positiveLanesUp = [NodePath("road/right/lane1-up"), NodePath("road/right/lane2-up"), NodePath("road/right/lane3-up")]
 positiveLanesDown = [NodePath("road/right/lane1-down"), NodePath("road/right/lane2-down"), NodePath("road/right/lane3-down")]

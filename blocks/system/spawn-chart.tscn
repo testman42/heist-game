@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6gfma0nxnfi0"]
+[gd_scene load_steps=14 format=3 uid="uid://b6gfma0nxnfi0"]
 
 [ext_resource type="Script" path="res://blocks/system/spawn-group.gd" id="1_ho44y"]
 [ext_resource type="Script" path="res://blocks/system/spawn-block.gd" id="1_qpu7x"]
@@ -6,11 +6,29 @@
 [ext_resource type="PackedScene" uid="uid://dsuelblmkorm2" path="res://blocks/grass-basic.tscn" id="4_u5a61"]
 [ext_resource type="PackedScene" uid="uid://dnqxlq3efs7p0" path="res://blocks/grass-middle-large.tscn" id="5_6x7g8"]
 [ext_resource type="PackedScene" uid="uid://d1fxnujy2dl0h" path="res://blocks/grass-middle-small.tscn" id="6_qjkb3"]
+[ext_resource type="PackedScene" uid="uid://dv2y4cl432rri" path="res://blocks/grass-construction-right-start.tscn" id="7_jk6x8"]
+[ext_resource type="PackedScene" uid="uid://5713rpxx0ove" path="res://blocks/grass-construction-right.tscn" id="8_xd7wd"]
+[ext_resource type="PackedScene" uid="uid://deeploixa6v0" path="res://blocks/grass-construction-right-end.tscn" id="9_dmsqg"]
 
 [sub_resource type="Resource" id="Resource_vuo47"]
 script = ExtResource("2_70o2t")
 probability = 1
 node = NodePath(".")
+
+[sub_resource type="Resource" id="Resource_akieb"]
+script = ExtResource("2_70o2t")
+probability = 1
+node = NodePath("../../grass-construction-right")
+
+[sub_resource type="Resource" id="Resource_w7yyu"]
+script = ExtResource("2_70o2t")
+probability = 1
+node = NodePath(".")
+
+[sub_resource type="Resource" id="Resource_niiwl"]
+script = ExtResource("2_70o2t")
+probability = 1
+node = NodePath("../../grass")
 
 [node name="spawn-chart" type="Node"]
 
@@ -31,3 +49,23 @@ probability = 0.2
 script = ExtResource("1_qpu7x")
 block = ExtResource("6_qjkb3")
 probability = 0.3
+
+[node name="construction-right" type="Node" parent="grass"]
+script = ExtResource("1_qpu7x")
+block = ExtResource("7_jk6x8")
+probability = 0.1
+connections = [SubResource("Resource_akieb")]
+
+[node name="grass-construction-right" type="Node" parent="."]
+script = ExtResource("1_ho44y")
+connections = [SubResource("Resource_w7yyu")]
+
+[node name="basic" type="Node" parent="grass-construction-right"]
+script = ExtResource("1_qpu7x")
+block = ExtResource("8_xd7wd")
+
+[node name="end" type="Node" parent="grass-construction-right"]
+script = ExtResource("1_qpu7x")
+block = ExtResource("9_dmsqg")
+probability = 0.17
+connections = [SubResource("Resource_niiwl")]
