@@ -149,9 +149,11 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
         var diff := otherSpeed - ourSpeed
         var diffSteering := otherSteering - ourSteering
 
+        # Multiply the diffs by mass so heavier cars react less. Also limit to max
+        # 1 so that lighter cars don't go flying across the screen.
         var avgMass: float = (mass + collider.mass) / 2
-        diff *= collider.mass / avgMass
-        diffSteering *= collider.mass / avgMass
+        diff *= minf(collider.mass / avgMass, 1.0)
+        diffSteering *= minf(collider.mass / avgMass, 1.0)
 
         # Given that the colliders rotate with the car now, we can no longer count on the fact that
         # the collision normal will always be either on the Z or the X axis. Now we need to calculate
