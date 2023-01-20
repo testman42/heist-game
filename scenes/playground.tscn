@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://cuq6ne6te3kiu"]
 
 [ext_resource type="PackedScene" uid="uid://cw34wawvpykkx" path="res://objects/player/player.tscn" id="2_7b8s0"]
 [ext_resource type="PackedScene" uid="uid://dsuelblmkorm2" path="res://blocks/grass-basic.tscn" id="2_uly45"]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq1kima17yeo8"]
+
+[ext_resource type="PackedScene" uid="uid://5713rpxx0ove" path="res://blocks/grass-construction-right.tscn" id="1_cjtuc"]
+[ext_resource type="PackedScene" uid="uid://dlta0fd5tdfm" path="res://objects/vehicles/roller.tscn" id="2_kl3fs"]
+
+[node name="grass-construction-right-roller" instance=ExtResource("1_cjtuc")]
+
+[node name="roller" parent="." index="5" instance=ExtResource("2_kl3fs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.82007, 0.0296603, 7.20054)

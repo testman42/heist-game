@@ -1,0 +1,122 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlta0fd5tdfm"]
+
+[ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_qu7wn"]
+[ext_resource type="Script" path="res://objects/vehicles/car.gd" id="2_26gjb"]
+[ext_resource type="Material" uid="uid://csdssvac47mj5" path="res://materials/car-orange.tres" id="3_afdo2"]
+[ext_resource type="Material" path="res://materials/tires.tres" id="3_bwvpb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bwckf"]
+size = Vector3(1.463, 2.04706, 3.19044)
+
+[node name="roller" instance=ExtResource("1_qu7wn")]
+script = ExtResource("2_26gjb")
+spawnProbability = 2.08165e-12
+health = 1000.0
+mass = 20000.0
+maxSpeedFrom = 0.5
+maxSpeedTo = 1.0
+maxSteering = 10.0
+acceleration = 1.0
+
+[node name="collision" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.024, 0.145)
+shape = SubResource("BoxShape3D_bwckf")
+
+[node name="model" parent="." index="1"]
+script = null
+
+[node name="wheels" parent="model" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="fr" parent="model/wheels" index="0"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.3, 0.605063, -0.857494)
+radius = 0.6
+height = 0.6
+sides = 16
+
+[node name="fl" parent="model/wheels" index="1"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.3, 0.605063, -0.857494)
+radius = 0.6
+height = 0.6
+sides = 16
+
+[node name="rl" parent="model/wheels" index="2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.3, 0.605063, 1.16)
+radius = 0.6
+height = 0.6
+sides = 16
+
+[node name="rr" parent="model/wheels" index="3"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.3, 0.605063, 1.16)
+radius = 0.6
+height = 0.6
+sides = 16
+
+[node name="fr" parent="model/lights" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.784098, -1.34185)
+
+[node name="fl" parent="model/lights" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.784098, -1.34285)
+
+[node name="rl" parent="model/lights" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.806894, 1.62292)
+
+[node name="rr" parent="model/lights" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.806894, 1.62292)
+
+[node name="body" parent="model" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843353, 0.135032)
+size = Vector3(1.12263, 0.815915, 2.90885)
+material = ExtResource("3_afdo2")
+
+[node name="roof" parent="model" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.888, -0.000704527, 1.58984, 0.213478)
+size = Vector3(0.887787, 0.906772, 1.00247)
+material = ExtResource("3_bwvpb")
+
+[node name="front-window" parent="model" index="4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.444, 1.22088, -0.232595)
+polygon = PackedVector2Array(0, 0, 0.001, 0.808, 0.256389, 0.00212693)
+depth = 0.89
+
+[node name="rear-window" parent="model" index="5"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.444, 1.23516, 0.871365)
+material_override = ExtResource("3_bwvpb")
+polygon = PackedVector2Array(0.062, 2.08165e-12, 0.217, 0.783, 0.218, 0)
+depth = 0.89
+
+[node name="exhaust" parent="model" index="6"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.474066, 1.38252, 0.992417)
+
+[node name="front-bumper" parent="model" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.9181, -1.29581)
+
+[node name="model" parent="model/front-bumper" index="0"]
+material = ExtResource("3_afdo2")
+
+[node name="right" parent="model/front-bumper/model" index="0"]
+material = ExtResource("3_afdo2")
+
+[node name="left" parent="model/front-bumper/model" index="1"]
+material = ExtResource("3_afdo2")
+
+[node name="back-bumper" parent="model" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.00276, 1.58175)
+
+[node name="model" parent="model/back-bumper" index="0"]
+material = ExtResource("3_afdo2")
+
+[node name="right" parent="model/back-bumper/model" index="0"]
+material = ExtResource("3_afdo2")
+
+[node name="left" parent="model/back-bumper/model" index="1"]
+material = ExtResource("3_afdo2")
+
+[node name="front" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.43041)
+
+[node name="raycast1" parent="front" index="0"]
+enabled = false
+
+[node name="raycast2" parent="front" index="1"]
+enabled = false
