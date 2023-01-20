@@ -67,11 +67,12 @@ func spawnCar(player: Player):
         block = blocks[0]
 
     # If going up, take the positive lanes. If going down, take the negative lanes.
+    # TODO: interpolate between up/down lane nodes based on the Z spawn position
     var lanes: Array[NodePath]
     if goingUp:
-        lanes = block.positiveLanes
+        lanes = block.positiveLanesDown
     else:
-        lanes = block.negativeLanes
+        lanes = block.negativeLanesUp
 
     # choose a random one, get the node and get its X position
     var lanePath := lanes.pick_random()

@@ -16,8 +16,10 @@ orientation = 1
 
 [node name="basic" type="Node3D" groups=["block"]]
 script = ExtResource("5")
-positiveLanes = [NodePath("road/right/lane1"), NodePath("road/right/lane2"), NodePath("road/right/lane3")]
-negativeLanes = [NodePath("road/left/lane1"), NodePath("road/left/lane2"), NodePath("road/left/lane3")]
+positiveLanesUp = [NodePath("road/right/lane1-up"), NodePath("road/right/lane2-up"), NodePath("road/right/lane3-up")]
+positiveLanesDown = [NodePath("road/right/lane1-down"), NodePath("road/right/lane2-down"), NodePath("road/right/lane3-down")]
+negativeLanesUp = [NodePath("road/left/lane1-up"), NodePath("road/left/lane2-up"), NodePath("road/left/lane3-up")]
+negativeLanesDown = [NodePath("road/left/lane1-down"), NodePath("road/left/lane2-down"), NodePath("road/left/lane3-down")]
 
 [node name="collision" type="StaticBody3D" parent="."]
 collision_mask = 0
@@ -48,20 +50,29 @@ upper_fade = 1e-05
 lower_fade = 1e-05
 cull_mask = 2
 
-[node name="lane1" type="Marker3D" parent="road/right"]
+[node name="lane1-down" type="Marker3D" parent="road/right"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, 25)
+
+[node name="lane1-up" type="Marker3D" parent="road/right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, -25)
 
 [node name="cross-line1" parent="road/right" instance=ExtResource("5_hd2mp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 2.08165e-12, 2.08165e-12)
 
-[node name="lane2" type="Marker3D" parent="road/right"]
+[node name="lane2-down" type="Marker3D" parent="road/right"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 25)
+
+[node name="lane2-up" type="Marker3D" parent="road/right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, -25)
 
 [node name="cross-line2" parent="road/right" instance=ExtResource("5_hd2mp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 2.08165e-12, 2.08165e-12)
 
-[node name="lane3" type="Marker3D" parent="road/right"]
+[node name="lane3-down" type="Marker3D" parent="road/right"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, 25)
+
+[node name="lane3-up" type="Marker3D" parent="road/right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -25)
 
 [node name="line2" type="Decal" parent="road/right"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 2.08165e-12, 2.08165e-12)
@@ -85,20 +96,29 @@ upper_fade = 1e-05
 lower_fade = 1e-05
 cull_mask = 2
 
-[node name="lane1" type="Marker3D" parent="road/left"]
+[node name="lane1-down" type="Marker3D" parent="road/left"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, 25)
+
+[node name="lane1-up" type="Marker3D" parent="road/left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, -25)
 
 [node name="cross-line1" parent="road/left" instance=ExtResource("5_hd2mp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 2.08165e-12, 2.08165e-12)
 
-[node name="lane2" type="Marker3D" parent="road/left"]
+[node name="lane2-down" type="Marker3D" parent="road/left"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 25)
+
+[node name="lane2-up" type="Marker3D" parent="road/left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, -25)
 
 [node name="cross-line2" parent="road/left" instance=ExtResource("5_hd2mp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 2.08165e-12, 2.08165e-12)
 
-[node name="lane3" type="Marker3D" parent="road/left"]
+[node name="lane3-down" type="Marker3D" parent="road/left"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, 25)
+
+[node name="lane3-up" type="Marker3D" parent="road/left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -25)
 
 [node name="line2" type="Decal" parent="road/left"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 2.08165e-12, 2.08165e-12)

@@ -80,30 +80,51 @@ func HandleLane(delta: float):
 
     # get lanes from the current block
     var block := getCurrentBlock()
-    var lanes: Array[NodePath]
+
+    var lanesUp: Array[NodePath]
+    var lanesDown: Array[NodePath]
+    var lanesForward: Array[NodePath]
+    var lanesBack: Array[NodePath]
 
     if heading > 0:
-        lanes = block.positiveLanes
+        lanesUp = block.positiveLanesUp
+        lanesForward = block.positiveLanesUp
+        lanesDown = block.positiveLanesDown
+        lanesBack = block.positiveLanesDown
     else:
-        lanes = block.negativeLanes
+        lanesUp = block.negativeLanesUp
+        lanesBack = block.negativeLanesUp
+        lanesDown = block.negativeLanesDown
+        lanesForward = block.negativeLanesDown
 
 
-    if currentLane >= lanes.size():
-        # our current lane no longer exists in this block, move to the center
+    if currentLane >= lanesForward.size():
+        # our current lane no longer exists in this block, move closer to the center
         previousLane = currentLane
-        currentLane = lanes.size() - 1
+        currentLane = lanesForward.size() - 1
 
         if heading > 0: emit_signal('startTurningLeft')
         else: emit_signal('startTurningRight')
 
-    # get the global X position of our current lane
-    var lane := block.get_node(lanes[currentLane]) as Node3D
-    assert(lane != null, 'Missing lane position')
-    var currentLaneX = lane.global_position.x
+    # Get the global X position of our current lane. This is interpolated from up/down lane nodes
+    # based on the current Z position in the block.
+
+    var laneUp := block.get_node(lanesUp[mini(currentLane, lanesUp.size() - 1)]) as Node3D
+    var laneDown := block.get_node(lanesDown[mini(currentLane, lanesDown.size() - 1)]) as Node3D
+
+    assert(laneUp != null, 'Missing lane up node')
+    assert(laneDown != null, 'Missing lane down node')
+
+    # interpolate
+    var currentLaneX = lerpf(
+        laneDown.global_position.x,
+        laneUp.global_position.x,
+        clampf((global_position.z - laneDown.global_position.z) / (laneUp.global_position.z - laneDown.global_position.z), 0.0, 1.0)
+    )
 
 
     if absf(global_position.x - currentLaneX) < CarConstants.laneMatchThreshold:
-        if not is_equal_approx(currentLane, previousLane):
+        if currentLane != previousLane:
             # done changing lanes
             previousLane = currentLane
             emit_signal('stopTurning')
@@ -112,8 +133,8 @@ func HandleLane(delta: float):
         elif randf() < CarConstants.chanceToChangeLane:
 
             # choose any lane except the current one
-            while is_equal_approx(currentLane, previousLane):
-                currentLane = randi() % lanes.size()
+            while currentLane == previousLane:
+                currentLane = randi() % lanesForward.size()
 
             if currentLane > previousLane:
                 if heading > 0: emit_signal('startTurningRight')
