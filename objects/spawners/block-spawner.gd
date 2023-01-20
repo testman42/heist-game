@@ -127,7 +127,7 @@ func chooseConnection(connections: Array[Connection]) -> Connection:
     if connections.size() == 1:
         return connections[0]
 
-    var total := 0
+    var total := 0.0
     for c in connections:
         total += c.probability
 
@@ -148,7 +148,7 @@ func chooseChildNode(node: Node) -> Node:
 
     var children := node.get_children()
 
-    var total := 0
+    var total := 0.0
     for c in children:
         total += c.probability
 
