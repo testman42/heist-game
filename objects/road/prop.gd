@@ -19,6 +19,13 @@ func _init() -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 
+    # ignore if sleeping
+    if sleeping: return
+
+    # optimization, ignore car collisions for very light objects because
+    # they wouldn't do anything to the car
+    if mass < 10: return
+
     for i in range(state.get_contact_count()):
 
         var other = state.get_contact_collider_object(i)
