@@ -214,7 +214,7 @@ func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3)
     elif collider is StaticBody3D:
         if absf(normal.x) > 0:
             # bounce from the highway rails
-            steering *= -CarConstants.collisionSteeringMultiplier
+            steering *= -CarConstants.collisionSteeringMultiplier * .4
         if absf(normal.z) > 0:
             # uh oh, this is a crude solution when a car crashes head-on into a static collider
             health = 0
