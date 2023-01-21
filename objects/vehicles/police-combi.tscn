@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvvv4ysj7yt0t"]
+
+[ext_resource type="PackedScene" uid="uid://c7rp0h75cv7et" path="res://objects/vehicles/police.tscn" id="1_i3fyr"]
+
+[node name="police-combi" instance=ExtResource("1_i3fyr")]
+health = 250.0
+mass = 2500.0
+maxSpeedFrom = 19.0
+steeringForce = 9.0
+
+[node name="fr" parent="model/wheels" index="0"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.6, 0, -0.714875)
+
+[node name="fl" parent="model/wheels" index="1"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.6, 0, -0.714875)
+
+[node name="fr" parent="model/lights" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.303, -1.2628)
+
+[node name="fl" parent="model/lights" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.303, -1.2638)
+
+[node name="rl" parent="model/lights" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.321, 1.26916)
+
+[node name="rr" parent="model/lights" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.321, 1.26916)
+
+[node name="body" parent="model" index="2"]
+size = Vector3(1.216, 0.641, 2.47074)
+
+[node name="body" parent="model/body/black" index="0"]
+size = Vector3(1.216, 0.641, 2.47074)
+
+[node name="front" parent="model/body/black/intersect" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.839009)
+size = Vector3(1.216, 0.706686, 0.92247)
+
+[node name="back" parent="model/body/black/intersect" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.16348)
+size = Vector3(1.216, 0.699579, 0.868637)
+
+[node name="roof" parent="model" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.888, -0.000704527, 1.0966, 0.371281)
+size = Vector3(1.073, 0.5, 1.39726)
+
+[node name="front-window" parent="model" index="4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.536235, 0.870547, -0.241921)
+
+[node name="rear-window" parent="model" index="5"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.536235, 0.874866, 1.2018)
+
+[node name="exhaust" parent="model" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.383199, 0.242939, 1.19716)
+script = null
+
+[node name="front-bumper" parent="model" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, -1.18684)
+
+[node name="model" parent="model/front-bumper" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+size = Vector3(1.304, 0.164, 0.254)
+
+[node name="right" parent="model/front-bumper/model" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.609703, 0, 0.120289)
+
+[node name="back-bumper" parent="model" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, 1.17972)
+
+[node name="model" parent="model/back-bumper" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+size = Vector3(1.304, 0.164, 0.214)
+
+[node name="right" parent="model/back-bumper/model" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.609703, 0, -0.12026)
+
+[node name="left" parent="model/back-bumper/model" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61, 0, -0.119926)
+
+[node name="police-lights" parent="model" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39062, 0.194515)
+
+[node name="front" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59165, -1.1337)
+
+[node name="raycast1" parent="front" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.469161, 0, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dg8v2y07er6vb"]
+[gd_scene load_steps=20 format=3 uid="uid://dg8v2y07er6vb"]
 
 [ext_resource type="Script" path="res://utilities/random-hue.gd" id="1_1x7j1"]
 [ext_resource type="Script" path="res://objects/vehicles/car-logic.gd" id="2"]
@@ -19,9 +19,6 @@
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(1.463, 1.4, 2.247)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_oi0wi"]
-size = Vector3(0.1, 0.1, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m4hrm"]
 size = Vector3(1.304, 0.164, 0.31)
@@ -165,15 +162,13 @@ polygon = PackedVector2Array(0, 0, 0.217355, 0.470789, 0.218, 0)
 depth = 1.08
 material = ExtResource("8")
 
-[node name="exhaust" type="Node3D" parent="model"]
+[node name="exhaust" type="Node3D" parent="model" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.383199, 0.242939, 0.992417)
+script = ExtResource("15_u47ee")
 
 [node name="model" type="CSGBox3D" parent="model/exhaust"]
 size = Vector3(0.1, 0.1, 0.4)
 material = ExtResource("12_6aym7")
-
-[node name="collision" type="CollisionShape3D" parent="model/exhaust"]
-shape = SubResource("BoxShape3D_oi0wi")
 
 [node name="front-bumper" type="Node3D" parent="model" groups=["breakable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, -1.01853)

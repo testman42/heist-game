@@ -2,12 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_v10he"]
 [ext_resource type="Material" path="res://materials/exhaust.tres" id="2_j4a32"]
+[ext_resource type="Script" path="res://objects/vehicles/breakable.gd" id="2_qb0b4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pyhyd"]
 size = Vector3(1.46307, 1.4, 2.41479)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_oi0wi"]
-size = Vector3(0.1, 0.1, 0.4)
 
 [node name="car" instance=ExtResource("1_v10he")]
 health = 240.0
@@ -59,15 +57,13 @@ polygon = PackedVector2Array(0.158, 2.08165e-12, 0.217355, 0.470789, 0.218, 0)
 [node name="exhaust" parent="model" index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.447975, 0.242939, 1.11524)
 
-[node name="exhaust2" type="Node3D" parent="model" index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.311629, 0.242939, 1.11524)
+[node name="exhaust2" type="Node3D" parent="model" index="7" groups=["breakable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.299775, 0.242939, 1.11524)
+script = ExtResource("2_qb0b4")
 
 [node name="model" type="CSGBox3D" parent="model/exhaust2" index="0"]
 size = Vector3(0.1, 0.1, 0.4)
 material = ExtResource("2_j4a32")
-
-[node name="collision" type="CollisionShape3D" parent="model/exhaust2" index="1"]
-shape = SubResource("BoxShape3D_oi0wi")
 
 [node name="front-bumper" parent="model" index="8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.337737, -1.13593)
