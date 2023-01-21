@@ -3,17 +3,21 @@ class_name CarSpawner
 
 # Spawns cars in front of the player. If the player is moving, only spawns
 # cars in the front. Otherwise cars going forward are spawned in the back
-# to catch up.
+# to catch up. Also spawns police cars which are always going up.
 
 # Possible cars. Each one must be a Car type.
 @export var possibleCars: Array[PackedScene]
+@export var possiblePoliceCars: Array[PackedScene]
 
-var possibleCarInstances = []
-var totalProbability = 0
+var possibleCarInstances: Array[Car] = []
+var possiblePoliceCarInstances: Array[Car] = []
+var totalProbability := 0.0
+var totalPoliceProbability := 0.0
 
 
 func _ready():
     assert(possibleCars.size() > 0, 'Missing possible cars for a spawner')
+    assert(possiblePoliceCars.size() > 0, 'Missing possible police cars for a spawner')
 
     # preload all cars so we can work with their probabilities
     for b in possibleCars:
@@ -21,35 +25,60 @@ func _ready():
         possibleCarInstances.append(instance)
         totalProbability += instance.spawnProbability
 
+    for b in possiblePoliceCars:
+        var instance = b.instantiate() as Car
+        possiblePoliceCarInstances.append(instance)
+        totalPoliceProbability += instance.spawnProbability
+
 
 func _process(_delta):
-    # TODO: this chance should increase in harder levels
-    var probability := CarConstants.carSpawnChance
 
     var player = get_tree().get_first_node_in_group('player') as Player
     if player == null:
         return
 
-    # TODO: disabled because the spawner now checks for empty space in lanes
-    # if 'speed' in player and 'maxSpeed' in player and player.speed > 1:
-    #    probability = lerpf(0, probability, player.speed / player.maxSpeed)
-
-    if randf() < probability:
+    if randf() < CarConstants.carSpawnChance:
         spawnCar(player)
+
+    if randf() < CarConstants.policeSpawnChance:
+        spawnPolice(player)
 
 
 func spawnCar(player: Player):
+
     # limit max cars
     if get_tree().get_nodes_in_group('car').size() > HighwayConstants.maxTraffic:
         return
 
     # choose a new model randomly
-    var car := chooseCar()
+    var car := chooseCar(possibleCarInstances, totalProbability)
     car.speed = car.maxSpeedFrom
 
     var goingUp: bool = randf() < CarConstants.carChanceGoingUp
     # TODO: I will need a better solution to determine when to start spawning cars behind the player
     var spawningUp: bool = not goingUp or ('speed' in player and player.speed > car.speed)
+
+    positionAndInsertCar(car, player, spawningUp, goingUp)
+
+
+func spawnPolice(player: Player):
+
+    # limit max police cars
+    if get_tree().get_nodes_in_group('police').size() > HighwayConstants.maxPolice:
+        return
+
+    # choose a new model randomly
+    var car := chooseCar(possiblePoliceCarInstances, totalPoliceProbability)
+    car.speed = player.speed
+
+    # most police is spawned in front
+    var spawningUp := randf() < 0.7
+
+    positionAndInsertCar(car, player, spawningUp, true)
+
+
+
+func positionAndInsertCar(car: Node3D, player: Node3D, spawningUp: bool, goingUp: bool):
 
     # rotate the car corrently
     if not goingUp:
@@ -138,8 +167,11 @@ func spawnCar(player: Player):
 
         # success! spawn the car here
         car.position.x = lanePositions[lane]
-        car.currentLane = lane
-        car.previousLane = car.currentLane
+
+        # set the lane for traffic cars
+        if 'currentLane' in car:
+            car.currentLane = lane
+            car.previousLane = car.currentLane
 
         add_child(car)
 
@@ -148,17 +180,17 @@ func spawnCar(player: Player):
 
 
 
-func chooseCar() -> CarLogic:
+func chooseCar(instances: Array[Car], totalProbability: float) -> Car:
     assert(totalProbability > 0, 'Total probability is 0 which makes this code crash!')
 
-    var i = 0
-    var counter = 0.0
-    var target = randf() * totalProbability
+    var i := 0
+    var counter := 0.0
+    var target := randf() * totalProbability
 
-    while counter < target and i <= possibleCarInstances.size():
-        counter += possibleCarInstances[i].spawnProbability
+    while counter < target and i <= instances.size():
+        counter += instances[i].spawnProbability
         i += 1
 
     i -= 1
 
-    return possibleCarInstances[i].duplicate()
+    return instances[i].duplicate()

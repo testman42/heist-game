@@ -1,4 +1,5 @@
 extends Node3D
+class_name Breakable
 
 # Breakable car part. When broken, it detaches itself from
 # the car and becomes a separate physics object.

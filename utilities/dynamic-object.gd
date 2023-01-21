@@ -16,10 +16,13 @@ func _ready():
 
 
 func _process(_delta):
-    # delete if too far from the player
-    var players := get_tree().get_nodes_in_group('player')
-    if players.size() <= 0: return
+    var player := get_tree().get_first_node_in_group('player')
+    if player == null: return
 
-    if global_position.z > players[0].global_position.z + HighwayConstants.blockLength * 2:
+    # delete if too far from the player
+    if global_position.z > player.global_position.z + HighwayConstants.blockLength * 2:
         queue_free()
 
+    # delete if the object falls too down
+    elif global_position.y < HighwayConstants.blockBottom:
+        queue_free()

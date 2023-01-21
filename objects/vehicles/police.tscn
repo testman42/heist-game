@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7rp0h75cv7et"]
+
+[ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_n6kqj"]
+[ext_resource type="Material" path="res://materials/police-white.tres" id="2_i4t6e"]
+[ext_resource type="Script" path="res://objects/vehicles/police.gd" id="2_n3vdf"]
+[ext_resource type="Material" uid="uid://bqjt8qtfvofvs" path="res://materials/police-black.tres" id="3_2rnc7"]
+[ext_resource type="Material" uid="uid://p60ads6tp7fn" path="res://materials/blue-light-active.tres" id="4_1gp2i"]
+[ext_resource type="Script" path="res://objects/vehicles/police-lights.gd" id="4_gqwva"]
+[ext_resource type="Material" uid="uid://dillo81otv1kv" path="res://materials/blue-light.tres" id="4_mmqcm"]
+[ext_resource type="Material" uid="uid://d044xic6uhagx" path="res://materials/red-light.tres" id="5_7adnp"]
+[ext_resource type="Material" path="res://materials/red-light-active.tres" id="8_pnf2k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ratb8"]
+size = Vector3(0.847929, 0.234503, 0.235933)
+
+[node name="police" groups=["police"] instance=ExtResource("1_n6kqj")]
+collision_layer = 24
+script = ExtResource("2_n3vdf")
+maxSpeedFrom = 18.0
+maxSpeedTo = 20.0
+maxSteering = 18.0
+acceleration = 6.0
+breakingForce = 8.0
+steeringForce = 8.0
+
+[node name="model" parent="." index="1"]
+script = null
+
+[node name="body" parent="model" index="2"]
+material = ExtResource("2_i4t6e")
+
+[node name="black" type="CSGCombiner3D" parent="model/body" index="0"]
+
+[node name="body" type="CSGBox3D" parent="model/body/black" index="0"]
+size = Vector3(1.216, 0.641, 2.156)
+material = ExtResource("3_2rnc7")
+
+[node name="intersect" type="CSGCombiner3D" parent="model/body/black" index="1"]
+operation = 1
+
+[node name="front" type="CSGBox3D" parent="model/body/black/intersect" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.782158)
+size = Vector3(1.216, 0.641, 0.818011)
+material = ExtResource("3_2rnc7")
+
+[node name="back" type="CSGBox3D" parent="model/body/black/intersect" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0249)
+size = Vector3(1.216, 0.641, 0.818011)
+material = ExtResource("3_2rnc7")
+
+[node name="roof" parent="model" index="3"]
+material = ExtResource("2_i4t6e")
+
+[node name="model" parent="model/front-bumper" index="0"]
+material = ExtResource("2_i4t6e")
+
+[node name="right" parent="model/front-bumper/model" index="0"]
+material = ExtResource("2_i4t6e")
+
+[node name="left" parent="model/front-bumper/model" index="1"]
+material = ExtResource("2_i4t6e")
+
+[node name="model" parent="model/back-bumper" index="0"]
+material = ExtResource("2_i4t6e")
+
+[node name="right" parent="model/back-bumper/model" index="0"]
+material = ExtResource("2_i4t6e")
+
+[node name="left" parent="model/back-bumper/model" index="1"]
+material = ExtResource("2_i4t6e")
+
+[node name="police-lights" type="Node3D" parent="model" index="9" groups=["breakable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39062, 0.0776945)
+script = ExtResource("4_gqwva")
+blueLight = ExtResource("4_mmqcm")
+blueLightActive = ExtResource("4_1gp2i")
+redLight = ExtResource("5_7adnp")
+redLightActive = ExtResource("8_pnf2k")
+
+[node name="model" type="CSGCombiner3D" parent="model/police-lights" index="0"]
+
+[node name="middle" type="CSGBox3D" parent="model/police-lights/model" index="0"]
+cast_shadow = 0
+size = Vector3(0.64051, 0.1, 0.1)
+material = ExtResource("2_i4t6e")
+
+[node name="blue" type="CSGBox3D" parent="model/police-lights/model" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.309, 0.05, 2.08165e-12)
+cast_shadow = 0
+size = Vector3(0.2, 0.2, 0.2)
+material = ExtResource("4_mmqcm")
+
+[node name="bulb" type="OmniLight3D" parent="model/police-lights/model/blue" index="0"]
+visible = false
+light_color = Color(0.341176, 0.329412, 0.870588, 1)
+light_energy = 6.648
+omni_range = 8.0
+omni_attenuation = 2.0
+
+[node name="red" type="CSGBox3D" parent="model/police-lights/model" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.309, 0.05, 2.08165e-12)
+cast_shadow = 0
+size = Vector3(0.2, 0.2, 0.2)
+material = ExtResource("5_7adnp")
+
+[node name="bulb" type="OmniLight3D" parent="model/police-lights/model/red" index="0"]
+visible = false
+light_color = Color(0.870588, 0.329412, 0.329412, 1)
+light_energy = 6.648
+omni_range = 8.0
+omni_attenuation = 2.0
+
+[node name="collision" type="CollisionShape3D" parent="model/police-lights" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0500463, 0)
+shape = SubResource("BoxShape3D_ratb8")
+
+[node name="timer" type="Timer" parent="model/police-lights" index="2"]
+wait_time = 0.1
+autostart = true
+
+[node name="front" parent="." index="2"]
+visible = false
+
+[node name="raycast1" parent="front" index="0"]
+enabled = false
+
+[node name="raycast2" parent="front" index="1"]
+enabled = false
+
+[connection signal="timeout" from="model/police-lights/timer" to="model/police-lights" method="toggle"]
