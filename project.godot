@@ -8,148 +8,6 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "Node3D",
-"class": &"Block",
-"language": &"GDScript",
-"path": "res://blocks/system/block.gd"
-}, {
-"base": "Node",
-"class": &"BlockSpawner",
-"language": &"GDScript",
-"path": "res://objects/spawners/block-spawner.gd"
-}, {
-"base": "Node3D",
-"class": &"Breakable",
-"language": &"GDScript",
-"path": "res://objects/vehicles/breakable.gd"
-}, {
-"base": "DynamicObjectKinematic",
-"class": &"Car",
-"language": &"GDScript",
-"path": "res://objects/vehicles/car.gd"
-}, {
-"base": "CSGBox3D",
-"class": &"CarBreakLight",
-"language": &"GDScript",
-"path": "res://objects/vehicles/car-break-light.gd"
-}, {
-"base": "RefCounted",
-"class": &"CarConstants",
-"language": &"GDScript",
-"path": "res://constants/car-constants.gd"
-}, {
-"base": "CSGBox3D",
-"class": &"CarHeadlight",
-"language": &"GDScript",
-"path": "res://objects/vehicles/car-headlight.gd"
-}, {
-"base": "Car",
-"class": &"CarLogic",
-"language": &"GDScript",
-"path": "res://objects/vehicles/car-logic.gd"
-}, {
-"base": "Node",
-"class": &"CarSpawner",
-"language": &"GDScript",
-"path": "res://objects/spawners/car-spawner.gd"
-}, {
-"base": "CSGBox3D",
-"class": &"CarTurnSignal",
-"language": &"GDScript",
-"path": "res://objects/vehicles/car-turn-signal.gd"
-}, {
-"base": "Resource",
-"class": &"Connection",
-"language": &"GDScript",
-"path": "res://blocks/system/connection.gd"
-}, {
-"base": "RigidBody3D",
-"class": &"DynamicObject",
-"language": &"GDScript",
-"path": "res://utilities/dynamic-object.gd"
-}, {
-"base": "CharacterBody3D",
-"class": &"DynamicObjectKinematic",
-"language": &"GDScript",
-"path": "res://utilities/dynamic-object-kinematic.gd"
-}, {
-"base": "RefCounted",
-"class": &"HighwayConstants",
-"language": &"GDScript",
-"path": "res://constants/highway-constants.gd"
-}, {
-"base": "Car",
-"class": &"Player",
-"language": &"GDScript",
-"path": "res://objects/player/player.gd"
-}, {
-"base": "Car",
-"class": &"PoliceCar",
-"language": &"GDScript",
-"path": "res://objects/vehicles/police.gd"
-}, {
-"base": "Breakable",
-"class": &"PoliceLights",
-"language": &"GDScript",
-"path": "res://objects/vehicles/police-lights.gd"
-}, {
-"base": "DynamicObject",
-"class": &"Prop",
-"language": &"GDScript",
-"path": "res://objects/road/prop.gd"
-}, {
-"base": "SpawnChartNode",
-"class": &"SpawnBlock",
-"language": &"GDScript",
-"path": "res://blocks/system/spawn-block.gd"
-}, {
-"base": "Node",
-"class": &"SpawnChartNode",
-"language": &"GDScript",
-"path": "res://blocks/system/spawn-chart-node.gd"
-}, {
-"base": "SpawnChartNode",
-"class": &"SpawnGroup",
-"language": &"GDScript",
-"path": "res://blocks/system/spawn-group.gd"
-}, {
-"base": "CollisionShape3D",
-"class": &"SpawnInArea",
-"language": &"GDScript",
-"path": "res://utilities/spawn-in-area.gd"
-}, {
-"base": "Prop",
-"class": &"Trailer",
-"language": &"GDScript",
-"path": "res://objects/vehicles/trailer.gd"
-}]
-_global_script_class_icons={
-"Block": "",
-"BlockSpawner": "",
-"Breakable": "",
-"Car": "",
-"CarBreakLight": "",
-"CarConstants": "",
-"CarHeadlight": "",
-"CarLogic": "",
-"CarSpawner": "",
-"CarTurnSignal": "",
-"Connection": "",
-"DynamicObject": "",
-"DynamicObjectKinematic": "",
-"HighwayConstants": "",
-"Player": "",
-"PoliceCar": "",
-"PoliceLights": "",
-"Prop": "",
-"SpawnBlock": "",
-"SpawnChartNode": "",
-"SpawnGroup": "",
-"SpawnInArea": "",
-"Trailer": ""
-}
-
 [application]
 
 config/name="highway-game"
@@ -161,6 +19,10 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1600
 window/size/viewport_height=1200
+
+[editor]
+
+export/convert_text_resources_to_binary=true
 
 [input]
 
