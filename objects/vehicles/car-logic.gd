@@ -103,8 +103,7 @@ func HandleLane(delta: float):
         previousLane = currentLane
         currentLane = lanesForward.size() - 1
 
-        if heading > 0: emit_signal('startTurningLeft')
-        else: emit_signal('startTurningRight')
+        emit_signal('startTurningLeft')
 
     # Get the global X position of our current lane. This is interpolated from up/down lane nodes
     # based on the current Z position in the block.
@@ -137,11 +136,9 @@ func HandleLane(delta: float):
                 currentLane = randi() % lanesForward.size()
 
             if currentLane > previousLane:
-                if heading > 0: emit_signal('startTurningRight')
-                else: emit_signal('startTurningLeft')
+                emit_signal('startTurningRight')
             else:
-                if heading > 0: emit_signal('startTurningLeft')
-                else: emit_signal('startTurningRight')
+                emit_signal('startTurningLeft')
 
 
     var total := currentLaneX - global_position.x
