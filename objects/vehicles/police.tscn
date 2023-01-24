@@ -1,14 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7rp0h75cv7et"]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="PackedScene" uid="uid://dg8v2y07er6vb" path="res://objects/vehicles/car.tscn" id="1_n6kqj"]
 [ext_resource type="Material" path="res://materials/police-white.tres" id="2_i4t6e"]
 [ext_resource type="Script" path="res://objects/vehicles/police.gd" id="2_n3vdf"]
 [ext_resource type="Material" uid="uid://bqjt8qtfvofvs" path="res://materials/police-black.tres" id="3_2rnc7"]
-[ext_resource type="Material" uid="uid://p60ads6tp7fn" path="res://materials/blue-light-active.tres" id="4_1gp2i"]
+[ext_resource type="Material" uid="uid://p60ads6tp7fn" path="res://materials/lights/blue-light-active.tres" id="4_1gp2i"]
 [ext_resource type="Script" path="res://objects/vehicles/police-lights.gd" id="4_gqwva"]
-[ext_resource type="Material" uid="uid://dillo81otv1kv" path="res://materials/blue-light.tres" id="4_mmqcm"]
-[ext_resource type="Material" uid="uid://d044xic6uhagx" path="res://materials/red-light.tres" id="5_7adnp"]
-[ext_resource type="Material" path="res://materials/red-light-active.tres" id="8_pnf2k"]
+[ext_resource type="Material" uid="uid://dillo81otv1kv" path="res://materials/lights/blue-light.tres" id="4_mmqcm"]
+[ext_resource type="Material" uid="uid://d044xic6uhagx" path="res://materials/lights/red-light.tres" id="5_7adnp"]
+[ext_resource type="Material" path="res://materials/lights/red-light-active.tres" id="8_pnf2k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ratb8"]
 size = Vector3(0.847929, 0.234503, 0.235933)

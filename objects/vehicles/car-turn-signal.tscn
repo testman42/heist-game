@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://gkqh8o385og2"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Material" uid="uid://dc44aniwon3hw" path="res://materials/orange-light.tres" id="1_ib5s5"]
+[ext_resource type="Material" uid="uid://dc44aniwon3hw" path="res://materials/lights/orange-light.tres" id="1_ib5s5"]
 [ext_resource type="Script" path="res://objects/vehicles/car-turn-signal.gd" id="2_72pqm"]
-[ext_resource type="Material" path="res://materials/orange-light-active.tres" id="3_kdyjk"]
+[ext_resource type="Material" path="res://materials/lights/orange-light-active.tres" id="3_kdyjk"]
 
 [node name="turn" type="CSGBox3D"]
 cast_shadow = 0
