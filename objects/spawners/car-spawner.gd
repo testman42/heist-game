@@ -71,10 +71,10 @@ func spawnPolice(player: Player):
     var car := chooseCar(possiblePoliceCarInstances, totalPoliceProbability)
     car.speed = player.speed
 
-    # most police is spawned in front
-    var spawningUp := randf() < 0.7
-
-    positionAndInsertCar(car, player, spawningUp, true)
+    # Always spawn the police facing up, and spawn it behind the
+    # player to catch up. It does not look good if the police is spawned
+    # in front and has to slowly wait for the player to catch up.
+    positionAndInsertCar(car, player, false, true)
 
 
 
