@@ -63,10 +63,9 @@ var previousSteering := 0.0
 
 
 
-func _process(delta: float):
-    super(delta)
+func _physics_process(delta: float):
 
-    # sometimes for some reason, cars end up being in air :shrug: so just in case, reset the Y position
+    # sometimes for reasons unknown, cars end up being in air :shrug: so just in case, reset the Y position
     position.y = 0
 
     if canTakeDamage and health <= 0:
@@ -74,10 +73,6 @@ func _process(delta: float):
         emit_signal('destroyed')
         destroyCar(true)
         return
-
-    # update previous
-    previousSpeed = speed
-    previousSteering = steering
 
     # update speed
     if absf(speed) > maxSpeed:
@@ -92,34 +87,34 @@ func _process(delta: float):
     else:
         steering = move_toward(steering, 0, delta * idleSteeringDecrease)
 
-    # Handle the rotation of the car.
+    # handle the rotation of the car
     rotation.y = heading * -steering * CarConstants.steeringRotation
     if heading < 0: rotation.y += PI
-
-
-func _physics_process(delta: float):
 
     # move the vehicle body
     var collisionInfo := move_and_collide(delta * Vector3(steering * abs(speed) * CarConstants.steeringSpeedAdjust, 0, speed * -heading))
 
-    if collisionInfo == null:
-        # no collision occured, we're done here
-        return
+    if collisionInfo != null:
 
-    var collider := collisionInfo.get_collider()
-    var normal := collisionInfo.get_normal()
-    var pos := collisionInfo.get_position()
+        var collider := collisionInfo.get_collider()
+        var normal := collisionInfo.get_normal()
+        var pos := collisionInfo.get_position()
 
-    handleCollision(collider, normal, pos)
+        handleCollision(collider, normal, pos)
 
-    if collider.has_method('handleCollision'):
-        collider.handleCollision(self, -normal, pos)
+        if collider.has_method('handleCollision'):
+            collider.handleCollision(self, -normal, pos)
 
-    # move forward/back using the remainder so we don't get
-    # stuck in the other collider and basically "slide" along it
-    if not isSpinning and not isDestroyed:
-        var remainderZ := collisionInfo.get_remainder().z
-        move_and_collide(Vector3(0, 0, remainderZ))
+        # move forward/back using the remainder so we don't get
+        # stuck in the other collider and basically "slide" along it
+        if not isSpinning and not isDestroyed:
+            var remainderZ := collisionInfo.get_remainder().z
+            move_and_collide(Vector3(0, 0, remainderZ))
+
+
+    # update previous
+    previousSpeed = speed
+    previousSteering = steering
 
 
 func handleCollision(collider: CollisionObject3D, normal: Vector3, pos: Vector3):
