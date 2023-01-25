@@ -54,8 +54,10 @@ func chasePlayer(delta: float, player: Player):
     # steer next to the player until we are in line, then hit them
     var targetX := player.global_position.x
     var ramming := true
-    if absf(diff.z) > 1:
+
+    if absf(diff.z) > 1 and absf(diff.z) < 3:
         targetX += finalPos
+    if absf(diff.z) > 1:
         ramming = false
 
     var total := targetX - global_position.x
